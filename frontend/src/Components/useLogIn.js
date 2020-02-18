@@ -1,6 +1,13 @@
 import React from "react";
 import "../Css/logIn.css";
 import logo from "../ICONO.png";
+import firebase from "../Initializers/firebase";
+
+const singInWithGoogle = () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider)
+    .then(result => console.log(result));
+}
 
 const useLogIn = () => {
   return (
@@ -11,7 +18,7 @@ const useLogIn = () => {
             <div className="card-action center-align">
               <img src={logo} alt="" className="logotipe" />
               <h3 className="title-login">Sing In</h3>
-              <button className="waves-effect button-google">
+              <button onClick={() => singInWithGoogle()} className="waves-effect button-google">
                 <img
                   src="https://img.icons8.com/color/20/000000/google-logo.png"
                   className="left"
