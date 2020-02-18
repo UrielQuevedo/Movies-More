@@ -1,0 +1,31 @@
+.button-google {
+    background: rgb(98, 132, 255);
+    width: 100%;
+    text-transform: none;
+    border: 0px;
+    border-radius: 5px;
+    padding: 0px;
+}
+
+.button-google p {
+    transform: translateX(-10px);
+    color: white;
+}
+
+.button-google img {
+    background: white;
+    border-radius: 50px;
+    padding: 3px;
+    transform: translate(10px, 10px);
+}
+
+.logotipe {
+    position: absolute;
+    height: 71%;
+    transform: translate(-66px, -80px);
+}
+
+.title-login {
+    margin-top: 68px;
+    font-size: 32px;
+}
