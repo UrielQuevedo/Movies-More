@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Css/logIn.css";
 import logo from "../ICONO.png";
 import firebase from "../Initializers/firebase";
+import UserFormLogin from '../Components/Form/UseFormLogIn';
 
-const singInWithGoogle = (props) => {
+const singInWithGoogle = props => {
   const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider)
-    .then(result =>  props.history.push({pathname: "/home", login: true, data: result}));
-}
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(result =>
+      props.history.push({ pathname: "/home", login: true, data: result })
+    );
+};
 
-const useLogIn = (props) => {
+const UseLogIn = props => {
+
   return (
     <div className="container">
       <div className="row">
@@ -18,7 +24,10 @@ const useLogIn = (props) => {
             <div className="card-action center-align">
               <img src={logo} alt="" className="logotipe" />
               <h3 className="title-login">Sing In</h3>
-              <button onClick={() => singInWithGoogle(props)} className="waves-effect button-google">
+              <button
+                onClick={() => singInWithGoogle(props)}
+                className="waves-effect button-google"
+              >
                 <img
                   src="https://img.icons8.com/color/20/000000/google-logo.png"
                   className="left"
@@ -29,20 +38,7 @@ const useLogIn = (props) => {
             <div className="card-content">
               <div className="form-field">
                 <p className="center-align">OR</p>
-                <div className="input-field">
-                  <input type="text" />
-                  <label for="last_name">Email</label>
-                </div>
-                <div className="input-field">
-                  <input type="text" />
-                  <label for="last_name">Password</label>
-                </div>
-                <button
-                  class="waves-effect btn black waves-dark"
-                  style={{ width: "100%" }}
-                >
-                  SIGN IN
-                </button>
+                <UserFormLogin />
                 <div className="">
                   <p style={{ marginTop: "16px", textAlign: "center" }}>
                     <strong>Don't have an account?</strong>
@@ -60,4 +56,4 @@ const useLogIn = (props) => {
   );
 };
 
-export default useLogIn;
+export default UseLogIn;
