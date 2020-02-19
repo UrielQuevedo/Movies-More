@@ -1,13 +1,20 @@
-import React from "react";
+import React, { Suspense } from "react";
 import UseLogIn from "./Components/useLogIn";
+import UseHome from "./Components/useHome";
+import UsePrivateRoute from "./Route/usePrivateRoute";
+import { Switch, Route } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <div>
-        <UseLogIn />
-      </div>
-    </div>
+    <Suspense fallback={<div>CARGANDO .... </div>}>
+      <BrowserRouter>
+        <Switch> 
+          <Route exact path="/" component={UseLogIn} />
+          <UsePrivateRoute exact path="/home" component={UseHome} />
+        </Switch>
+      </BrowserRouter>
+    </Suspense>
   );
 }
 
