@@ -3,6 +3,7 @@ import "../Css/logIn.css";
 import logo from "../ICONO.png";
 import firebase from "../Initializers/firebase";
 import { useForm } from 'react-hook-form';
+import API from '../Route/Api';
 
 const singInWithGoogle = props => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -20,7 +21,9 @@ const UseLogIn = (props) => {
   const {register, errors, handleSubmit} = useForm();
 
   const logIn = (data, e) => {
-    //sendData
+    API.post('/login', data)
+      .then(user => console.log(user))
+      .catch( error => console.log(error.response));
     e.target.reset();
   }
 

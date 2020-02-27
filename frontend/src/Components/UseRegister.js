@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import "../Css/logIn.css";
+import API from '../Route/Api';
 import logo from "../ICONO.png";
 
 const UseRegister = () => {
@@ -8,19 +9,21 @@ const UseRegister = () => {
   const [fields, changeFields] = useState({});
   const {register, errors, handleSubmit} = useForm();
 
-  const logIn = (data, e) => {
-    //sendData
+  const singUp = (data, e) => {
+    API.post('/user/create', data)
+      .then(data => console.log(data))
+      .catch(error => console.log(error.response));
     e.target.reset();
   }
 
-  const customInput = ({type, name, errorMessage}) => {
+  const customInput = ({type, name, title, errorMessage}) => {
     return (
       <div className="input-field">
         <input
           className="input-log"
           type={type} 
-          name={type}
-          onChange={e => changeFields({...fields, [type]: e.target.value})}
+          name={name}
+          onChange={e => changeFields({...fields, [name]: e.target.value})}
           ref= 
             {
               register({
@@ -28,8 +31,8 @@ const UseRegister = () => {
               })
             }
         />
-        <label htmlFor={type} className="label-color">{name}</label>
-        {errors[type] &&
+        <label htmlFor={name} className="label-color">{title}</label>
+        {errors[name] &&
           <div className="red-text">
             <i className="material-icons" style={{fontSize:'1.2rem', transform: 'translateY(3px)'}}>cancel</i>
             <span className="center-align" style={{ fontSize:'14px', marginLeft: '4px'}}>
@@ -41,7 +44,8 @@ const UseRegister = () => {
     );
   }
 
-  return (  
+  return (
+    <>
     <div className="container">
       <div className="row">
         <div className="col m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
@@ -52,10 +56,10 @@ const UseRegister = () => {
             </div>
             <div className="card-content card-padding">
               <div className="form-field">
-                <form onSubmit={handleSubmit(logIn)}>
-                  {customInput({type: "text", name: "Nickname", errorMessage: "Nickname required"})}
-                  {customInput({type: "email", name: "Email", errorMessage: "Email required"})}
-                  {customInput({type: "password", name: "Password", errorMessage: "Password required"})}
+                <form onSubmit={handleSubmit(singUp)}>
+                  {customInput({type: "text", name: "nickname", title: "Nickname", errorMessage: "Nickname required"})}
+                  {customInput({type: "email", name: "email", title: "Email", errorMessage: "Email required"})}
+                  {customInput({type: "password", name: "password", title: "Password", errorMessage: "Password required"})}
                   <button
                     className="waves-effect btn waves-teal button-google btn-login"
                     style={{ width: "100%" }}
@@ -77,6 +81,7 @@ const UseRegister = () => {
         </div>
       </div>
     </div>
+    </>
   );
 }
  

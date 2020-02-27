@@ -1,5 +1,4 @@
 const admin = require("firebase-admin");
-
 const serviceAccount = require('../moviesandmore-df541-firebase-adminsdk-cokmn-1a1bd2499c.json');
 
 admin.initializeApp({
@@ -7,7 +6,7 @@ admin.initializeApp({
     databaseURL: "https://moviesandmore-df541.firebaseio.com"
 });;
 
-const db = admin.database();
+const db = admin.firestore();
 
 function isNotUndefined(value) {
   return value !== undefined;

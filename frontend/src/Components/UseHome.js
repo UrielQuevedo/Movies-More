@@ -3,7 +3,7 @@ import React from "react";
 const useHome = (props) => {
   return (
     <div>
-      LOGEASTE ()
+      LOGEASTE
       {console.log(props)}
     </div>
   );
