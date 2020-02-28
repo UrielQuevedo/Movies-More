@@ -67,17 +67,21 @@ button, .btn-login:hover {
   background-color: black;
 }
 
+.btn-login:hover {
+  transform: scale(1.05,1.05);
+}
+
 .color-title {
   color: #FAEBD7;
 }
 
 .logotipe {
   width: 50%;
-  animation-name: example;
+  animation-name: logo;
   animation-duration: 1s;
 }
 
-@keyframes example {
+@keyframes logo {
   0% {
     transform: rotate(-360deg);
   }
@@ -91,4 +95,7 @@ button, .btn-login:hover {
 .card-log {
   background: #05134E;
   margin-top: 15%;
+  -webkit-box-shadow: 0px 11px 20px 5px rgba(0,0,0,0.23);
+  box-shadow: 0px 11px 20px 5px rgba(0,0,0,0.23);
+  -moz-box-shadow: 0px 11px 20px 5px rgba(0,0,0,0.23);
 }

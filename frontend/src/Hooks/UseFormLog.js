@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import API from '../Route/Api';
 
-const UseFormLogIn = () => {
+const UseFormLog = (url) => {
   const [fields, changeFields] = useState({});
 
-  const logIn = (data, e) => {
-    console.log(data);
-    API.post('/login', data)
+  const postForm = (data, e) => {
+    API.post(url, data)
       .then(user => console.log(user))
       .catch( error => console.log(error.response));
     e.target.reset();
@@ -17,9 +16,10 @@ const UseFormLogIn = () => {
   }
 
   return [
+    fields,
     handlerChange,
-    logIn
+    postForm
   ];
 }
  
-export default UseFormLogIn;
+export default UseFormLog;

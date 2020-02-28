@@ -9,7 +9,8 @@ const CustomInput = ({functions, type, name, title, configRegister, errorMessage
   return (
     <div className="input-field">
       <input 
-        className="input-log"
+        className="input-log validate"
+        id={name}
         type={type}
         name={name}
         onChange={e => handlerChange(e, name)}
@@ -20,7 +21,7 @@ const CustomInput = ({functions, type, name, title, configRegister, errorMessage
               })
             }
       />
-      <label htmlFor={type} className="label-color">{title}</label>
+      <label htmlFor={name} className="label-color">{title}</label>
       {errors[name] &&
         <div className="red-text">
           <i className="material-icons" style={{fontSize:'1.2rem', transform: 'translateY(3px)'}}>cancel</i>

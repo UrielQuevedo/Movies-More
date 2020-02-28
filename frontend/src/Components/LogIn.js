@@ -4,7 +4,7 @@ import logo from "../ICONO.png";
 import firebase from "../Initializers/firebase";
 import { useForm } from 'react-hook-form';
 import CustomInput from './CustomInput';
-import useFormLogIn from '../Hooks/UseFormLogIn';
+import useFormLog from '../Hooks/UseFormLog';
 
 const singInWithGoogle = props => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -18,7 +18,7 @@ const singInWithGoogle = props => {
 
 const LogIn = (props) => {
   const {register, errors, handleSubmit} = useForm();
-  const [handlerChange, logIn] = useFormLogIn();
+  const [_, handlerChange, postForm] = useFormLog('/user/create');
 
   const basicConfig = {
     value: true
@@ -53,7 +53,7 @@ const LogIn = (props) => {
             <div className="card-content">
               <div className="form-field">
                 <p className="center-align color-title title-or">OR</p>
-                <form onSubmit={handleSubmit(logIn)}>
+                <form onSubmit={handleSubmit(postForm)}>
                   <CustomInput functions={_functions} type='email' name='email' title='Email' configRegister={basicConfig} errorMessage='Email required'  />
                   <CustomInput functions={_functions} type='password' name='password' title='Password' configRegister={basicConfig} errorMessage='Password required'  />
                   <button

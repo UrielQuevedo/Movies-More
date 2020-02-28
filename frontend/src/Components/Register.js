@@ -1,64 +1,46 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import "../Css/logIn.css";
 import API from '../Route/Api';
 import logo from "../ICONO.png";
+import useFormLog from '../Hooks/UseFormLog';
+import useCheckPassword from '../Hooks/UseCheckPassword';
+import CustomInput from './CustomInput';
 
 const Register = () => {
-
-  const [fields, changeFields] = useState({});
   const {register, errors, handleSubmit} = useForm();
+  const [fields, handlerChange, postForm] = useFormLog('/user/create');
+  const [errorPassword, checkPassword] = useCheckPassword(postForm);
 
-  const singUp = (data, e) => {
-    API.post('/user/create', data)
-      .then(data => console.log(data))
-      .catch(error => console.log(error.response));
-    e.target.reset();
+  const basicConfig = {
+    value: true
   }
 
-  const customInput = ({type, name, title, errorMessage}) => {
-    return (
-      <div className="input-field">
-        <input
-          className="input-log"
-          type={type} 
-          name={name}
-          onChange={e => changeFields({...fields, [name]: e.target.value})}
-          ref= 
-            {
-              register({
-                required: {value: true}
-              })
-            }
-        />
-        <label htmlFor={name} className="label-color">{title}</label>
-        {errors[name] &&
-          <div className="red-text">
-            <i className="material-icons" style={{fontSize:'1.2rem', transform: 'translateY(3px)'}}>cancel</i>
-            <span className="center-align" style={{ fontSize:'14px', marginLeft: '4px'}}>
-              {errorMessage}*
-            </span>
-          </div>
-        }
-      </div>
-    );
+  const _functions = {
+    _errors: errors,
+    _handlerChange: handlerChange,
+    _register: register
   }
 
   return (
     <div className="container">
       <div className="row">
         <div className="col m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
-          <div className="card z-depth-2 hoverable card-log" style={{ borderRadius: '15px'}}>
+          <div className="card z-depth-2 card-log" style={{ borderRadius: '15px'}}>
             <div className="card-action center-align" style={{ borderRadius: '15px'}}>
               <a href="/" style={{marginLeft: '25px'}}><img src={logo} alt="page logotype" className="logotipe" /></a>
               <h3 className="title-login color-title">Register</h3>
             </div>
             <div className="card-content card-padding">
               <div className="form-field">
-                <form onSubmit={handleSubmit(singUp)}>
-                  {customInput({type: "text", name: "nickname", title: "Nickname", errorMessage: "Nickname required"})}
-                  {customInput({type: "email", name: "email", title: "Email", errorMessage: "Email required"})}
-                  {customInput({type: "password", name: "password", title: "Password", errorMessage: "Password required"})}
+                <form onSubmit={handleSubmit(checkPassword)}>
+                  <CustomInput functions={_functions} type='text' name='nickname' title='Nickname' configRegister={basicConfig} errorMessage='Nickname required'  />
+                  <CustomInput functions={_functions} type='email' name='email' title='Email' configRegister={basicConfig} errorMessage='Email required'  />
+                  <CustomInput functions={_functions} type='password' name='password' title='Password' configRegister={basicConfig} errorMessage='Password required'  />
+                  <CustomInput functions={_functions} type='password' name='confirmPassword' title='Confirm Password' configRegister={basicConfig} errorMessage='Confirm Password required'  />
+                  {
+                    errorPassword && <div>{errorPassword} </div>
+                  }
                   <button
                     className="waves-effect btn waves-teal button-google btn-login"
                     style={{ width: "100%" }}
