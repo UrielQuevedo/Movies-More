@@ -1,6 +1,6 @@
 import React from "react";
 
-const useHome = (props) => {
+const Home = (props) => {
   return (
     <div>
       LOGEASTE
@@ -9,4 +9,4 @@ const useHome = (props) => {
   );
 };
 
-export default useHome;
+export default Home;

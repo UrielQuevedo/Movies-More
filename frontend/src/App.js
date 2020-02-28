@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
-import UseLogIn from "./Components/UseLogIn";
-import UseHome from "./Components/UseHome";
-import UseRegister from "./Components/UseRegister";
-import UsePrivateRoute from "./Route/usePrivateRoute";
+import LogIn from "./Components/LogIn";
+import Home from "./Components/Home";
+import Register from "./Components/Register";
+import UsePrivateRoute from "./Route/UsePrivateRoute";
 import { Switch, Route } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 
@@ -11,9 +11,9 @@ function App() {
     <Suspense fallback={<div>CARGANDO .... </div>}>
       <BrowserRouter>
         <Switch> 
-          <Route exact path="/" component={UseLogIn} />
-          <Route exact path="/singup" component={UseRegister} />
-          <UsePrivateRoute exact path="/home" component={UseHome} />
+          <Route exact path="/" component={LogIn} />
+          <Route exact path="/singup" component={Register} />
+          <UsePrivateRoute exact path="/home" component={Home} />
         </Switch>
       </BrowserRouter>
     </Suspense>

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "../Css/logIn.css";
 import logo from "../ICONO.png";
 import firebase from "../Initializers/firebase";
 import { useForm } from 'react-hook-form';
-import API from '../Route/Api';
+import CustomInput from './CustomInput';
+import useFormLogIn from '../Hooks/UseFormLogIn';
 
 const singInWithGoogle = props => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -15,44 +16,18 @@ const singInWithGoogle = props => {
     );
 };
 
-const UseLogIn = (props) => {
-
-  const [fields, changeFields] = useState({});
+const LogIn = (props) => {
   const {register, errors, handleSubmit} = useForm();
+  const [handlerChange, logIn] = useFormLogIn();
 
-  const logIn = (data, e) => {
-    API.post('/login', data)
-      .then(user => console.log(user))
-      .catch( error => console.log(error.response));
-    e.target.reset();
+  const basicConfig = {
+    value: true
   }
 
-  const customInput = ({type, name, errorMessage}) => {
-    return (
-      <div className="input-field">
-        <input
-          className="input-log"
-          type={type} 
-          name={type}
-          onChange={e => changeFields({...fields, [type]: e.target.value})}
-          ref= 
-            {
-              register({
-                required: {value: true}
-              })
-            }
-        />
-        <label htmlFor={type} className="label-color">{name}</label>
-        {errors[type] &&
-          <div className="red-text">
-            <i className="material-icons" style={{fontSize:'1.2rem', transform: 'translateY(3px)'}}>cancel</i>
-            <span className="center-align" style={{ fontSize:'14px', marginLeft: '4px'}}>
-              {errorMessage}*
-            </span>
-          </div>
-        }
-      </div>
-    );
+  const _functions = {
+    _errors: errors,
+    _handlerChange: handlerChange,
+    _register: register
   }
 
   return (
@@ -79,8 +54,8 @@ const UseLogIn = (props) => {
               <div className="form-field">
                 <p className="center-align color-title title-or">OR</p>
                 <form onSubmit={handleSubmit(logIn)}>
-                  {customInput({type: "email", name: "Email", errorMessage: "Email required"})}
-                  {customInput({type: "password", name: "Password", errorMessage: "Password required"})}
+                  <CustomInput functions={_functions} type='email' name='email' title='Email' configRegister={basicConfig} errorMessage='Email required'  />
+                  <CustomInput functions={_functions} type='password' name='password' title='Password' configRegister={basicConfig} errorMessage='Password required'  />
                   <button
                     className="btn waves-effect waves-teal black btn-login"
                     style={{ width: "100%" }}
@@ -105,4 +80,4 @@ const UseLogIn = (props) => {
   );
 };
 
-export default UseLogIn;
+export default LogIn;

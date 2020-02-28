@@ -4,7 +4,7 @@ import "../Css/logIn.css";
 import API from '../Route/Api';
 import logo from "../ICONO.png";
 
-const UseRegister = () => {
+const Register = () => {
 
   const [fields, changeFields] = useState({});
   const {register, errors, handleSubmit} = useForm();
@@ -45,7 +45,6 @@ const UseRegister = () => {
   }
 
   return (
-    <>
     <div className="container">
       <div className="row">
         <div className="col m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
@@ -81,8 +80,7 @@ const UseRegister = () => {
         </div>
       </div>
     </div>
-    </>
   );
 }
  
-export default UseRegister;
+export default Register;
