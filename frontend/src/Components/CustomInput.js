@@ -1,10 +1,15 @@
 import React from 'react';
 import "../Css/logIn.css";
+import ErrorMessageComponent from './ErrorMessageComponent';
 
-const CustomInput = ({functions, type, name, title, configRegister, errorMessage}) => {
+const CustomInput = ({functions, type, name, title, configRegister}) => {
   const errors = functions._errors;
   const handlerChange = functions._handlerChange;
   const register = functions._register;
+  const formErrors = {
+    minLength: 'Minimum 6 characters required',
+    required: `${title} required`
+  }
 
   return (
     <div className="input-field">
@@ -16,20 +21,13 @@ const CustomInput = ({functions, type, name, title, configRegister, errorMessage
         onChange={e => handlerChange(e, name)}
         ref= 
             {
-              register({
-                required: {configRegister}
-              })
+              register(
+                configRegister
+              )
             }
       />
       <label htmlFor={name} className="label-color">{title}</label>
-      {errors[name] &&
-        <div className="red-text">
-          <i className="material-icons" style={{fontSize:'1.2rem', transform: 'translateY(3px)'}}>cancel</i>
-          <span className="center-align" style={{fontSize:'14px', marginLeft: '4px'}}>
-            {errorMessage}*
-          </span>
-        </div>
-      }
+      {errors[name] && <ErrorMessageComponent message={formErrors[errors[name].type]} styleClass='error' />}
     </div>
   );
 }

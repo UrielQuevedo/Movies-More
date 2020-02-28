@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import "../Css/logIn.css";
-import API from '../Route/Api';
 import logo from "../ICONO.png";
 import useFormLog from '../Hooks/UseFormLog';
 import useCheckPassword from '../Hooks/UseCheckPassword';
 import CustomInput from './CustomInput';
+import VisibilityPassword from "./VisibilityPassword";
+import ErrorMessageComponent from './ErrorMessageComponent';
 
-const Register = () => {
+const Register = (props) => {
   const {register, errors, handleSubmit} = useForm();
-  const [fields, handlerChange, postForm] = useFormLog('/user/create');
-  const [errorPassword, checkPassword] = useCheckPassword(postForm);
+  const [formError, handlerChange, postForm] = useFormLog('/user/create', props);
+  const [passwordError, checkPassword] = useCheckPassword(postForm);
 
   const basicConfig = {
-    value: true
+    required: true
+  }
+
+  const passwordConfig = {
+    required: true,
+    minLength: 6
   }
 
   const _functions = {
@@ -36,11 +42,11 @@ const Register = () => {
                 <form onSubmit={handleSubmit(checkPassword)}>
                   <CustomInput functions={_functions} type='text' name='nickname' title='Nickname' configRegister={basicConfig} errorMessage='Nickname required'  />
                   <CustomInput functions={_functions} type='email' name='email' title='Email' configRegister={basicConfig} errorMessage='Email required'  />
-                  <CustomInput functions={_functions} type='password' name='password' title='Password' configRegister={basicConfig} errorMessage='Password required'  />
-                  <CustomInput functions={_functions} type='password' name='confirmPassword' title='Confirm Password' configRegister={basicConfig} errorMessage='Confirm Password required'  />
-                  {
-                    errorPassword && <div>{errorPassword} </div>
-                  }
+                  <VisibilityPassword seeTwoPassword={true} style='visibilityPasswordRegister'/>
+                  <CustomInput functions={_functions} type='password' name='password' title='Password' configRegister={passwordConfig} errorMessage='Password required'  />
+                  <CustomInput functions={_functions} type='password' name='confirmPassword' title='Confirm Password' configRegister={passwordConfig} errorMessage='Confirm Password required'  />
+                  {formError && <ErrorMessageComponent message={formError} styleClass='paddingError' />}
+                  {passwordError && <ErrorMessageComponent message={passwordError} styleClass='paddingError' />}
                   <button
                     className="waves-effect btn waves-teal button-google btn-login"
                     style={{ width: "100%" }}

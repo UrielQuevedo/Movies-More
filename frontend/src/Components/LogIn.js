@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Css/logIn.css";
 import logo from "../ICONO.png";
 import firebase from "../Initializers/firebase";
 import { useForm } from 'react-hook-form';
 import CustomInput from './CustomInput';
 import useFormLog from '../Hooks/UseFormLog';
+import VisibilityPassword from "./VisibilityPassword";
+import ErrorMessageComponent from "./ErrorMessageComponent";
 
-const singInWithGoogle = props => {
+const singInWithGoogle = (props) => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase
     .auth()
@@ -18,10 +20,10 @@ const singInWithGoogle = props => {
 
 const LogIn = (props) => {
   const {register, errors, handleSubmit} = useForm();
-  const [_, handlerChange, postForm] = useFormLog('/user/create');
+  const [formError, handlerChange, postForm] = useFormLog('/login', props);
 
   const basicConfig = {
-    value: true
+    required: true
   }
 
   const _functions = {
@@ -55,7 +57,9 @@ const LogIn = (props) => {
                 <p className="center-align color-title title-or">OR</p>
                 <form onSubmit={handleSubmit(postForm)}>
                   <CustomInput functions={_functions} type='email' name='email' title='Email' configRegister={basicConfig} errorMessage='Email required'  />
+                  <VisibilityPassword seeTwoPassword={false} style='visibilityPasswordLogIn'/>
                   <CustomInput functions={_functions} type='password' name='password' title='Password' configRegister={basicConfig} errorMessage='Password required'  />
+                  {formError && <ErrorMessageComponent message={formError} styleClass='paddingError'/>}
                   <button
                     className="btn waves-effect waves-teal black btn-login"
                     style={{ width: "100%" }}

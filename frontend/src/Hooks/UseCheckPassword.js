@@ -1,18 +1,18 @@
 import { useState } from 'react';
 
 const UseCheckPassword = (postForm) => {
-  const [errorPassword, changeError] = useState('');
+  const [passwordError, changeError] = useState('');
 
   const checkPassword = (data, e) => {
     if (data.password === data.confirmPassword) {
       postForm(data, e);
       changeError('');
     } else {
-      changeError('');
+      changeError('Passwords do not match');
     }
   }
 
-  return [errorPassword, checkPassword];
+  return [passwordError, checkPassword];
 }
 
 export default UseCheckPassword;

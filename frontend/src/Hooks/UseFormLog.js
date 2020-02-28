@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import API from '../Route/Api';
 
-const UseFormLog = (url) => {
+const UseFormLog = (url, props) => {
   const [fields, changeFields] = useState({});
+  const [formError, setFormError] = useState('');
 
   const postForm = (data, e) => {
     API.post(url, data)
-      .then(user => console.log(user))
-      .catch( error => console.log(error.response));
+      .then(user => props.history.push({ pathname: "/home", login: true, data: user }))
+      .catch(error => setFormError(error.response.data.error));
     e.target.reset();
   }
 
@@ -16,7 +17,7 @@ const UseFormLog = (url) => {
   }
 
   return [
-    fields,
+    formError,
     handlerChange,
     postForm
   ];

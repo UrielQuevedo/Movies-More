@@ -63,12 +63,29 @@ body {
   transform: translate(10px, 10px);
 }
 
+.paddingError {
+  padding-bottom: 5px;
+}
+
+.error {
+  padding-bottom: 0;
+}
+
+
 button, .btn-login:hover {
   background-color: black;
 }
 
 .btn-login:hover {
   transform: scale(1.05,1.05);
+}
+
+.visibilityPasswordLogIn {
+  right: 25px;
+}
+
+.visibilityPasswordRegister {
+  right: 38px;
 }
 
 .color-title {
@@ -79,6 +96,16 @@ button, .btn-login:hover {
   width: 50%;
   animation-name: logo;
   animation-duration: 1s;
+}
+
+.vibilityPassword {
+  z-index: 1;
+  transform: translateY(16px);
+  transition: 1s;
+  position: absolute;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: white;
 }
 
 @keyframes logo {
