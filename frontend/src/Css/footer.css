@@ -1,0 +1,46 @@
+.footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 20px;
+  background-color: #061552;
+  text-align: center;
+}
+
+.contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.email-icon {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #384060;
+  transform: scale(1.3,1.3);
+}
+
+.add-icon {
+  color: #F34335;
+  transform: scale(1.8,1.8);
+}
+
+.contenido {
+  padding-bottom: 15px;
+  padding-top: 39px;
+}
+
+.icons-footer {
+  margin-top: 12px;
+}
+
+.urlIcon {
+  height: 24px;
+  width: 24px;
+}
+
+.footer-text {
+  margin-left: auto;
+	margin-right: auto;
+	width: 20em
+}
