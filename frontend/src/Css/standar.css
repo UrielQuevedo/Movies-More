@@ -1,0 +1,15 @@
+.black-b {
+  background-color: #000B38;
+  color: white;
+}
+
+body::-webkit-scrollbar {
+  width: 12px;
+}
+body::-webkit-scrollbar-track {
+  background-color: #061552;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #5065BD;
+  border-radius: 10px;
+}

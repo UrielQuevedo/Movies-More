@@ -31,5 +31,4 @@ const CustomInput = ({functions, type, name, title, configRegister}) => {
     </div>
   );
 }
- 
 export default CustomInput;

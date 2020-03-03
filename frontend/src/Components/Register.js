@@ -57,7 +57,7 @@ const Register = (props) => {
                 <div className="center-align">
                   <p style={{ marginTop: "16px" }}>
                     <strong className="white-text">Do you have an account?</strong>
-                    <a href="/" style={{ marginLeft: "10px", color: '#21FFE2' }}>
+                    <a href="/singin" style={{ marginLeft: "10px", color: '#21FFE2' }}>
                       Sing In
                     </a>
                   </p>

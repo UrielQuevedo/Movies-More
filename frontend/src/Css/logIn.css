@@ -33,7 +33,7 @@ html, body {
   transform: translateY(-10px);
 }
 
-body {
+.background-log {
   background: #000A37;
   background-image: url('../FONDO.png');
   background-repeat:repeat;

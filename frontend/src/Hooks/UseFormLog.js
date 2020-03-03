@@ -7,14 +7,14 @@ const UseFormLog = (url, props) => {
 
   const postForm = (data, e) => {
     API.post(url, data)
-      .then(user => props.history.push({ pathname: "/home", login: true, data: user }))
+      .then(user => console.log(user))
       .catch(error => setFormError(error.response.data.error));
     e.target.reset();
   }
 
   const handlerChange = (e, name) => {
-    changeFields({...fields, [name]: e.target.value});
-  }
+    changeFields(({...fields, [name]: e.target.value}));
+  };
 
   return [
     formError,

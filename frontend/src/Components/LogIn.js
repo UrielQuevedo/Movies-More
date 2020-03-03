@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../Css/logIn.css";
 import logo from "../ICONO.png";
 import firebase from "../Initializers/firebase";
@@ -13,9 +13,12 @@ const singInWithGoogle = (props) => {
   firebase
     .auth()
     .signInWithPopup(provider)
-    .then(result =>
-      props.history.push({ pathname: "/home", login: true, data: result })
-    );
+    .then(result => {
+      window.localStorage.setItem('accesToken', result.credential.accessToken);
+      window.localStorage.setItem('idToken', result.credential.idToken);
+      window.localStorage.setItem('isLog', true);
+      props.history.push('/');
+    });
 };
 
 const LogIn = (props) => {
