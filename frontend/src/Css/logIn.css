@@ -56,6 +56,13 @@ body {
   padding-bottom: 5px;
 }
 
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .error {
   padding-bottom: 0;
 }

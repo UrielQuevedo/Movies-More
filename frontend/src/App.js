@@ -26,8 +26,10 @@ function App() {
           <ThemeProvider theme={darkTheme}>
             <UserContext.Provider value={value}>
               <GlobalStyles />
-              <Navbar />
-              <UsePrivateRoute path="/" component={Home} />
+              <div style={{flex: '1 0 auto'}}>
+                <Navbar />
+                <UsePrivateRoute path="/" component={Home} />
+              </div>
               <Footer />
             </UserContext.Provider>
           </ThemeProvider>
