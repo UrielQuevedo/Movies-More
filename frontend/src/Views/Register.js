@@ -4,9 +4,9 @@ import "../Css/logIn.css";
 import logo from "../ICONO.png";
 import useFormLog from '../Hooks/UseFormLog';
 import useCheckPassword from '../Hooks/UseCheckPassword';
-import CustomInput from './CustomInput';
-import VisibilityPassword from "./VisibilityPassword";
-import ErrorMessageComponent from './ErrorMessageComponent';
+import CustomInput from '../Components/CustomInput';
+import VisibilityPassword from "../Components/VisibilityPassword";
+import ErrorMessageComponent from '../Components/ErrorMessageComponent';
 
 const Register = (props) => {
   const {register, errors, handleSubmit} = useForm();
@@ -39,7 +39,7 @@ const Register = (props) => {
             </div>
             <div className="card-content card-padding">
               <div className="form-field">
-                <form onSubmit={handleSubmit(checkPassword)}>
+                <form onSubmit={handleSubmit(checkPassword)} autocomplete="off">
                   <CustomInput functions={_functions} type='text' name='nickname' title='Nickname' configRegister={basicConfig} errorMessage='Nickname required'  />
                   <CustomInput functions={_functions} type='email' name='email' title='Email' configRegister={basicConfig} errorMessage='Email required'  />
                   <VisibilityPassword seeTwoPassword={true} style='visibilityPasswordRegister'/>

@@ -1,13 +1,17 @@
 import React, { Suspense, useState, useMemo } from "react";
-import LogIn from "./Components/LogIn";
-import Home from "./Components/Home";
-import Register from "./Components/Register";
+import LogIn from "./Views/LogIn";
+import Home from "./Views/Home";
+import Register from "./Views/Register";
 import UsePrivateRoute from "./Route/UsePrivateRoute";
-import { Switch, Route } from "react-router";
+import { Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import Footer from "./Components/Footer";
 import { UserContext } from './Hooks/UserContext';
 import CheckLogRoute from "./Route/CheckLogRoute";
+import { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from './Styled/theme';
+import { GlobalStyles } from './Styled/global';
+import Navbar from "./Components/Navbar";
 
 function App() {
   const [user, setUser] = useState(null)
@@ -19,10 +23,14 @@ function App() {
         <Switch> 
           <CheckLogRoute exact path="/singup" component={Register} />
           <CheckLogRoute exact path="/singin" component={LogIn} />
-          <UserContext.Provider value={value}>
-            <UsePrivateRoute path="/" component={Home} />
-            <Footer />
-          </UserContext.Provider>
+          <ThemeProvider theme={darkTheme}>
+            <UserContext.Provider value={value}>
+              <GlobalStyles />
+              <Navbar />
+              <UsePrivateRoute path="/" component={Home} />
+              <Footer />
+            </UserContext.Provider>
+          </ThemeProvider>
         </Switch>
       </BrowserRouter>
     </Suspense>

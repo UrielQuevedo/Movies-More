@@ -3,6 +3,7 @@ const connection = require('../src/connection');
 const router = Router();
 const firebase = require('../initializer/firebase');
 const User = require('../src/classes/user');
+const rp = require('request-promise');
 
 /*
   Creo a un usuario y lo guardo en firebase
@@ -27,6 +28,19 @@ router.post('/login', (connection.executeFunction(['email', 'password'], (_, req
   firebase.auth().signInWithEmailAndPassword(body.email, body.password)
     .then((user) => res.status(201).json(user))
     .catch((_) => res.status(401).json({ error: 'Email or Password is incorrect' }));
+})));
+
+router.get('/movies', (connection.executeFunction([], (db, req, res) => {
+  db.collection("movies")
+    .get()
+    .then((snap) => {
+      movies = [];
+      snap.forEach(doc => {
+        movies.push(doc.data());
+      });
+      res.status(200).json(movies);
+    })
+    .catch((error) => console.log(error))
 })));
 
 module.exports = router;

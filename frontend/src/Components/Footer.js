@@ -1,5 +1,4 @@
 import React from 'react';
-import '../Css/footer.css';
 import github from '../Icons/github.png';
 import linkedin from '../Icons/linkedin.png';
 
@@ -9,7 +8,7 @@ const Footer = () => {
       <div className="footer-contain">
         <div className="row valign" style={{marginBottom: '0'}}>
           <div className="col s12 l3">
-            <h4 style={{color:'#FAEBD7'}} className="titleFooter" >Movies&More</h4>
+            <a href="/"><h4 style={{color:'#FAEBD7'}} className="titleFooter" >Movies&More</h4></a>
           </div>
           <div className="col s12 l6 contenedor">
             <div className="contenido">

@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Redirect } from "react-router";
-import '../Css/standar.css';
 
 const UsePrivateRoute = ({component: Component, ...rest}) => {
 

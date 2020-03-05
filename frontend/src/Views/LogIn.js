@@ -3,10 +3,10 @@ import "../Css/logIn.css";
 import logo from "../ICONO.png";
 import firebase from "../Initializers/firebase";
 import { useForm } from 'react-hook-form';
-import CustomInput from './CustomInput';
+import CustomInput from '../Components/CustomInput';
 import useFormLog from '../Hooks/UseFormLog';
-import VisibilityPassword from "./VisibilityPassword";
-import ErrorMessageComponent from "./ErrorMessageComponent";
+import VisibilityPassword from "../Components/VisibilityPassword";
+import ErrorMessageComponent from "../Components/ErrorMessageComponent";
 
 const singInWithGoogle = (props) => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -58,7 +58,7 @@ const LogIn = (props) => {
             <div className="card-content">
               <div className="form-field">
                 <p className="center-align color-title title-or">OR</p>
-                <form onSubmit={handleSubmit(postForm)}>
+                <form onSubmit={handleSubmit(postForm)} autocomplete="off">
                   <CustomInput functions={_functions} type='email' name='email' title='Email' configRegister={basicConfig} errorMessage='Email required'  />
                   <VisibilityPassword seeTwoPassword={false} style='visibilityPasswordLogIn'/>
                   <CustomInput functions={_functions} type='password' name='password' title='Password' configRegister={basicConfig} errorMessage='Password required'  />

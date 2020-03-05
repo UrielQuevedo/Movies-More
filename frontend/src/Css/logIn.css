@@ -33,7 +33,7 @@ html, body {
   transform: translateY(-10px);
 }
 
-.background-log {
+body {
   background: #000A37;
   background-image: url('../FONDO.png');
   background-repeat:repeat;
@@ -60,6 +60,16 @@ html, body {
   padding-bottom: 0;
 }
 
+body::-webkit-scrollbar {
+  width: 12px;
+}
+body::-webkit-scrollbar-track {
+  background-color: #061552;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #5065BD;
+  border-radius: 10px;
+}
 
 button, .btn-login:hover {
   background-color: black;
