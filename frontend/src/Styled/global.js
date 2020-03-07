@@ -73,6 +73,12 @@ export const GlobalStyles = createGlobalStyle`
     color: #9e9e9e;
   }
 
+  #requestContent {
+    border: 3px solid #21FFE2;
+    border-radius: 8px;
+    background: #061552;
+  }
+
   .dropdown-content-lenguage-item:hover {
     background-color: #061552b3 !important;
     color: #fff;
@@ -102,9 +108,24 @@ export const GlobalStyles = createGlobalStyle`
 
   .dropdown-content-setting-theme-item {
     color: #FAEBD7 !important;
+    margin: 0 !important;
+    padding: 0 !important;
     text-align: center !important;
     min-height: 33px !important;
     cursor: default !important;
+  }
+
+  .icons-settings {
+    line-height: 37px !important;
+    color: #21FFE2 !important;
+    height: 36px !important;
+    transform: scale(0.8, 0.8) !important;
+  }
+
+  .text-settings {
+    text-align: start !important;
+    padding: 0px !important;
+    line-height: 37px !important;
   }
 
   .dropdown-content-setting-theme-item:hover {
@@ -116,6 +137,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .dropdown-content-setting-item {
+    margin: 0 !important;
+    padding: 0 !important;
     color: #FAEBD7 !important;
     text-align: center !important;
     min-height: 33px !important;
@@ -137,6 +160,15 @@ export const GlobalStyles = createGlobalStyle`
 
   .nav-item:hover {
     color: #7A7575;
+  }
+
+  .item-selected:hover {
+    background: transparent;
+    color: #fff;
+  }
+
+  .item-selected:after {
+    height: 0px !important;
   }
 
   .nav-item,

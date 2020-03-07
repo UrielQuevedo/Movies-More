@@ -16,7 +16,7 @@ function executeFunction(params,func) {
   return function (req, res) {
     if (params.every(p => isNotUndefined(req.query[p]) || isNotUndefined(req.body[p]))) {
       try {
-        func(db, req, res);
+        func(req, res);
       } catch (error) {
         catchError(error, res);
       }
@@ -35,4 +35,6 @@ const errors = {
 
 module.exports = {
   executeFunction,
+  db,
+  admin
 };

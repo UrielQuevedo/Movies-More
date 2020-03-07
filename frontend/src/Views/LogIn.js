@@ -8,22 +8,20 @@ import useFormLog from '../Hooks/UseFormLog';
 import VisibilityPassword from "../Components/VisibilityPassword";
 import ErrorMessageComponent from "../Components/ErrorMessageComponent";
 
-const singInWithGoogle = (props) => {
+const singInWithGoogle = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase
     .auth()
     .signInWithPopup(provider)
     .then(result => {
       window.localStorage.setItem('accesToken', result.credential.accessToken);
-      window.localStorage.setItem('idToken', result.credential.idToken);
       window.localStorage.setItem('isLog', true);
-      props.history.push('/');
     });
 };
 
-const LogIn = (props) => {
+const LogIn = () => {
   const {register, errors, handleSubmit} = useForm();
-  const [formError, handlerChange, postForm] = useFormLog('/login', props);
+  const [formError, handlerChange, postForm] = useFormLog('/login');
 
   const basicConfig = {
     required: true
@@ -44,7 +42,7 @@ const LogIn = (props) => {
               <a href="/" style={{marginLeft: '25px'}}><img src={logo} alt="page logotype" className="logotipe" /></a>
               <h3 className="title-login color-title">Sing In</h3>
               <button
-                onClick={() => singInWithGoogle(props)}
+                onClick={() => singInWithGoogle()}
                 className="waves-effect button-google"
               >
                 <img

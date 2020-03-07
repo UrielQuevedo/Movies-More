@@ -17,7 +17,6 @@ const Home = () => {
       <img src={e.poster_url} width="200" height="325" alt=""/>
     ));
   }
-  
 
   return (
     <div style={{marginLeft: "10.5%"}}>

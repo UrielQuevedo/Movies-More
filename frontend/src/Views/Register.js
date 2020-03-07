@@ -10,7 +10,7 @@ import ErrorMessageComponent from '../Components/ErrorMessageComponent';
 
 const Register = (props) => {
   const {register, errors, handleSubmit} = useForm();
-  const [formError, handlerChange, postForm] = useFormLog('/user/create', props);
+  const [formError, handlerChange, postForm] = useFormLog('/user/register');
   const [passwordError, checkPassword] = useCheckPassword(postForm);
 
   const basicConfig = {

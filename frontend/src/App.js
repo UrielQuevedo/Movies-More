@@ -1,10 +1,10 @@
 import React, { Suspense, useState, useMemo } from "react";
 import LogIn from "./Views/LogIn";
 import Home from "./Views/Home";
+import Movies from './Views/Movies'
 import Register from "./Views/Register";
 import UsePrivateRoute from "./Route/UsePrivateRoute";
-import { Switch } from "react-router";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import Footer from "./Components/Footer";
 import { UserContext } from './Hooks/UserContext';
 import CheckLogRoute from "./Route/CheckLogRoute";
@@ -14,13 +14,12 @@ import { GlobalStyles } from './Styled/global';
 import Navbar from "./Components/Navbar";
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
   const value = useMemo(() => ({user, setUser}), [user, setUser]);
   
   return (
-    <Suspense fallback={<div>CARGANDO .... </div>}>
-      <BrowserRouter>
-        <Switch> 
+      <Router>
+        <Switch>
           <CheckLogRoute exact path="/singup" component={Register} />
           <CheckLogRoute exact path="/singin" component={LogIn} />
           <ThemeProvider theme={darkTheme}>
@@ -28,14 +27,17 @@ function App() {
               <GlobalStyles />
               <div style={{flex: '1 0 auto'}}>
                 <Navbar />
-                <UsePrivateRoute path="/" component={Home} />
+                <Switch>
+                  <UsePrivateRoute path='/' exact component={Home} />
+                  <UsePrivateRoute path='/movies' exact component={Movies} />
+                  <Redirect to='/' />
+                </Switch>
               </div>
               <Footer />
             </UserContext.Provider>
           </ThemeProvider>
-        </Switch>
-      </BrowserRouter>
-    </Suspense>
+          </Switch>
+      </Router>
   );
 }
 

@@ -1,8 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import LOGO from '../ICONO.png';
 import M from 'materialize-css';
+import { UserContext } from '../Hooks/UserContext';
+import { Link, NavLink } from 'react-router-dom';
+import { IndexLink } from 'react-router';
+import API from '../Route/Api';
 
 const Navbar = () => {
+
+  const [user, setUser] = useState({});
 
   const isSelected = (path) => {
     if (window.location.pathname === path) {
@@ -12,6 +18,12 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+   
+      API.get('/user/' + window.localStorage.getItem('uid'))
+      .then(r => setUser(r))
+      .catch(error => console.log(console.log(error.response)));
+    
+
     let dropdowns = document.querySelectorAll('.dropdown-trigger');
     let options = {
         inDuration: 300,
@@ -23,20 +35,33 @@ const Navbar = () => {
     M.Dropdown.init(dropdowns, options);
   },[]);
 
+  const logOut = () => {
+    window.localStorage.clear();
+    window.location.reload(true);
+    window.location.href = '/login';
+  }
+
   const dropdownSetting = () => {
     return (
       <ul id="setting" className="dropdown-content dropdown-content-setting">
         <div className="row" style={{ margin:'0', marginBottom:'5px', borderBottom:'1px solid #5065BD' }}>
           <div className="col s3" style={{ display:'flex', alignItems:'center', height:'81px', padding:'0', justifyContent:'flex-end'}}>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTvV7W1JiVpU2sZvf3PHMPCE5_3wligr52gbKXZATFfltvKo_TW" style={{ borderRadius:'20px'}} height='40px' width='40px'  alt=""/>
+            <img src={user.photoURL} style={{ borderRadius:'20px', border: '3px solid #5065bd'}} height='40px' width='40px'  alt="profile image"/>
           </div>
           <div className="col s8">
-            <p className="setting-name">Uriel Quevedo</p>
-            <p style={{ fontSize:'11px', margin:'0'}}>Quevedouriel3@gmail.com</p>
+            <p className="setting-name">{user.nickname}</p>
+            <p style={{ fontSize:'11px', margin:'0'}}>{user.email}</p>
           </div>
         </div>
-        <li className="dropdown-content-setting-item row" style={{ margin:'0', padding:'0'}}><i class="material-icons col s2" style={{ lineHeight:'37px', color:'#21FFE2', height:'36px', transform:'scale(0.8,0.8)'}}>account_box</i><div className="col s10" style={{ textAlign:'start', padding:'0', lineHeight:'37px'}}>Profile</div></li>
-        <li className="dropdown-content-setting-theme-item row" style={{ margin:'0', padding:'0'}}><i class="material-icons col s2" style={{ lineHeight:'37px', color:'#21FFE2', height:'36px', transform:'scale(0.8,0.8)'}}>brightness_4</i><div className="col s10 switch" style={{ textAlign:'start', padding:'0', lineHeight:'37px'}}>
+        <li className="dropdown-content-setting-item row">
+          <i class="material-icons col s2 icons-settings">account_box</i>
+          <div className="col s10 text-settings">
+            Profile
+          </div>
+        </li>
+        <li className="dropdown-content-setting-theme-item row">
+          <i class="material-icons col s2 icons-settings">brightness_4</i>
+          <div className="col s10 switch text-settings">
             Dark Theme
             <label style={{marginLeft:'64px'}}>
               <input type="checkbox"/>
@@ -44,7 +69,12 @@ const Navbar = () => {
             </label>
           </div>
         </li>
-        <li className="dropdown-content-setting-item row" style={{ margin:'0', padding:'0'}}><i class="material-icons col s2" style={{ lineHeight:'37px', color:'#21FFE2', height:'36px', transform:'scale(0.8,0.8)'}}>exit_to_app</i><div className="col s10" style={{ textAlign:'start', padding:'0', lineHeight:'37px'}}>Log Out</div></li>
+        <li className="dropdown-content-setting-item row">
+          <i class="material-icons col s2 icons-settings">exit_to_app</i>
+          <div className="col s10 text-settings" onClick={() => logOut()}>
+            Log Out
+          </div>
+        </li>
       </ul>
     );
   };
@@ -78,6 +108,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar-fixed">
+      {console.log(user)}
       {dropdownSetting()}
       {dropdownLenguage()}
       <ul id="notification" className="dropdown-content">
@@ -90,8 +121,8 @@ const Navbar = () => {
           </div>
           {searchComponent()}
           <ul className="col s5" style={{ display:'flex', justifyContent:'flex-end'}}>
-            <li><a href="/" className={isSelected('/')}>home</a></li>
-            <li><a href="/movies" className={isSelected('/movies')}>movies</a></li>
+            <li><NavLink activeClassName='item-selected' className='nav-item' exact to="/" >home</NavLink></li>
+            <li><NavLink activeClassName='item-selected' className='nav-item' to="/movies">movies</NavLink></li>
             <li><a href="/programs" className={isSelected('/programs')}>programs</a></li>
             <li><a href="/trailers" className={isSelected('/trailers')}>trailers</a></li>
             <li><a href="/mylist" className={isSelected('/mylist')}>mylist</a></li>

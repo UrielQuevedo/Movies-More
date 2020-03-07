@@ -1,36 +1,69 @@
 const { Router } = require('express');
-const connection = require('../src/connection');
+const { executeFunction, db, admin} = require('../src/connection');
 const router = Router();
 const firebase = require('../initializer/firebase');
 const User = require('../src/classes/user');
 const rp = require('request-promise');
 
+router.post('/user/verify', (executeFunction([],(req, res) => {
+  const body = req.body
+  admin.auth().verifyIdToken(idToken)
+  .then(function(decodedToken) {
+    const uid = decodedToken.uid;
+    console.log(uid);
+    res.status(201).json("SI");
+  }).catch(function(error) {
+    res.status(201).json("NO");
+  });
+})));
+
 /*
-  Creo a un usuario y lo guardo en firebase
+  Devuelvo los datos del usuario correspondiente con el uid por parametro
 */
-router.post('/user/create', (connection.executeFunction(['email', 'password'],(db, req, res) => {
+
+router.get('/user/:uid', (executeFunction([], (req, res) => {
+  const { uid } = req.params;
+  db.collection('users')
+    .doc(uid)
+    .get()
+    .then(doc => res.status(201).json(JSON.parse(JSON.stringify(doc.data()))))
+    .catch(_ => res.status(401).json({ error: "User does't exist" }));
+})));
+
+/*
+  Registro a un usuario y lo guardo en firebase y devuelvo su uid y su accessToken
+*/
+router.post('/user/register', (executeFunction(['email', 'nickname', 'password'],(req, res) => {
   const body = req.body
   firebase.auth().createUserWithEmailAndPassword(body.email, body.password)
     .then((data) => {
-      const user = data.user;
-      const newUser = new User(user.uid, body.nickname, user.email, user.photoURL);
-      db.collection('users').add(JSON.parse(JSON.stringify(newUser)));
-      res.status(201).json(newUser);
+      const dataUser = data.user;
+      const newUser = {
+        uid: dataUser.uid,
+        nickname: body.nickname,
+        email: dataUser.email,
+        photoURL: 'https://i.pinimg.com/originals/ff/1d/9f/ff1d9fa54fe863f412d298441f4d3208.jpg'
+      }
+      db.collection('users').doc(dataUser.uid).set(newUser);
+      dataUser.getIdToken().then(token => res.status(201).json({ uid: dataUser.uid, accessToken: token }));
     })
-    .catch((_) => res.status(401).json({ error: 'Email already exist '}));
+    .catch((error) => res.status(401).json({ error: error }));
 })));
 
 /*
-  El usuario ingresa si es correcto y lo devuelvo con su key
+  El usuario ingresa si es correcto y devuelvo su uid y accessToken
 */
-router.post('/login', (connection.executeFunction(['email', 'password'], (_, req, res) => {
+router.post('/login', (executeFunction(['email', 'password'], (req, res) => {
   const body = req.body
   firebase.auth().signInWithEmailAndPassword(body.email, body.password)
-    .then((user) => res.status(201).json(user))
+    .then((data) => {
+      const user = data.user
+      user.getIdToken().then((token) => res.status(201).json({ uid: user.uid, accessToken: token}));
+    })
     .catch((_) => res.status(401).json({ error: 'Email or Password is incorrect' }));
 })));
 
-router.get('/movies', (connection.executeFunction([], (db, req, res) => {
+router.get('/movies', (executeFunction([], (req, res) => {
   db.collection("movies")
     .get()
     .then((snap) => {
