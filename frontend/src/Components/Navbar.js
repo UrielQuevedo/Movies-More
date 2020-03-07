@@ -5,10 +5,16 @@ import { UserContext } from '../Hooks/UserContext';
 import { Link, NavLink } from 'react-router-dom';
 import { IndexLink } from 'react-router';
 import API from '../Route/Api';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
 
   const [user, setUser] = useState({});
+  const {t, i18n} = useTranslation();
+
+  const changeLenguage = (leng) => {
+    i18n.changeLanguage(leng);
+  }
 
   const isSelected = (path) => {
     if (window.location.pathname === path) {
@@ -56,13 +62,13 @@ const Navbar = () => {
         <li className="dropdown-content-setting-item row">
           <i class="material-icons col s2 icons-settings">account_box</i>
           <div className="col s10 text-settings">
-            Profile
+            {t('Profile')}
           </div>
         </li>
         <li className="dropdown-content-setting-theme-item row">
           <i class="material-icons col s2 icons-settings">brightness_4</i>
           <div className="col s10 switch text-settings">
-            Dark Theme
+            {t('Dark Theme')}
             <label style={{marginLeft:'64px'}}>
               <input type="checkbox"/>
               <span class="lever" style={{ margin:'0'}}></span>
@@ -72,7 +78,7 @@ const Navbar = () => {
         <li className="dropdown-content-setting-item row">
           <i class="material-icons col s2 icons-settings">exit_to_app</i>
           <div className="col s10 text-settings" onClick={() => logOut()}>
-            Log Out
+            {t('Log Out')}
           </div>
         </li>
       </ul>
@@ -82,7 +88,7 @@ const Navbar = () => {
   const dropdownLenguage = () => {
     return (
       <ul id="lenguage" className="dropdown-content dropdown-content-lenguage">
-        <li className="dropdown-content-lenguage-item">Spanish (es-ES)</li>
+        <li className="dropdown-content-lenguage-item" onClick={() => changeLenguage('es')}>Spanish (es-AR)</li>
       </ul>
     );
   }
@@ -121,11 +127,11 @@ const Navbar = () => {
           </div>
           {searchComponent()}
           <ul className="col s5" style={{ display:'flex', justifyContent:'flex-end'}}>
-            <li><NavLink activeClassName='item-selected' className='nav-item' exact to="/" >home</NavLink></li>
-            <li><NavLink activeClassName='item-selected' className='nav-item' to="/movies">movies</NavLink></li>
-            <li><a href="/programs" className={isSelected('/programs')}>programs</a></li>
-            <li><a href="/trailers" className={isSelected('/trailers')}>trailers</a></li>
-            <li><a href="/mylist" className={isSelected('/mylist')}>mylist</a></li>
+            <li><NavLink activeClassName='item-selected' className='nav-item' exact to="/" >{t('home')}</NavLink></li>
+            <li><NavLink activeClassName='item-selected' className='nav-item' to="/movies">{t('movies')}</NavLink></li>
+            <li><a href="/programs" className={isSelected('/programs')}>{t('programs')}</a></li>
+            <li><a href="/trailers" className={isSelected('/trailers')}>{t('trailers')}</a></li>
+            <li><a href="/mylist" className={isSelected('/mylist')}>{t('mylist')}</a></li>
           </ul>
           {dropdownContainer()}
         </div>
