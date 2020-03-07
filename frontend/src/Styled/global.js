@@ -73,10 +73,64 @@ export const GlobalStyles = createGlobalStyle`
     color: #9e9e9e;
   }
 
-  #requestContent {
-    border: 3px solid #21FFE2;
+  .textBox {
+    padding: 11px;
+    color: white;
+    border: 1.5px solid #5065BD;
+    min-height: 100px;
+    margin-bottom: 20px;
+  }
+
+  .textBox:focus {
+    border: 1.5px solid #21ffe2;
+  }
+
+  .textBox::-webkit-input-placeholder {
+    font-size: 14px;
+    color: #21ffe2;
+  }
+
+  .btn-close {
+    background: black;
+    font-weight: 600;
+    height: 36px;
+    width: 105px;
+    border: 1px solid red;
+  }
+
+  .modal-footer-content {
+    border: 1.5px solid #5065BD;
     border-radius: 8px;
     background: #061552;
+  }
+
+  .select-dropdown {
+    color: #fff;
+    border-bottom: 1px solid #21FFE2 !important;
+  }
+
+  .select-dropdown li.disabled>span {
+    color: #fff
+  }
+
+  .select-dropdown li.disabled>span:hover {
+    background: transparent !important;
+  }
+
+  .dropdown-content li>span {
+    color: #20f8dc;
+  }
+
+  .dropdown-content li>span:hover {
+    background: #5065bd59 !important;
+  }
+
+  .select-dropdown {
+    background: #000419;
+  }
+
+  .caret {
+    fill: #21FFE2 !important;
   }
 
   .dropdown-content-lenguage-item:hover {
