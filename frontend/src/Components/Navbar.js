@@ -2,30 +2,18 @@ import React, { useEffect, useState } from 'react';
 import LOGO from '../ICONO.png';
 import M from 'materialize-css';
 import { UserContext } from '../Hooks/UserContext';
-import { Link, NavLink } from 'react-router-dom';
-import { IndexLink } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import API from '../Route/Api';
 import { useTranslation } from 'react-i18next';
+import UseLenguage from '../Hooks/UseLenguage';
 
 const Navbar = () => {
-
   const [user, setUser] = useState({});
-  const {t, i18n} = useTranslation();
-
-  const changeLenguage = (leng) => {
-    i18n.changeLanguage(leng);
-  }
-
-  const isSelected = (path) => {
-    if (window.location.pathname === path) {
-      return "item-selected";
-    } 
-    return "nav-item";
-  };
+  const {t} = useTranslation();
+  const [lenguage, changeLenguage] = UseLenguage();
 
   useEffect(() => {
-   
-      API.get('/user/' + window.localStorage.getItem('uid'))
+    API.get('/user/' + window.localStorage.getItem('uid'))
       .then(r => setUser(r))
       .catch(error => console.log(console.log(error.response)));
     
@@ -85,10 +73,15 @@ const Navbar = () => {
     );
   };
 
+  const createSelectLenguage = (leng, lengView) => {
+    console.log(lenguage())
+    return <li className="dropdown-content-lenguage-item" onClick={() => changeLenguage(leng)}>{lengView}</li>
+  }
+
   const dropdownLenguage = () => {
     return (
       <ul id="lenguage" className="dropdown-content dropdown-content-lenguage">
-        <li className="dropdown-content-lenguage-item" onClick={() => changeLenguage('es')}>Spanish (es-AR)</li>
+        { lenguage() === 'es' ?  createSelectLenguage('en','English (en-US)') :  createSelectLenguage('es','Spanish (es-ES)')}
       </ul>
     );
   }
@@ -107,14 +100,13 @@ const Navbar = () => {
       <ul className="col s2 dropdownContainer">
         <li className="dropdown-trigger" data-target="notification" style={{ height:'40px', cursor:'pointer', marginRight:'13px'}}><i class="material-icons" style={{height:'41px'}}>notifications_none</i></li>
         <li className="dropdown-trigger" data-target="setting" style={{ height:'40px', cursor:'pointer', marginRight:'53px'}}><i class="material-icons" style={{height:'41px'}}>settings</i></li>
-        <li className="dropdown-trigger" data-target="lenguage" style={{ height:'50px'}}>EN<i className="material-icons right" style={{ margin:'0', lineHeight:'64px'}}>arrow_drop_down</i></li>
+        <li className="dropdown-trigger" data-target="lenguage" style={{ height:'50px', textTransform:'uppercase'}}>{lenguage()}<i className="material-icons right" style={{ margin:'0', lineHeight:'64px'}}>arrow_drop_down</i></li>
       </ul>
     );
   }
 
   return (
     <div className="navbar-fixed">
-      {console.log(user)}
       {dropdownSetting()}
       {dropdownLenguage()}
       <ul id="notification" className="dropdown-content">
@@ -127,11 +119,12 @@ const Navbar = () => {
           </div>
           {searchComponent()}
           <ul className="col s5" style={{ display:'flex', justifyContent:'flex-end'}}>
+            {/* SIMPLIFICAR ESTO */}
             <li><NavLink activeClassName='item-selected' className='nav-item' exact to="/" >{t('home')}</NavLink></li>
             <li><NavLink activeClassName='item-selected' className='nav-item' to="/movies">{t('movies')}</NavLink></li>
-            <li><a href="/programs" className={isSelected('/programs')}>{t('programs')}</a></li>
-            <li><a href="/trailers" className={isSelected('/trailers')}>{t('trailers')}</a></li>
-            <li><a href="/mylist" className={isSelected('/mylist')}>{t('mylist')}</a></li>
+            <li><NavLink activeClassName='item-selected' className='nav-item' to="/programs" >{t('programs')}</NavLink></li>
+            <li><NavLink activeClassName='item-selected' className='nav-item' to="/trailers">{t('trailers')}</NavLink></li>
+            <li><NavLink activeClassName='item-selected' className='nav-item' to="/mylist">{t('mylist')}</NavLink></li>
           </ul>
           {dropdownContainer()}
         </div>

@@ -42,7 +42,7 @@ router.post('/user/register', (executeFunction(['email', 'nickname', 'password']
         uid: dataUser.uid,
         nickname: body.nickname,
         email: dataUser.email,
-        photoURL: 'https://i.pinimg.com/originals/ff/1d/9f/ff1d9fa54fe863f412d298441f4d3208.jpg'
+        photoURL: 'https://i.pinimg.com/originals/ff/1d/9f/ff1d9fa54fe863f412d298441f4d3208.jpg',
       }
       db.collection('users').doc(dataUser.uid).set(newUser);
       dataUser.getIdToken().then(token => res.status(201).json({ uid: dataUser.uid, accessToken: token }));

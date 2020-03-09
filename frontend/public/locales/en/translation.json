@@ -3,5 +3,8 @@
   "programas":"programs",
   "peliculas":"movies",
   "trailers":"trailers",
-  "milist":"mylist"
+  "milist":"mylist",
+  "Perfil":"Profile",
+  "Tema Oscuro":"Dark Theme",
+  "Salir":"Log Out"
 }
