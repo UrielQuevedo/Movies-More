@@ -58,7 +58,7 @@ const Footer = () => {
           </div>
           <div className="col s12 l6 contenedor">
             <div className="contenido">
-              <b>{t('Developed by Uriel Quevedo, see the code on')}<a href="https://github.com/UrielQuevedo/Movies-More" target="_blank" style={{color:'#21FFE2'}}>Github</a></b>
+              <b>{t('Developed by Uriel Quevedo, see the code on ')}<a href="https://github.com/UrielQuevedo/Movies-More" target="_blank" style={{color:'#21FFE2'}}>Github</a></b>
               <div className="icons-fo icons-footer">
                 <a href="https://github.com/UrielQuevedo" target="_blank"><img src={github} alt="github" className="urlIcon"/></a>
                 <a href="mailto:quevedouriel3@gmail.com" target="_blank"><i className="material-icons email-icon">email</i></a>

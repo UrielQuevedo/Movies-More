@@ -4,7 +4,7 @@ const UseLenguage = () => {
   const {_, i18n} = useTranslation();
 
   const lenguage = () => {
-    const leng =  window.localStorage.getItem('lenguage');
+    const leng =  window.localStorage.getItem('i18nextLng');
     if (leng === null) {
       return 'en'
     }
@@ -12,7 +12,7 @@ const UseLenguage = () => {
   }
 
   const changeLenguage = (leng) => {
-    window.localStorage.setItem('lenguage', leng);
+    window.localStorage.setItem('i18nextLng', leng);
     i18n.changeLanguage(leng);
     window.location.reload();
   }

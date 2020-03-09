@@ -12,6 +12,18 @@
   padding-top: 0 !important;
 }
 
+.dropdown-lenguage-log {
+  height: 50px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #FAEBD7;
+  border: 1px solid #21FFE2;
+  height: 26px;
+  width: 54px;
+}
+
 .input-log {
   border-bottom: 1px solid #21FFE2 !important;
   color: white;

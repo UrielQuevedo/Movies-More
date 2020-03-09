@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import "../Css/logIn.css";
 import logo from "../ICONO.png";
@@ -7,11 +7,14 @@ import useCheckPassword from '../Hooks/UseCheckPassword';
 import CustomInput from '../Components/CustomInput';
 import VisibilityPassword from "../Components/VisibilityPassword";
 import ErrorMessageComponent from '../Components/ErrorMessageComponent';
+import { useTranslation } from 'react-i18next';
+import SelectLenguage from '../Components/SelectLenguage';
 
-const Register = (props) => {
+const Register = () => {
   const {register, errors, handleSubmit} = useForm();
   const [formError, handlerChange, postForm] = useFormLog('/user/register');
   const [passwordError, checkPassword] = useCheckPassword(postForm);
+  const {t} = useTranslation();
 
   const basicConfig = {
     required: true
@@ -35,30 +38,35 @@ const Register = (props) => {
           <div className="card z-depth-2 card-log" style={{ borderRadius: '15px'}}>
             <div className="card-action center-align" style={{ borderRadius: '15px'}}>
               <a href="/" style={{marginLeft: '25px'}}><img src={logo} alt="page logotype" className="logotipe" /></a>
-              <h3 className="title-login color-title">Register</h3>
+              <SelectLenguage />
+              <h3 className="title-login color-title">
+                {t('Register')}
+              </h3>
             </div>
             <div className="card-content card-padding">
               <div className="form-field">
                 <form onSubmit={handleSubmit(checkPassword)} autocomplete="off">
-                  <CustomInput functions={_functions} type='text' name='nickname' title='Nickname' configRegister={basicConfig} errorMessage='Nickname required'  />
-                  <CustomInput functions={_functions} type='email' name='email' title='Email' configRegister={basicConfig} errorMessage='Email required'  />
+                  <CustomInput functions={_functions} type='text' name='nickname' title={t('Nickname')} configRegister={basicConfig} />
+                  <CustomInput functions={_functions} type='email' name='email' title={t('Email')} configRegister={basicConfig} />
                   <VisibilityPassword seeTwoPassword={true} style='visibilityPasswordRegister'/>
-                  <CustomInput functions={_functions} type='password' name='password' title='Password' configRegister={passwordConfig} errorMessage='Password required'  />
-                  <CustomInput functions={_functions} type='password' name='confirmPassword' title='Confirm Password' configRegister={passwordConfig} errorMessage='Confirm Password required'  />
+                  <CustomInput functions={_functions} type='password' name='password' title={t('Password')} configRegister={passwordConfig} />
+                  <CustomInput functions={_functions} type='password' name='confirmPassword' title={t('Confirm Password')} configRegister={passwordConfig} />
                   {formError && <ErrorMessageComponent message={formError} styleClass='paddingError' />}
                   {passwordError && <ErrorMessageComponent message={passwordError} styleClass='paddingError' />}
                   <button
                     className="waves-effect btn waves-teal button-google btn-login"
                     style={{ width: "100%" }}
                   >
-                    SING UP
+                    {t('Sing Up')}
                   </button>
                 </form>
                 <div className="center-align">
                   <p style={{ marginTop: "16px" }}>
-                    <strong className="white-text">Do you have an account?</strong>
+                    <strong className="white-text">
+                      {t('Do you have an account?')}
+                    </strong>
                     <a href="/singin" style={{ marginLeft: "10px", color: '#21FFE2' }}>
-                      Sing In
+                      {t('Sing In')}
                     </a>
                   </p>
                 </div>

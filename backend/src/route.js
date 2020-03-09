@@ -17,6 +17,35 @@ router.post('/user/verify', (executeFunction([],(req, res) => {
   });
 })));
 
+router.post('/user/googleLogIn', (executeFunction(['uid','photoURL','email','nickname'],(req, res) => {
+  const body = req.body
+  const accessToken = req.headers.authorization.split(" ")[1];
+
+  admin.auth().verifyIdToken(accessToken)
+    .then((decodedToken) => {
+      const uid = decodedToken.uid;
+      if(uid === body.uid)  {
+        db.collection('users')
+          .doc(uid)
+          .get()
+          .then(doc => res.status(201).json(JSON.parse(JSON.stringify(doc.data()))))
+          .catch(/* LO CREO */);      
+      } else {
+        //LOS UID NO COINCIDEN
+      }
+    })
+    .catch();
+
+  admin.auth().verifyIdToken(idToken)
+  .then(function(decodedToken) {
+    const uid = decodedToken.uid;
+    console.log(uid);
+    res.status(201).json("SI");
+  }).catch(function(error) {
+    res.status(201).json("NO");
+  });
+})));
+
 /*
   Devuelvo los datos del usuario correspondiente con el uid por parametro
 */

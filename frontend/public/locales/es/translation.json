@@ -7,6 +7,21 @@
   "Profile":"Perfil",
   "Dark Theme":"Tema Oscuro",
   "Log Out":"Salir",
-  "Developed by Uriel Quevedo, see the code on":"Desarrollado por Uriel Quevedo, puede ver el codigo en ",
-  "Can`t you find your content? Send me the title and I will notify you when it is published":"¿No encuentras tu contenido? Enviame el titulo y te notificaremos cuando se publique"
+  "Developed by Uriel Quevedo, see the code on ":"Desarrollado por Uriel Quevedo, puede ver el codigo en ",
+  "Can`t you find your content? Send me the title and I will notify you when it is published":"¿No encuentras tu contenido? Enviame el titulo y te notificaremos cuando se publique",
+  "Sing in with Google":"Acceder con Google",
+  "Log In":"Iniciar Sesión",
+  "Sing Up":"Registrarse",
+  "Don`t have an account?":"¿No tiene una cuenta?",
+  "Sing In":"Iniciar Sesion",
+  "Password":"Contraseña",
+  "Email":"Correo",
+  "OR":"O",
+  "Register":"Nueva Cuenta",
+  "Do you have an account?":"¿Ya tiene una cuenta?",
+  "Nickname":"Apodo",
+  "Confirm Password":"Confirmar Contraseña",
+  "required":"requerido",
+  "Minimum 6 characters required":"Minimo 6 caracteres",
+  "Passwords do not match":"Las contraseñas no coinciden"
 }

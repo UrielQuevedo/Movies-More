@@ -7,6 +7,8 @@ import CustomInput from '../Components/CustomInput';
 import useFormLog from '../Hooks/UseFormLog';
 import VisibilityPassword from "../Components/VisibilityPassword";
 import ErrorMessageComponent from "../Components/ErrorMessageComponent";
+import { useTranslation } from "react-i18next";
+import SelectLenguage from "../Components/SelectLenguage";
 
 const singInWithGoogle = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -16,12 +18,14 @@ const singInWithGoogle = () => {
     .then(result => {
       window.localStorage.setItem('accesToken', result.credential.accessToken);
       window.localStorage.setItem('isLog', true);
+      console.log(result);
     });
 };
 
 const LogIn = () => {
   const {register, errors, handleSubmit} = useForm();
   const [formError, handlerChange, postForm] = useFormLog('/login');
+  const {t} = useTranslation();
 
   const basicConfig = {
     required: true
@@ -40,7 +44,8 @@ const LogIn = () => {
           <div className="card z-depth-2 hoverable card-log" style={{ borderRadius: '15px'}}>
             <div className="card-action center-align" style={{ borderRadius: '15px'}}>
               <a href="/" style={{marginLeft: '25px'}}><img src={logo} alt="page logotype" className="logotipe" /></a>
-              <h3 className="title-login color-title">Sing In</h3>
+              <SelectLenguage />
+              <h3 className="title-login color-title">{t('Sing In')}</h3>
               <button
                 onClick={() => singInWithGoogle()}
                 className="waves-effect button-google"
@@ -50,29 +55,29 @@ const LogIn = () => {
                   className="left"
                   href="/"
                 />
-                <p>Sing in with Google</p>
+                <p>{t('Sing in with Google')}</p>
               </button>
             </div>
             <div className="card-content">
               <div className="form-field">
-                <p className="center-align color-title title-or">OR</p>
+                <p className="center-align color-title title-or">{t("OR")}</p>
                 <form onSubmit={handleSubmit(postForm)} autocomplete="off">
-                  <CustomInput functions={_functions} type='email' name='email' title='Email' configRegister={basicConfig} errorMessage='Email required'  />
+                  <CustomInput functions={_functions} type='email' name='email' title={t('Email')} configRegister={basicConfig} />
                   <VisibilityPassword seeTwoPassword={false} style='visibilityPasswordLogIn'/>
-                  <CustomInput functions={_functions} type='password' name='password' title='Password' configRegister={basicConfig} errorMessage='Password required'  />
+                  <CustomInput functions={_functions} type='password' name='password' title={t('Password')} configRegister={basicConfig} />
                   {formError && <ErrorMessageComponent message={formError} styleClass='paddingError'/>}
                   <button
                     className="btn waves-effect waves-teal black btn-login"
                     style={{ width: "100%" }}
                   >
-                    LOG IN
+                    {t('Log In')}
                   </button>
                 </form>
                 <div className="center-align">
                   <p style={{ marginTop: "16px" }}>
-                    <strong className="white-text">Don't have an account?</strong>
+                    <strong className="white-text">{t('Don`t have an account?')}</strong>
                     <a href="/singup" style={{ marginLeft: "10px", color: '#21FFE2' }}>
-                      Sing Up
+                      {t('Sing Up')}
                     </a>
                   </p>
                 </div>
