@@ -1,37 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import LOGO from '../ICONO.png';
 import M from 'materialize-css';
-import { UserContext } from '../Hooks/UserContext';
 import { NavLink } from 'react-router-dom';
 import API from '../Route/Api';
 import { useTranslation } from 'react-i18next';
 import UseLenguage from '../Hooks/UseLenguage';
+import UseDarkMode from '../Hooks/UseDarkMode';
+import { useContext } from 'react';
+import { darkTheme } from '../Styled/theme';
+import { ThemeContext } from '../Hooks/ThemeContext';
 
 const Navbar = () => {
   const [user, setUser] = useState({});
   const {t} = useTranslation();
   const [lenguage, changeLenguage] = UseLenguage();
+  const [_, setTheme] = useContext(ThemeContext);
+  const [__, isDarkThemeActive, changeTheme] = UseDarkMode();
 
   useEffect(() => {
     API.get('/user/' + window.localStorage.getItem('uid'))
       .then(r => setUser(r))
       .catch(error => console.log(console.log(error.response)));
     
-
     let dropdowns = document.querySelectorAll('.dropdown-trigger');
     let options = {
         inDuration: 300,
         outDuration: 300,
         coverTrigger: false,
         closeOnClick: false,
-        
     };
     M.Dropdown.init(dropdowns, options);
   },[]);
 
   const logOut = () => {
     window.localStorage.clear();
-    window.location.reload(true);
     window.location.href = '/login';
   }
 
@@ -57,8 +59,12 @@ const Navbar = () => {
           <i class="material-icons col s2 icons-settings">brightness_4</i>
           <div className="col s10 switch text-settings">
             {t('Dark Theme')}
-            <label style={{marginLeft:'64px'}}>
-              <input type="checkbox"/>
+            <label style={{marginLeft:'58px'}}>
+              <input 
+                defaultChecked={isDarkThemeActive}
+                type="checkbox"
+                onClick={() => changeTheme(setTheme)}
+              />
               <span class="lever" style={{ margin:'0'}}></span>
             </label>
           </div>
@@ -74,7 +80,6 @@ const Navbar = () => {
   };
 
   const createSelectLenguage = (leng, lengView) => {
-    console.log(lenguage())
     return <li className="dropdown-content-lenguage-item" onClick={() => changeLenguage(leng)}>{lengView}</li>
   }
 

@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import API from '../Route/Api';
-import { UserContext } from "../Hooks/UserContext";
 
 const Home = () => {
-  const {user, setUser} = useContext(UserContext);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {

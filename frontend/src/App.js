@@ -6,24 +6,24 @@ import Register from "./Views/Register";
 import UsePrivateRoute from "./Route/UsePrivateRoute";
 import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import Footer from "./Components/Footer";
-import { UserContext } from './Hooks/UserContext';
+import { ThemeContext } from './Hooks/ThemeContext';
 import CheckLogRoute from "./Route/CheckLogRoute";
 import { ThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme } from './Styled/theme';
 import { GlobalStyles } from './Styled/global';
 import Navbar from "./Components/Navbar";
+import UseDarkMode from "./Hooks/UseDarkMode";
 
 function App() {
-  const [user, setUser] = useState(null);
-  const value = useMemo(() => ({user, setUser}), [user, setUser]);
+  const [actualTheme] = UseDarkMode();
+  const [theme, setTheme] = useState(actualTheme());
   
   return (
       <Router>
         <Switch>
           <CheckLogRoute exact path="/singup" component={Register} />
           <CheckLogRoute exact path="/singin" component={LogIn} />
-          <ThemeProvider theme={darkTheme}>
-            <UserContext.Provider value={value}>
+          <ThemeProvider theme={theme}>
+            <ThemeContext.Provider value={[theme, setTheme]}>
               <GlobalStyles />
               <div style={{flex: '1 0 auto'}}>
                 <Navbar />
@@ -34,7 +34,7 @@ function App() {
                 </Switch>
               </div>
               <Footer />
-            </UserContext.Provider>
+            </ThemeContext.Provider>
           </ThemeProvider>
           </Switch>
       </Router>

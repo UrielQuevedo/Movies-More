@@ -5,7 +5,7 @@ const UseLenguage = () => {
 
   const lenguage = () => {
     const leng =  window.localStorage.getItem('i18nextLng');
-    if (leng === null) {
+    if (leng === undefined) {
       return 'en'
     }
     return leng;
