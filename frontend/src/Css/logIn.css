@@ -29,6 +29,28 @@
   color: white;
 }
 
+.dropdown-content-lenguage-log {
+  height: 27px !important;
+  width: 140px !important;
+  color: #212529 !important;
+  background-color: #e4e4e4 !important;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.dropdown-content-lenguage-item-log {
+  text-align: center !important;
+  height: 10px !important;
+  width: 140px !important;
+  min-height: 27px !important;
+  transition: 0.5s;
+}
+
+.dropdown-content-lenguage-item-log:hover {
+  background-color: #061552b3 !important;
+  color: #fff;
+}
+
 .label-color {
   color: #21FFE2 !important;
 }
@@ -137,6 +159,10 @@ button, .btn-login:hover {
 }
 
 .card-log {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select:none;
   background: #05134E;
   margin-top: 15%;
   -webkit-box-shadow: 0px 11px 20px 5px rgba(0,0,0,0.23);

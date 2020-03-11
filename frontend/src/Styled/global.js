@@ -15,6 +15,10 @@ export const GlobalStyles = createGlobalStyle`
     padding-bottom: 20px;
     background-color: #061552;
     text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select:none;
   }
   
   .contenedor {

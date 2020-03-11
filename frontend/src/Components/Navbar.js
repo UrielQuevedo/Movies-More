@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import UseLenguage from '../Hooks/UseLenguage';
 import UseDarkMode from '../Hooks/UseDarkMode';
 import { useContext } from 'react';
-import { darkTheme } from '../Styled/theme';
 import { ThemeContext } from '../Hooks/ThemeContext';
 
 const Navbar = () => {
@@ -86,7 +85,7 @@ const Navbar = () => {
   const dropdownLenguage = () => {
     return (
       <ul id="lenguage" className="dropdown-content dropdown-content-lenguage">
-        { lenguage() === 'es' ?  createSelectLenguage('en','English (en-US)') :  createSelectLenguage('es','Spanish (es-ES)')}
+        { lenguage() === 'es' ?  createSelectLenguage('en','Ingles (en-US)') :  createSelectLenguage('es','Spanish (es-ES)')}
       </ul>
     );
   }
@@ -124,7 +123,6 @@ const Navbar = () => {
           </div>
           {searchComponent()}
           <ul className="col s5" style={{ display:'flex', justifyContent:'flex-end'}}>
-            {/* SIMPLIFICAR ESTO */}
             <li><NavLink activeClassName='item-selected' className='nav-item' exact to="/" >{t('home')}</NavLink></li>
             <li><NavLink activeClassName='item-selected' className='nav-item' to="/movies">{t('movies')}</NavLink></li>
             <li><NavLink activeClassName='item-selected' className='nav-item' to="/programs" >{t('programs')}</NavLink></li>

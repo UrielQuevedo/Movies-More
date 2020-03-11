@@ -3,13 +3,12 @@ import { Route, Redirect } from "react-router";
 
 const UsePrivateRoute = ({component: Component, ...rest}) => {
 
-  const keyToken = window.localStorage.getItem('token');
-  const isLog = window.localStorage.getItem('isLog');
+  const keyToken = window.localStorage.getItem('idToken');
 
   return <Route 
     {... rest}
 		render = { (props) => (
-			keyToken !== undefined && isLog
+			keyToken
 				?
           <Component {...props}/>
 				:

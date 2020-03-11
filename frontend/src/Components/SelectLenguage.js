@@ -18,13 +18,13 @@ const SelectLenguage = () => {
   },[]);
 
   const createSelectLenguage = (leng, lengView) => {
-    return <li className="dropdown-content-lenguage-item" onClick={() => changeLenguage(leng)}>{lengView}</li>
+    return <li className="dropdown-content-lenguage-item-log" onClick={() => changeLenguage(leng)}>{lengView}</li>
   }
 
   const dropdownLenguage = () => {
     return (
-      <ul id="lenguage" className="dropdown-content dropdown-content-lenguage">
-        { lenguage() === 'es' ?  createSelectLenguage('en','English (en-US)') :  createSelectLenguage('es','Spanish (es-ES)')}
+      <ul id="lenguage" className="dropdown-content dropdown-content-lenguage-log">
+        { lenguage() === 'es' ?  createSelectLenguage('en','Ingles (en-US)') :  createSelectLenguage('es','Spanish (es-ES)')}
       </ul>
     );
   }

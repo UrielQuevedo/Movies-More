@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import API from '../Route/Api';
+import { logIn } from '../localhostFunctions';
 
 const UseFormLog = (url) => {
   const [fields, changeFields] = useState({});
@@ -7,12 +8,7 @@ const UseFormLog = (url) => {
 
   const postForm = (data, e) => {
     API.post(url, data)
-      .then(user => {
-        window.localStorage.setItem('accesToken', user.accessToken);
-        window.localStorage.setItem('uid', user.uid);
-        window.localStorage.setItem('isLog', true);
-        window.location.href = '/';
-      })
+      .then(user => logIn(user))
       .catch(error => setFormError(error.response.data.error));
     e.target.reset();
   }

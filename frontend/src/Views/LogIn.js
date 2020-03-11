@@ -9,16 +9,24 @@ import VisibilityPassword from "../Components/VisibilityPassword";
 import ErrorMessageComponent from "../Components/ErrorMessageComponent";
 import { useTranslation } from "react-i18next";
 import SelectLenguage from "../Components/SelectLenguage";
+import { logIn } from '../localhostFunctions';
+import APIAUTH from '../Route/ApiAuth';
 
 const singInWithGoogle = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase
     .auth()
     .signInWithPopup(provider)
-    .then(result => {
-      window.localStorage.setItem('accesToken', result.credential.accessToken);
-      window.localStorage.setItem('isLog', true);
-      console.log(result);
+    .then(response => {
+      const user = response.user;
+      const userData = { uid: user.uid, photoURL: user.photoURL, email: user.email, nickname: user.displayName }
+      user.getIdToken(true)
+        .then(idToken => {
+          APIAUTH.post('/user/googleLogIn', userData, idToken)
+            .then(response => logIn(response))
+            .catch(error => console.log(error));
+        })
+        .catch(error => console.log(error));
     });
 };
 
