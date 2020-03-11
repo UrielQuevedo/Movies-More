@@ -5,6 +5,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     background-color: ${({ theme }) => theme.body};
     background-image: url('');
+    transition: 1s;
   }
   
   .footer {
