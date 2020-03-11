@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import API from '../Route/Api';
+import useCustomAPI from "../Hooks/UseCustomAPI";
 
 const Home = () => {
-  const [movies, setMovies] = useState([]);
+  const [response, executeAPI] = useCustomAPI();
+  const {loading: loadingMovie , data: movies, error: errorMovie} = response;
 
-  useEffect(() => {
-    API.get('/movies')
-      .then(response => setMovies(response))
-      .catch(error => console.log(error));
-  }, []);
+   useEffect(() => {
+    executeAPI({ API: API, type: 'get', path: '/movies' });
+   },[]);
 
   const moviesComponent = () => {
     return movies.map( e => (
@@ -20,7 +20,7 @@ const Home = () => {
     <div style={{marginLeft: "10.5%"}}>
       <div className="col offset-l1 l10" >
         <h5 style={{color: "#21FFE2"}}>New Movies</h5>
-        {moviesComponent()}
+        {movies && moviesComponent()}
       </div>
     </div>
   );

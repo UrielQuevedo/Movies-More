@@ -5,11 +5,19 @@ import { logIn } from '../localhostFunctions';
 const UseFormLog = (url) => {
   const [fields, changeFields] = useState({});
   const [formError, setFormError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const postForm = (data, e) => {
+    setIsLoading(true);
     API.post(url, data)
-      .then(user => logIn(user))
-      .catch(error => setFormError(error.response.data.error));
+      .then(user => {
+        setIsLoading(false);
+        logIn(user);
+      })
+      .catch(error => {
+        setFormError(error.response.data.error);
+        setIsLoading(false);
+      });
     e.target.reset();
   }
 
@@ -18,6 +26,7 @@ const UseFormLog = (url) => {
   };
 
   return [
+    isLoading,
     formError,
     handlerChange,
     postForm

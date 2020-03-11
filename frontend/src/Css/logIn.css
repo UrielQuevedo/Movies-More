@@ -12,6 +12,27 @@
   padding-top: 0 !important;
 }
 
+.preloader-login {
+  position: absolute !important;
+  bottom: 67px !important;
+  z-index: 1 !important;
+  right: 33px !important;
+}
+
+.preloader-register {
+  position: absolute !important;
+  bottom: 79px !important;
+  z-index: 1 !important;
+  right: 45px !important;
+}
+
+.preloader-google {
+  position: absolute !important;
+  bottom: 22px !important;
+  z-index: 1 !important;
+  right: 33px !important;
+}
+
 .dropdown-lenguage-log {
   height: 50px;
   text-transform: uppercase;

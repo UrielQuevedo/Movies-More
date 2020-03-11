@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import SelectLenguage from "../Components/SelectLenguage";
 import { logIn } from '../localhostFunctions';
 import APIAUTH from '../Route/ApiAuth';
+import Preloader from "../Components/Preloader";
 
 const singInWithGoogle = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -32,7 +33,7 @@ const singInWithGoogle = () => {
 
 const LogIn = () => {
   const {register, errors, handleSubmit} = useForm();
-  const [formError, handlerChange, postForm] = useFormLog('/login');
+  const [isLoading, formError, handlerChange, postForm] = useFormLog('/login');
   const {t} = useTranslation();
 
   const basicConfig = {
@@ -65,6 +66,7 @@ const LogIn = () => {
                 />
                 <p>{t('Sing in with Google')}</p>
               </button>
+              <Preloader style="preloader-google" color="spinner-blue-only" />
             </div>
             <div className="card-content">
               <div className="form-field">
@@ -81,6 +83,7 @@ const LogIn = () => {
                     {t('Log In')}
                   </button>
                 </form>
+                { isLoading && <Preloader style="preloader-login" color="spinner-red-only" /> }
                 <div className="center-align">
                   <p style={{ marginTop: "16px" }}>
                     <strong className="white-text">{t('Don`t have an account?')}</strong>

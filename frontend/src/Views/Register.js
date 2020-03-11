@@ -9,10 +9,11 @@ import VisibilityPassword from "../Components/VisibilityPassword";
 import ErrorMessageComponent from '../Components/ErrorMessageComponent';
 import { useTranslation } from 'react-i18next';
 import SelectLenguage from '../Components/SelectLenguage';
+import Preloader from '../Components/Preloader';
 
 const Register = () => {
   const {register, errors, handleSubmit} = useForm();
-  const [formError, handlerChange, postForm] = useFormLog('/user/register');
+  const [isLoading, formError, handlerChange, postForm] = useFormLog('/user/register');
   const [passwordError, checkPassword] = useCheckPassword(postForm);
   const {t} = useTranslation();
 
@@ -60,6 +61,7 @@ const Register = () => {
                     {t('Sing Up')}
                   </button>
                 </form>
+                { isLoading && <Preloader style="preloader-register" color="spinner-blue-only" /> }
                 <div className="center-align">
                   <p style={{ marginTop: "16px" }}>
                     <strong className="white-text">

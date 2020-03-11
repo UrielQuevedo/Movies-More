@@ -23,5 +23,13 @@
   "Confirm Password":"Confirmar Contraseña",
   "required":"requerido",
   "Minimum 6 characters required":"Minimo 6 caracteres",
-  "Passwords do not match":"Las contraseñas no coinciden"
+  "Passwords do not match":"Las contraseñas no coinciden",
+  "Request your content":"¡Solicita tu Contenido",
+  "Original Title":"Titulo Original",
+  "Choose your option":"Eliga su Opcion",
+  "Movie":"Pelicula",
+  "Program":"Programa",
+  "close":"cerrar",
+  "send":"enviar",
+  "More Details":"Mas Detalles"
 }
