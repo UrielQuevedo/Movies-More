@@ -1,23 +1,15 @@
 import { useState } from 'react';
 import API from '../Route/Api';
 import { logIn } from '../localhostFunctions';
+import UseCustomAPI from './UseCustomAPI';
 
 const UseFormLog = (url) => {
   const [fields, changeFields] = useState({});
-  const [formError, setFormError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [response, executeAPI] = UseCustomAPI();
+  const { loading, _, error } = response;
 
   const postForm = (data, e) => {
-    setIsLoading(true);
-    API.post(url, data)
-      .then(user => {
-        setIsLoading(false);
-        logIn(user);
-      })
-      .catch(error => {
-        setFormError(error.response.data.error);
-        setIsLoading(false);
-      });
+    executeAPI({ API: API, type:'post', path: url, body: data, externalFunction: logIn })
     e.target.reset();
   }
 
@@ -25,9 +17,11 @@ const UseFormLog = (url) => {
     changeFields(({...fields, [name]: e.target.value}));
   };
 
+  const errorForm = error ? error.response.data.error : null;
+
   return [
-    isLoading,
-    formError,
+    loading,
+    errorForm,
     handlerChange,
     postForm
   ];

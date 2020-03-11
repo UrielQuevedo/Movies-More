@@ -1,7 +1,6 @@
 import React from "react";
 import "../Css/logIn.css";
 import logo from "../ICONO.png";
-import firebase from "../Initializers/firebase";
 import { useForm } from 'react-hook-form';
 import CustomInput from '../Components/CustomInput';
 import useFormLog from '../Hooks/UseFormLog';
@@ -9,31 +8,13 @@ import VisibilityPassword from "../Components/VisibilityPassword";
 import ErrorMessageComponent from "../Components/ErrorMessageComponent";
 import { useTranslation } from "react-i18next";
 import SelectLenguage from "../Components/SelectLenguage";
-import { logIn } from '../localhostFunctions';
-import APIAUTH from '../Route/ApiAuth';
 import Preloader from "../Components/Preloader";
-
-const singInWithGoogle = () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then(response => {
-      const user = response.user;
-      const userData = { uid: user.uid, photoURL: user.photoURL, email: user.email, nickname: user.displayName }
-      user.getIdToken(true)
-        .then(idToken => {
-          APIAUTH.post('/user/googleLogIn', userData, idToken)
-            .then(response => logIn(response))
-            .catch(error => console.log(error));
-        })
-        .catch(error => console.log(error));
-    });
-};
+import useLogInWithGoogle from "../Hooks/UseLogInWithGoogle";
 
 const LogIn = () => {
   const {register, errors, handleSubmit} = useForm();
   const [isLoading, formError, handlerChange, postForm] = useFormLog('/login');
+  const [loadingGoogle, singInWithGoogle] = useLogInWithGoogle();
   const {t} = useTranslation();
 
   const basicConfig = {
@@ -48,6 +29,7 @@ const LogIn = () => {
 
   return (
     <div className="container">
+      {console.log(loadingGoogle)}
       <div className="row">
         <div className="col m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
           <div className="card z-depth-2 hoverable card-log" style={{ borderRadius: '15px'}}>
@@ -66,7 +48,7 @@ const LogIn = () => {
                 />
                 <p>{t('Sing in with Google')}</p>
               </button>
-              <Preloader style="preloader-google" color="spinner-blue-only" />
+              { loadingGoogle && <Preloader style="preloader-google" color="spinner-red-only" /> }
             </div>
             <div className="card-content">
               <div className="form-field">
