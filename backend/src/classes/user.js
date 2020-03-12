@@ -1,4 +1,5 @@
 class User {
+  
   constructor(_uid, _nickname, _email, _photoURL) {
     this.uid = _uid;
     this.nickname = _nickname;

@@ -1,18 +1,11 @@
 const { Router } = require('express');
 const { executeFunction, db, admin} = require('../src/connection');
+const { checkIfAdmin } = require('./middleware/auth-middleware');
 const router = Router();
 const firebase = require('../initializer/firebase');
 
-router.post('/user/verify', (executeFunction([],(req, res) => {
-  const idToken = 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjhjZjBjNjQyZDQwOWRlODJlY2M5MjI4ZTRiZDc5OTkzOTZiNTY3NDAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbW92aWVzYW5kbW9yZS1kZjU0MSIsImF1ZCI6Im1vdmllc2FuZG1vcmUtZGY1NDEiLCJhdXRoX3RpbWUiOjE1ODM4NzkyMzQsInVzZXJfaWQiOiJtZUthQlhmMENxTUhMOXFPZ2hscTMxU3B0c3YyIiwic3ViIjoibWVLYUJYZjBDcU1ITDlxT2dobHEzMVNwdHN2MiIsImlhdCI6MTU4Mzg3OTIzNCwiZXhwIjoxNTgzODgyODM0LCJlbWFpbCI6ImZhY2lsQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJmYWNpbEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.rHdUmjkBH_J6h1hZw95adHrarRLuspHC_9aTaV1Ol2ubElXqnPPMecU-xP_38aeH2v5nv64Qqf6HUzZBCTW3FC227kgMO1XaGC2sAlHb9hcZMJssWt5AHDO5xMLZPk0tkcZM47tvZrUaG43IaWPFnbCVZukt74wWtpeYOLf4lJZwWv4wHEA940ZMCBxN2mKuaLK31JM_oAlp3NF7Wr3WY6jIKxxs9RtrPgBLYw3AxgygXJ_yMVzJuAOCS2gLpgbzKQPZhxFeGsFgk8GNRQDiPq45_Zi9KMvUf3prI52AOBwDg9Tzmrsm43KuPjutW9eoQdE6LeU1nYH7WQQTZzoagA';
-  admin.auth().verifyIdToken(idToken)
-  .then(function(decodedToken) {
-    const uid = decodedToken.uid;
-    console.log(uid);
-    res.status(201).json("SI");
-  }).catch(function(error) {
-    res.status(201).json(error);
-  });
+router.post('/user/verify', checkIfAdmin, (executeFunction([],(req, res) => {
+  res.status(201).json("SI");
 })));
 
 router.post('/user/googleLogIn', (executeFunction(['uid','photoURL','email','nickname'],(req, res) => {
