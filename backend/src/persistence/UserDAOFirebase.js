@@ -11,7 +11,17 @@ const createUser = (user) => {
   db.collection('users').doc(user.uid).set(user);
 }
 
+const registerUser = (email, password) => {
+  return firebase.auth().createUserWithEmailAndPassword(email, password); 
+}
+
+const getUserByEmailPassword = (email, password) => {
+  return firebase.auth().signInWithEmailAndPassword(email, password);
+}
+
 module.exports = {
   getUserByUID,
   createUser,
+  registerUser,
+  getUserByEmailPassword,
 };

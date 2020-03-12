@@ -9,33 +9,16 @@ router.post('/user/verify', checkIfAuthenticated, (executeFunction([],(req, res)
   res.status(201).json("SI");
 })));
 
-router.post('/user/googleLogIn', checkIfAuthenticated, (executeFunction(['uid','photoURL','email','nickname'],(req, res) => {
+router.post('/user/login/google', checkIfAuthenticated, (executeFunction(['uid','photoURL','email','nickname'],(req, res) => {
   const body = req.body
-  const response = res.status(201).json({ uid: body.uid, idToken: idToken});
+  const { authToken } = req;
+  const response = res.status(201).json({ uid: body.uid, idToken: authToken});
   UserService.getUserByUID(body.uid)
     .then(_ => response)
     .catch(_ => {
       UserService.createUser(body);
-      response;
+      response
     });
-
-
-  // db.collection('users')
-  //   .doc(uid)
-  //   .get()
-  //   .then(_ => rtn)
-  //   .catch(
-  //     _ => {
-  //       const newUser = {
-  //         uid: body.uid,
-  //         nickname: body.nickname,
-  //         email: body.email,
-  //         photoURL: body.photoURL,
-  //       }
-  //       db.collection('users').doc(uid).set(newUser);
-  //       rtn;
-  //     }
-  //   );   
 })));
 
 /*
@@ -44,11 +27,9 @@ router.post('/user/googleLogIn', checkIfAuthenticated, (executeFunction(['uid','
 
 router.get('/user/:uid', (executeFunction([], (req, res) => {
   const { uid } = req.params;
-  db.collection('users')
-    .doc(uid)
-    .get() 
+  UserService.getUserByUID(uid)
     .then(doc => res.status(201).json(JSON.parse(JSON.stringify(doc.data()))))
-    .catch(_ => res.status(401).json({ error: "User does't exist" }));
+    .catch(_ => res.status(401).json('User doesn´t exist'));
 })));
 
 /*
@@ -56,25 +37,35 @@ router.get('/user/:uid', (executeFunction([], (req, res) => {
 */
 router.post('/user/register', (executeFunction(['email', 'nickname', 'password'],(req, res) => {
   const body = req.body
-  firebase.auth().createUserWithEmailAndPassword(body.email, body.password)
+
+  UserService.registerUser(body.email, body.password)
     .then((data) => {
       const dataUser = data.user;
-      const newUser = {
-        uid: dataUser.uid,
-        nickname: body.nickname,
-        email: dataUser.email,
-        photoURL: 'https://i.pinimg.com/originals/ff/1d/9f/ff1d9fa54fe863f412d298441f4d3208.jpg',
-      }
-      db.collection('users').doc(dataUser.uid).set(newUser);
+      dataUser.nickname = body.nickname;
+      UserService.createUser(data);
       dataUser.getIdToken().then(token => res.status(201).json({ uid: dataUser.uid, idToken: token }));
     })
     .catch((_) => res.status(401).json({ error: 'Email already exist' }));
+
+  // firebase.auth().createUserWithEmailAndPassword(body.email, body.password)
+  //   .then((data) => {
+  //     const dataUser = data.user;
+  //     const newUser = {
+  //       uid: dataUser.uid,
+  //       nickname: body.nickname,
+  //       email: dataUser.email,
+  //       photoURL: 'https://i.pinimg.com/originals/ff/1d/9f/ff1d9fa54fe863f412d298441f4d3208.jpg',
+  //     }
+  //     db.collection('users').doc(dataUser.uid).set(newUser);
+  //     dataUser.getIdToken().then(token => res.status(201).json({ uid: dataUser.uid, idToken: token }));
+  //   })
+  //   .catch((_) => res.status(401).json({ error: 'Email already exist' }));
 })));
 
 /*
   El usuario ingresa si es correcto y devuelvo su uid y idToken
 */
-router.post('/login', (executeFunction(['email', 'password'], (req, res) => {
+router.post('/user/login', (executeFunction(['email', 'password'], (req, res) => {
   const body = req.body
   firebase.auth().signInWithEmailAndPassword(body.email, body.password)
     .then((data) => {
