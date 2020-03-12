@@ -12,7 +12,7 @@ const getAuthToken = (req, next) => {
   next();
 }
 
-const checkIfAdmin = (req, res, next) => {
+const checkIfAuthenticated = (req, res, next) => {
   getAuthToken(req, async () => {
     try {
       const { authToken } = req;
@@ -27,5 +27,5 @@ const checkIfAdmin = (req, res, next) => {
 }
 
 module.exports = {
-  checkIfAdmin
+  checkIfAuthenticated
 };

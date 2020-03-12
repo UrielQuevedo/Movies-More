@@ -1,40 +1,41 @@
 const { Router } = require('express');
-const { executeFunction, db, admin} = require('../src/connection');
-const { checkIfAdmin } = require('./middleware/auth-middleware');
+const { executeFunction, db} = require('../src/connection');
+const { checkIfAuthenticated } = require('./middleware/auth-middleware');
 const router = Router();
 const firebase = require('../initializer/firebase');
+const UserService = require('./service/UserService');
 
-router.post('/user/verify', checkIfAdmin, (executeFunction([],(req, res) => {
+router.post('/user/verify', checkIfAuthenticated, (executeFunction([],(req, res) => {
   res.status(201).json("SI");
 })));
 
-router.post('/user/googleLogIn', (executeFunction(['uid','photoURL','email','nickname'],(req, res) => {
+router.post('/user/googleLogIn', checkIfAuthenticated, (executeFunction(['uid','photoURL','email','nickname'],(req, res) => {
   const body = req.body
-  const idToken = req.headers.authorization.split(" ")[1];
-  admin.auth().verifyIdToken(idToken)
-    .then(function(decodedToken) {
-      const uid = decodedToken.uid;
-      const rtn = res.status(201).json({ uid: uid, idToken: idToken});
-      db.collection('users')
-        .doc(uid)
-        .get()
-        .then(_ => rtn)
-        .catch(
-          _ => {
-            const newUser = {
-              uid: body.uid,
-              nickname: body.nickname,
-              email: body.email,
-              photoURL: body.photoURL,
-            }
-            db.collection('users').doc(uid).set(newUser);
-            rtn;
-          }
-        );   
-    })
-    .catch(function(error) {
-      res.status(201).json(error);
+  const response = res.status(201).json({ uid: body.uid, idToken: idToken});
+  UserService.getUserByUID(body.uid)
+    .then(_ => response)
+    .catch(_ => {
+      UserService.createUser(body);
+      response;
     });
+
+
+  // db.collection('users')
+  //   .doc(uid)
+  //   .get()
+  //   .then(_ => rtn)
+  //   .catch(
+  //     _ => {
+  //       const newUser = {
+  //         uid: body.uid,
+  //         nickname: body.nickname,
+  //         email: body.email,
+  //         photoURL: body.photoURL,
+  //       }
+  //       db.collection('users').doc(uid).set(newUser);
+  //       rtn;
+  //     }
+  //   );   
 })));
 
 /*
@@ -45,7 +46,7 @@ router.get('/user/:uid', (executeFunction([], (req, res) => {
   const { uid } = req.params;
   db.collection('users')
     .doc(uid)
-    .get()
+    .get() 
     .then(doc => res.status(201).json(JSON.parse(JSON.stringify(doc.data()))))
     .catch(_ => res.status(401).json({ error: "User does't exist" }));
 })));
