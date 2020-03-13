@@ -6,8 +6,6 @@ admin.initializeApp({
     databaseURL: "https://moviesandmore-df541.firebaseio.com"
 });;
 
-const db = admin.firestore();
-
 function isNotUndefined(value) {
   return value !== undefined;
 }
@@ -35,6 +33,4 @@ const errors = {
 
 module.exports = {
   executeFunction,
-  db,
-  admin
 };

@@ -12,6 +12,8 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './Styled/global';
 import Navbar from "./Components/Navbar";
 import UseDarkMode from "./Hooks/UseDarkMode";
+import MobileNavbarBottom from "./Components/MobileNavbarBottom";
+import MobileNavbarTop from "./Components/MobileNavbarTop";
 
 function App() {
   const [actualTheme] = UseDarkMode();
@@ -27,6 +29,8 @@ function App() {
               <GlobalStyles />
               <div style={{flex: '1 0 auto'}}>
                 <Navbar />
+                <MobileNavbarTop />
+                <MobileNavbarBottom />
                 <Switch>
                   <UsePrivateRoute path='/' exact component={Home} />
                   <UsePrivateRoute path='/movies' exact component={Movies} />
