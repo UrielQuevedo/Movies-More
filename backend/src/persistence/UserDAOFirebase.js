@@ -6,7 +6,8 @@ const { createNewUser } = require('../secondaryFunctions');
 const getUserByUID = (uid) => {
   return db.collection('users')
     .doc(uid)
-    .get();
+    .get()
+    .then(doc => JSON.parse(JSON.stringify(doc.data())));
 }
 
 const createUser = (user) => {

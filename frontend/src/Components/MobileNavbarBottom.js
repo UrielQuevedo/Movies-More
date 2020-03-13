@@ -6,56 +6,69 @@ import { Link } from "react-router-dom";
 const MobileNavbarBottom = () => {
 
   useEffect(() => {
+    const options = {
+      edge: 'right',
+    }
+
     const elem = document.querySelectorAll(".sidenav");
-    M.Sidenav.init(elem);
+    M.Sidenav.init(elem, options);
 
     const collapsibleElem = document.querySelectorAll('.collapsible');
     M.Collapsible.init(collapsibleElem);
   }, []);
 
   return (
-    <nav className="show-on-med-only hide-on-large-only" style={{ position:'fixed', bottom:'0'}}>
-      <div class="nav-wrapper">
-        <ul style={{ display:'flex', justifyContent:'space-around', alignItems:'center' }}>
-          <li>
-            <a href="/"><i class="material-icons">home</i></a>
-          </li>
-          <li>
-            <i class="material-icons">search</i>
-          </li>
-          <li>
-            <i class="material-icons">notifications_none</i>
-          </li>
-          <li>
-          <i data-target="mobile-demo" class="sidenav-trigger material-icons">menu</i>
-          </li>
-        </ul>
-
-        <ul class="sidenav collapsible" id="mobile-demo">
-          <li>
-            <Link to="/proflie">Profile</Link>
-          </li>
-          <li>
-            Dark Mode 
-            <label style={{marginLeft:'58px'}}>
-              <input 
-                //defaultChecked={isDarkThemeActive}
-                type="checkbox"
-                //onClick={() => changeTheme(setTheme)}
-              />
-              <span class="lever" style={{ margin:'0'}}></span>
-            </label>
-          </li>
-          <li>
-            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Lenguage</div>
-            <div class="collapsible-body"><span>Spanish</span></div>
-          </li>
-          <li>
-            <a href="mobile.html">Log Out</a>
-          </li>
-        </ul>
+    <>
+      <div className="show-on-med-only hide-on-large-only" style={{ position:'fixed', width:'100%', bottom:'0px'}}>
+        <nav style={{ height:'43px'}}>
+          <div class="nav-wrapper">
+            <ul style={{ display:'flex', justifyContent:'space-around' }}>
+              <li>
+                <Link to="/">
+                  <i class="material-icons mobile-navbar-bottom-icons">home</i>
+                  <p className="mobile-navbar-bottom-item">Home</p>
+                </Link>
+              </li>
+              <li>
+                <i class="material-icons mobile-navbar-bottom-icons">search</i>
+                <p className="mobile-navbar-bottom-item">Search</p>
+              </li>
+              <li>
+                <i class="material-icons mobile-navbar-bottom-icons">notifications_none</i>
+                <p className="mobile-navbar-bottom-item">Notify</p>
+              </li>
+              <li data-target="mobile-demo" className="sidenav-trigger">
+                <i class="material-icons collapse-icon">menu</i>
+                <p className="mobile-navbar-bottom-item" style={{ transform:'translate(3px, -24px)' }}>More</p>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
-    </nav>
+      <ul class="sidenav collapsible show-on-med-only hide-on-large-only" id="mobile-demo">
+      <li>
+        <Link to="/proflie">Profile</Link>
+      </li>
+      <li>
+        Dark Mode 
+        <label style={{marginLeft:'58px'}}>
+          <input 
+            //defaultChecked={isDarkThemeActive}
+            type="checkbox"
+            //onClick={() => changeTheme(setTheme)}
+          />
+          <span class="lever" style={{ margin:'0'}}></span>
+        </label>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="material-icons">filter_drama</i>Lenguage</div>
+        <div class="collapsible-body"><span>Spanish</span></div>
+      </li>
+      <li>
+        <a href="mobile.html">Log Out</a>
+      </li>
+    </ul>
+  </>
   );
 };
 

@@ -4,7 +4,6 @@ const { checkIfAuthenticated } = require('../middleware/auth-middleware');
 const UserService = require('../service/UserService');
 const router = Router();
 
-
 router.post('/login/google', checkIfAuthenticated, (executeFunction(['uid','photoURL','email','nickname'],(req, res) => {
   const body = req.body
   const { authToken } = req;
@@ -13,7 +12,7 @@ router.post('/login/google', checkIfAuthenticated, (executeFunction(['uid','phot
     .then(_ => response)
     .catch(_ => {
       UserService.createUser(body);
-      response
+      return response
     });
 })));
 
@@ -24,7 +23,7 @@ router.post('/login/google', checkIfAuthenticated, (executeFunction(['uid','phot
 router.get('/:uid', (executeFunction([], (req, res) => {
   const { uid } = req.params;
   UserService.getUserByUID(uid)
-    .then(doc => res.status(201).json(JSON.parse(JSON.stringify(doc.data()))))
+    .then(response => res.status(201).json(response))
     .catch(_ => res.status(401).json('User doesn´t exist'));
 })));
 

@@ -7,7 +7,23 @@ export const GlobalStyles = createGlobalStyle`
     background-image: url('');
     transition: 1s;
   }
-  
+
+  .mobile-navbar-bottom-item {
+    margin: 0;
+    line-height: 0;
+    font-size: 8px;
+    transform: translateX(1px);
+  }
+
+  .collapse-icon {
+    transform: translateY(-11px) scale(0.9) !important;
+  }
+
+  .mobile-navbar-bottom-icons {
+    height: 32px !important;
+    transform: translateY(-7px) scale(0.7);
+  }
+
   .footer {
     margin-top: 40px;
     left: 0;
