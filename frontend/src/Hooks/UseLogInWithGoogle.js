@@ -16,7 +16,7 @@ const UseLogInWithGoogle = () => {
         const user = response.user;
         const userData = { uid: user.uid, photoURL: user.photoURL, email: user.email, nickname: user.displayName }
         user.getIdToken(true)
-          .then(idToken => executeAPI({ API: APIAUTH, type:'post', path:'/user/googleLogIn', body: userData, idToken: idToken, externalFunction: logIn }))
+          .then(idToken => executeAPI({ API: APIAUTH, type:'post', path:'/user/login/google', body: userData, idToken: idToken, externalFunction: logIn }))
           .catch(error => console.log(error));
       });
   };

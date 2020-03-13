@@ -13,7 +13,7 @@ import useLogInWithGoogle from "../Hooks/UseLogInWithGoogle";
 
 const LogIn = () => {
   const {register, errors, handleSubmit} = useForm();
-  const [isLoading, formError, handlerChange, postForm] = useFormLog('/login');
+  const [isLoading, formError, handlerChange, postForm] = useFormLog('/user/login');
   const [loadingGoogle, singInWithGoogle] = useLogInWithGoogle();
   const {t} = useTranslation();
 

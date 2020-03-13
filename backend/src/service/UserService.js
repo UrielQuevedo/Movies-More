@@ -1,25 +1,17 @@
 const UserDAOFirebase = require('../persistence/UserDAOFirebase');
-const DEFAULT_IMAGE = 'https://i.pinimg.com/originals/ff/1d/9f/ff1d9fa54fe863f412d298441f4d3208.jpg';
+const { createNewUser } = require('../secondaryFunctions');
 
 const getUserByUID = (uid) => {
   return UserDAOFirebase.getUserByUID(uid);
 }
 
 const createUser = (data) => {
-  if (!data.photoURL) {
-    data.photoURL = DEFAULT_IMAGE;
-  }
-  const newUser = {
-    uid: data.uid,
-    nickname: data.nickname,
-    email: data.email,
-    photoURL: data.photoURL,
-  }
+  const newUser = createNewUser(data);
   UserDAOFirebase.createUser(newUser);
 }
 
 const registerUser = (data) => {
-  return UserDAOFirebase.registerUser(data.email, data.password);
+  return UserDAOFirebase.registerUser(data.email, data.password, data.nickname);
 }
 
 module.exports = {
