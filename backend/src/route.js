@@ -32,8 +32,7 @@ router.get('/user/:uid', (executeFunction([], (req, res) => {
   Registro a un usuario y lo guardo en firebase y devuelvo su uid y su idToken
 */
 router.post('/user/register', (executeFunction(['email', 'nickname', 'password'],(req, res) => {
-  const body = req.body
-  UserService.registerUser(body)
+  UserService.registerUser(req.body)
     .then((response) => res.status(201).json(response))
     .catch((_) => { res.status(401).json({ error: 'Email already exist' });
   });
@@ -43,12 +42,8 @@ router.post('/user/register', (executeFunction(['email', 'nickname', 'password']
   El usuario ingresa si es correcto y devuelvo su uid y idToken
 */
 router.post('/user/login', (executeFunction(['email', 'password'], (req, res) => {
-  const body = req.body
-  firebase.auth().signInWithEmailAndPassword(body.email, body.password)
-    .then((data) => {
-      const user = data.user
-      user.getIdToken(true).then((token) => res.status(201).json({ uid: user.uid, idToken: token}));
-    })
+  UserService.logInWithEmailPassword(req.body)
+    .then(response => res.status(201).json(response))
     .catch((_) => res.status(401).json({ error: 'Email or Password is incorrect' }));
 })));
 

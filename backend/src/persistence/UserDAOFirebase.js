@@ -3,7 +3,6 @@ const firebase = require('../../initializer/firebase');
 const db = admin.firestore();
 const { createNewUser } = require('../secondaryFunctions');
 
-
 const getUserByUID = (uid) => {
   return db.collection('users')
     .doc(uid)
@@ -30,7 +29,15 @@ const registerUser = (email, password, nickname) => {
 }
 
 const getUserByEmailPassword = (email, password) => {
-  return firebase.auth().signInWithEmailAndPassword(email, password);
+  return firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((data) => {
+      const objectUser = data.user;
+      return objectUser
+        .getIdToken(true)
+        .then(token => {
+          return { idToken: token, uid: objectUser.uid }
+        });
+    });
 }
 
 module.exports = {

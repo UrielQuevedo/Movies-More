@@ -14,8 +14,13 @@ const registerUser = (data) => {
   return UserDAOFirebase.registerUser(data.email, data.password, data.nickname);
 }
 
+const logInWithEmailPassword = (data) => {
+  return UserDAOFirebase.getUserByEmailPassword(data.email, data.password);
+}
+
 module.exports = {
   getUserByUID,
   createUser,
   registerUser,
+  logInWithEmailPassword,
 };
