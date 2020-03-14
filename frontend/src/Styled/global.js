@@ -8,26 +8,112 @@ export const GlobalStyles = createGlobalStyle`
     transition: 1s;
   }
 
+  .collapse-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .collapse-user {
+    display: flex;
+    margin-top: 30px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .mobile-navbar-bottom-item {
     margin: 0;
     line-height: 0;
-    font-size: 8px;
-    transform: translateX(1px);
+    font-size: 9px;
+    transform: translateX(0px);
+  }
+
+  .collapse-menu-icon-close {
+    color: #b92f34;
+    transform: scale(2);
+    cursor:pointer;
+  }
+
+  .collapse-menu-close {
+    position: fixed;
+    bottom: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 12%;
+    width: 100%;
+  }
+
+  .collapse-menu-font {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .collapsible-menu {
+    color: #fff;
+    background: #2e3d79 !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+  }
+
+  .collapse-menu {
+    background: #182a75;
+    border: 1.5px solid #061552;
+    width: 100%;
+  }
+
+  .collapse-menu-lenguage {
+    margin-right: 16px !important;
+    transform: translateX(-7px);
+  }
+
+  .collapse-menu-icon {
+    text-align:center;
+    line-height: 48px;
+    color: #ee6e73;
+    transform: scale(1.2);
+  }
+
+  .mobile-nav-top {
+    background: rgb(2, 9, 35);
+  }
+  
+  .mobile-nav-bottom {
+    background: rgb(2, 9, 35);
+    height:53px;
+  }
+
+  .mobile-navbar-bottom {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    bottom: -1px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select:none;
   }
 
   .collapse-icon {
-    transform: translateY(-11px) scale(0.9) !important;
+    transform: translateY(-5px) scale(1.35) !important;
   }
 
   .mobile-navbar-bottom-icons {
-    height: 32px !important;
-    transform: translateY(-7px) scale(0.7);
+    height: 41px !important;
+    transform: translateY(-7px) scale(1.1);
   }
 
   .footer {
+    @media (max-width: 992px)
+    {
+      padding-bottom: 65px;
+    }
     margin-top: 40px;
     left: 0;
-    bottom: 0;
+    bottom: 0;;
     width: 100%;
     padding-bottom: 20px;
     background-color: #061552;
@@ -37,7 +123,7 @@ export const GlobalStyles = createGlobalStyle`
     -khtml-user-select: none;
     -ms-user-select:none;
   }
-  
+
   .contenedor {
     display: flex;
     align-items: center;

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const MobileNavbarTop = () => {
   return ( 
-    <div className="show-on-med-only hide-on-large-only navbar-fixed">
-      <nav>
+    <div className="show-on-med-only hide-on-large-only" style={{position:"fixed", top:'-1px', width:'100%', background:'#020923'}}>
+      <nav className="mobile-nav-top">
         <div class="nav-wrapper">
           <ul style={{ display:'flex', justifyContent:'space-around', alignItems:'center' }}>
             <li>
