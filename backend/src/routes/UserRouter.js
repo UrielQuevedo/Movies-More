@@ -5,6 +5,7 @@ const UserService = require('../service/UserService');
 const router = Router();
 
 router.post('/login/google', checkIfAuthenticated, (executeFunction(['uid','photoURL','email','nickname'],(req, res) => {
+  console.log("HOLA");
   const body = req.body
   const { authToken } = req;
   const response = res.status(201).json({ uid: body.uid, idToken: authToken});

@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 // settings
 app.set('port', process.env.PORT || 5000); 
@@ -10,6 +11,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json()); 
 
 // routes 
+app.use(cors());
 app.use('/user', require('./routes/UserRouter'));
 app.use('/movies', require('./routes/MoviesRouter'));
 app.use((err, req, res, next) => {
