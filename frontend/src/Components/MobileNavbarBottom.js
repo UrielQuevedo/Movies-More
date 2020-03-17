@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import M from "materialize-css";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "../Hooks/ThemeContext";
 import UseDarkMode from "../Hooks/UseDarkMode";
@@ -33,10 +33,10 @@ const MobileNavbarBottom = () => {
           <div>
             <ul style={{ display: "flex", justifyContent: "space-around" }}>
               <li>
-                <Link to="/">
+                <NavLink activeClassName='mobile-navbar-item-selected' exact to="/" style={{padding:'0px'}}>
                   <i class="material-icons mobile-navbar-bottom-icons">home</i>
                   <p className="mobile-navbar-bottom-item">{t('Home')}</p>
-                </Link>
+                </NavLink>
               </li>
               <li>
                 <i class="material-icons mobile-navbar-bottom-icons">search</i>
@@ -46,7 +46,7 @@ const MobileNavbarBottom = () => {
                 <i class="material-icons mobile-navbar-bottom-icons">
                   notifications_none
                 </i>
-                <p className="mobile-navbar-bottom-item">{t('Notify')}</p>
+                <p className="mobile-navbar-bottom-item">{t('Notifi')}</p>
               </li>
               <li
                 data-target="mobile-demo"
@@ -56,7 +56,7 @@ const MobileNavbarBottom = () => {
                 <i class="material-icons collapse-icon">menu</i>
                 <p
                   className="mobile-navbar-bottom-item"
-                  style={{ transform: "translate(1.2px, -15px)" }}
+                  style={{ transform: "translate(0px, -15px)" }}
                 >
                   {t('More')}
                 </p>
@@ -91,7 +91,7 @@ const MobileNavbarBottom = () => {
         id="mobile-demo"
       >
         <li className="row">
-          <div class="user-view col s12 m6 offset-m3 collapse-user">
+          <div class="user-view col s12 m6 offset-m3 collapse-user background">
             <div class="background">
               <img src="https://image.freepik.com/vector-gratis/banner-concepto-pelicula-cine-estilo-dibujos-animados_98402-1682.jpg" />
             </div>
@@ -107,12 +107,12 @@ const MobileNavbarBottom = () => {
         </li>
         <div className="row">
           <ul className="col s12 m6 offset-m3 collapsible ">
-            <Link to='/profile' className="row" style={{ margin: "0px" }} onClick={() => elems.sideNav.close()}>
+            <NavLink to='/profile' className="row" style={{ margin: "0px" }} onClick={() => elems.sideNav.close()}>
               <i class="material-icons col s2 collapse-menu-icon">
                 account_box
               </i>
               <div className="col s10 collapse-menu-font" style={{transform:'translateY(10px)'}}>{t('Profile')}</div>
-            </Link>
+            </NavLink>
             <li className="row" style={{ margin: "0px" }}>
               <i class="material-icons col s2 collapse-menu-icon">
                 brightness_4

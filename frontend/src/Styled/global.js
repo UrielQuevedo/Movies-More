@@ -19,15 +19,29 @@ export const GlobalStyles = createGlobalStyle`
     -webkit-tap-highlight-color: rgba(0,0,0,0);
   }
 
+  .mobile-navbar-item-selected {
+    color: #21FFE2;
+  }
+
+  .mobile-nav-item {
+    margin: 0px !important;
+    color: #fff;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-left: 14px;
+    padding: 0 !important;
+    height: 51px;
+  }
+
   .collapse-user {
     display: flex;
-    margin-top: 30px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
   .mobile-navbar-bottom-item {
+    text-align: center;
     margin: 0;
     line-height: 0;
     font-size: 9px;
@@ -42,7 +56,7 @@ export const GlobalStyles = createGlobalStyle`
 
   .collapse-menu-close {
     position: fixed;
-    bottom: 47px;
+    bottom: 55px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,7 +78,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .collapse-menu {
-    background: #182a75;
+    background: #000B38;
     border: 1.5px solid #061552;
     width: 100%;
   }

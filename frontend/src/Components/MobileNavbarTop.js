@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const MobileNavbarTop = () => {
@@ -25,37 +25,41 @@ const MobileNavbarTop = () => {
             }}
           >
             <li>
-              <Link
-                className="nav-item"
+              <NavLink
+                activeClassName='item-selected'
+                className="mobile-nav-item"
                 to="/movies"
               >
                 {t('movies')}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                className="nav-item"
+              <NavLink
+                activeClassName='item-selected'
+                className="mobile-nav-item"
                 to="/programs"
               >
                {t('programs')}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                className="nav-item"
+              <NavLink
+                activeClassName='item-selected'
+                className="mobile-nav-item"
                 to="/trailers"
               >
                 {t('trailers')}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                className="nav-item"
+              <NavLink
+                activeClassName='item-selected'
+                className="mobile-nav-item"
                 style={{ marginRight: "10px" }}
                 to="/mylist"
               >
                 {t('mylist')}
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>
