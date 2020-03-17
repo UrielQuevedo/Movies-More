@@ -1,9 +1,9 @@
 import { useState  } from 'react';
 
-const UseCustomAPI = () => {
+const UseCustomAPI = (defaultValue) => {
   const [response, setResponse] = useState({
     loading: false,
-    data: null,
+    data: defaultValue,
     error: null,
   })
 

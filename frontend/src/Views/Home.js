@@ -3,13 +3,13 @@ import API from '../Route/Api';
 import useCustomAPI from "../Hooks/UseCustomAPI";
 
 const Home = () => {
-  const [response, executeAPI] = useCustomAPI();
+  const [response, executeAPI] = useCustomAPI(null);
   const {loading: loadingMovie , data: movies, error: errorMovie} = response;
 
    useEffect(() => {
     executeAPI({ API: API, type: 'get', path: '/movies' });
    },[]);
-
+   
   const moviesComponent = () => {
     return movies.map( e => (
       <img src={e.poster_url} width="200" height="325" alt=""/>

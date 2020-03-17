@@ -1,29 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import M from "materialize-css";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { ThemeContext } from "../Hooks/ThemeContext";
+import UseDarkMode from "../Hooks/UseDarkMode";
+import { BasicUserInfoContext } from "../Hooks/BasicUserInfoContext";
+import UseLenguage from "../Hooks/UseLenguage";
 
 const MobileNavbarBottom = () => {
-  const [sideNav, setSideNav] = useState();
+  const [elems, setElems] = useState();
+  const [_, setTheme] = useContext(ThemeContext);
+  const [__, isDarkThemeActive, changeTheme] = UseDarkMode();
+  const [lenguage, changeLenguage] = UseLenguage();
   const { t } = useTranslation();
+  const [user] = useContext(BasicUserInfoContext);
 
   useEffect(() => {
     const options = {
       edge: "right"
     };
 
-    const elem = document.querySelectorAll(".sidenav");
-    const sidenav = M.Sidenav.init(elem, options);
-
+    const sidenav = document.querySelectorAll(".sidenav");
     const collapsibleElem = document.querySelectorAll(".collapsible");
-    M.Collapsible.init(collapsibleElem);
-
-    setSideNav(sidenav[0]);
+    setElems({sideNav: M.Sidenav.init(sidenav, options)[0], collapsible: M.Collapsible.init(collapsibleElem)[0]});
   }, []);
 
-  return (
-    <>
+  const navbarComponent = () => {
+    return (
       <div className="show-on-med-only hide-on-large-only mobile-navbar-bottom">
         <nav className="mobile-nav-bottom">
           <div>
@@ -61,6 +65,27 @@ const MobileNavbarBottom = () => {
           </div>
         </nav>
       </div>
+    );
+  }
+
+  const logOut = () => {
+    window.localStorage.clear();
+    window.location.href = '/login';
+  }
+
+  const createViewLenguage = (leng, lengView) => {
+    return (
+      <span onClick={() => {
+        changeLenguage(leng);
+        elems.collapsible.close(1);
+        }}>
+        {lengView}
+      </span>
+    );
+  }
+
+  const sidenavComponent = () => {
+    return (
       <ul
         class="sidenav show-on-med-only hide-on-large-only collapse-menu"
         id="mobile-demo"
@@ -73,25 +98,21 @@ const MobileNavbarBottom = () => {
             <a href="#user">
               <img
                 class="circle"
-                src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg"
+                src={user.photoURL}
               />
             </a>
-            <a href="#name">
-              <span class="white-text name">Uriel Quevedo</span>
-            </a>
-            <a href="#email">
-              <span class="white-text email">quevedouriel3@gmail.com</span>
-            </a>
+            <span class="white-text name">{user.nickname}</span>
+            <span class="white-text email">{user.email}</span>
           </div>
         </li>
         <div className="row">
           <ul className="col s12 m6 offset-m3 collapsible ">
-            <li className="row" style={{ margin: "0px" }}>
+            <Link to='/profile' className="row" style={{ margin: "0px" }} onClick={() => elems.sideNav.close()}>
               <i class="material-icons col s2 collapse-menu-icon">
                 account_box
               </i>
-              <div className="col s10 collapse-menu-font">{t('Profile')}</div>
-            </li>
+              <div className="col s10 collapse-menu-font" style={{transform:'translateY(10px)'}}>{t('Profile')}</div>
+            </Link>
             <li className="row" style={{ margin: "0px" }}>
               <i class="material-icons col s2 collapse-menu-icon">
                 brightness_4
@@ -103,9 +124,9 @@ const MobileNavbarBottom = () => {
                   style={{ textAlign: "center" }}
                 >
                   <input
-                    //defaultChecked={isDarkThemeActive}
+                    defaultChecked={isDarkThemeActive}
                     type="checkbox"
-                    //onClick={() => changeTheme(setTheme)}
+                    onClick={() => changeTheme(setTheme)}
                   />
                   <span class="lever" style={{ margin: "0" }}></span>
                 </label>
@@ -128,10 +149,10 @@ const MobileNavbarBottom = () => {
                 class="collapsible-body collapsible-menu"
                 style={{ textAlign: "center" }}
               >
-                <span>Spanish (es-ES)</span>
+                { lenguage() === 'es' ?  createViewLenguage('en','Ingles (en-US)') :  createViewLenguage('es','Spanish (es-ES)')}
               </div>
             </li>
-            <li className="row" style={{ margin: "0px" }}>
+            <li className="row" style={{ margin: "0px" }} onClick={() => logOut()}>
               <i class="material-icons col s2 collapse-menu-icon">
                 exit_to_app
               </i>
@@ -142,12 +163,19 @@ const MobileNavbarBottom = () => {
         <li className="collapse-menu-close">
           <i
             className="material-icons collapse-menu-icon-close"
-            onClick={() => sideNav.close()}
+            onClick={() => elems.sideNav.close()}
           >
             highlight_off
           </i>
         </li>
       </ul>
+    );
+  }
+
+  return (
+    <>
+      {navbarComponent()}
+      {sidenavComponent()}
     </>
   );
 };

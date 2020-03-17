@@ -15,6 +15,10 @@ export const GlobalStyles = createGlobalStyle`
     flex-direction: column;
   }
 
+  .sidenav-trigger{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+
   .collapse-user {
     display: flex;
     margin-top: 30px;

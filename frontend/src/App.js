@@ -1,23 +1,51 @@
-import React, { Suspense, useState, useMemo } from "react";
+import React, { Suspense, useState, useMemo, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
+import UseDarkMode from "./Hooks/UseDarkMode";
+import { ThemeContext } from './Hooks/ThemeContext';
+
+/*
+  Views
+*/
 import LogIn from "./Views/LogIn";
 import Home from "./Views/Home";
 import Movies from './Views/Movies'
 import Register from "./Views/Register";
-import UsePrivateRoute from "./Route/UsePrivateRoute";
-import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
-import Footer from "./Components/Footer";
-import { ThemeContext } from './Hooks/ThemeContext';
-import CheckLogRoute from "./Route/CheckLogRoute";
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyles } from './Styled/global';
-import Navbar from "./Components/Navbar";
-import UseDarkMode from "./Hooks/UseDarkMode";
+import Profile from "./Views/Profile";
+import Mylist from "./Views/Mylist";
+
+/*
+  Components
+*/
 import MobileNavbarBottom from "./Components/MobileNavbarBottom";
 import MobileNavbarTop from "./Components/MobileNavbarTop";
+import Footer from "./Components/Footer";
+import Navbar from "./Components/Navbar";
+
+/*
+  Styles
+*/
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyles } from './Styled/global';
+
+/*
+  Route
+*/
+import UsePrivateRoute from "./Route/UsePrivateRoute";
+import CheckLogRoute from "./Route/CheckLogRoute";
+import { BasicUserInfoContext } from "./Hooks/BasicUserInfoContext";
+import UseCustomAPI from "./Hooks/UseCustomAPI";
+import API from "./Route/Api";
 
 function App() {
   const [actualTheme] = UseDarkMode();
   const [theme, setTheme] = useState(actualTheme());
+  const [response, executeAPI] = UseCustomAPI({});
+
+  const {data: user} = response;
+
+  useEffect(() => {
+    executeAPI({ API: API, type:'get', path:`/user/${window.localStorage.getItem('uid')}`})
+  }, [])
   
   return (
       <Router>
@@ -26,18 +54,22 @@ function App() {
           <CheckLogRoute exact path="/singin" component={LogIn} />
           <ThemeProvider theme={theme}>
             <ThemeContext.Provider value={[theme, setTheme]}>
-              <GlobalStyles />
-              <div style={{flex: '1 0 auto'}}>
+              <BasicUserInfoContext.Provider value={[user]}>
+                <GlobalStyles />
                 <Navbar />
                 <MobileNavbarTop />
                 <MobileNavbarBottom />
-                <Switch>
-                  <UsePrivateRoute path='/' exact component={Home} />
-                  <UsePrivateRoute path='/movies' exact component={Movies} />
-                  <Redirect to='/' />
-                </Switch>
-              </div>
-              <Footer />
+                <div style={{flex: '1 0 auto'}}>
+                  <Switch>
+                    <UsePrivateRoute path='/' exact component={Home} />
+                    <UsePrivateRoute path='/movies' exact component={Movies} />
+                    <UsePrivateRoute path='/profile' exact component={Profile} />
+                    <UsePrivateRoute path='/mylist' exact component={Mylist} />
+                    <Redirect to='/' />
+                  </Switch>
+                </div>
+                <Footer />
+              </BasicUserInfoContext.Provider>
             </ThemeContext.Provider>
           </ThemeProvider>
           </Switch>
