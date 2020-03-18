@@ -26,7 +26,6 @@ const MobileNavbarTop = () => {
           >
             <li>
               <NavLink
-                activeClassName='item-selected'
                 className="mobile-nav-item"
                 to="/movies"
               >
@@ -35,7 +34,6 @@ const MobileNavbarTop = () => {
             </li>
             <li>
               <NavLink
-                activeClassName='item-selected'
                 className="mobile-nav-item"
                 to="/programs"
               >
@@ -44,7 +42,6 @@ const MobileNavbarTop = () => {
             </li>
             <li>
               <NavLink
-                activeClassName='item-selected'
                 className="mobile-nav-item"
                 to="/trailers"
               >
@@ -53,7 +50,6 @@ const MobileNavbarTop = () => {
             </li>
             <li>
               <NavLink
-                activeClassName='item-selected'
                 className="mobile-nav-item"
                 style={{ marginRight: "10px" }}
                 to="/mylist"

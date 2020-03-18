@@ -8,6 +8,38 @@ export const GlobalStyles = createGlobalStyle`
     transition: 1s;
   }
 
+  .search-bar {
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    bottom: 50px;
+    animation-name: search;
+    animation-duration: 0.5s;
+    background: #26a69a;
+  }
+
+  @keyframes search {
+    0% {
+      bottom: 0px;
+    }
+  }
+
+  .input-search-bar {
+    padding-left: 9px !important;
+    width: 100% !important;
+    color: #fff;
+  }
+
+  .input-search-bar::-webkit-input-placeholder {
+    font-size: 14px;
+    color: #0d2321;
+  }
+
+  .input-search-bar:focus {
+    color: #fff !important;
+    background: #26a69a !important;
+  }
+
   .collapse-body {
     display: flex;
     justify-content: center;

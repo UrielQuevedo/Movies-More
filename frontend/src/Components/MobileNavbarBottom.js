@@ -8,6 +8,7 @@ import NotificationSideNav from './NotificationSideNav';
 
 const MobileNavbarBottom = () => {
   const [elems, setElems] = useState({});
+  const [isSearchBarActive, setIsSearchBarActive] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -20,9 +21,26 @@ const MobileNavbarBottom = () => {
     setElems({ menu: sidenav[0], notification: sidenav[1] });
   }, []);
 
+  const searchBar = () => {
+    return (
+      <nav className="search-bar">
+        <div class="nav-wrapper">
+          <form className="row" style={{ textAlign:'center' }}>
+            <i class="material-icons col s1 m1">search</i>
+            <div class="input-field col s9 m10">
+              <input autocomplete="off" placeholder="Movies, Actors, Directors, etc.." id="search" type="search" className="input-search-bar" required />
+            </div>
+            <i class="material-icons col s2 m1" style={{ padding:'0px' }}>close</i>
+          </form>
+        </div>
+      </nav>
+    );
+  }
+
   const navbarComponent = () => {
     return (
-      <div className="show-on-med-only hide-on-large-only mobile-navbar-bottom">
+      <div className="show-on-med-only hide-on-large-only mobile-navbar-bottom" style={{transition: '1s'}}>
+        { isSearchBarActive && searchBar() }
         <nav className="mobile-nav-bottom">
           <div>
             <ul style={{ display: "flex", justifyContent: "space-around" }}>
@@ -32,7 +50,7 @@ const MobileNavbarBottom = () => {
                   <p className="mobile-navbar-bottom-item">{t('Home')}</p>
                 </NavLink>
               </li>
-              <li>
+              <li onClick={() => setIsSearchBarActive(!isSearchBarActive)}>
                 <i class="material-icons mobile-navbar-bottom-icons">search</i>
                 <p className="mobile-navbar-bottom-item">{t('Search')}</p>
               </li>
