@@ -13,8 +13,8 @@ const Navbar = () => {
   const [user, setUser] = useState({});
   const {t} = useTranslation();
   const [lenguage, changeLenguage] = UseLenguage();
-  const [_, setTheme] = useContext(ThemeContext);
-  const [__, isDarkThemeActive, changeTheme] = UseDarkMode();
+  const setTheme = useContext(ThemeContext);
+  const {isDarkThemeActive, changeTheme} = UseDarkMode();
 
   useEffect(() => {
     API.get('/user/' + window.localStorage.getItem('uid'))

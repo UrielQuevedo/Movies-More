@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { darkTheme, lightTheme } from "../Styled/theme";
 
 const UseDarkMode = () => {
@@ -25,7 +24,7 @@ const UseDarkMode = () => {
     f(actualTheme);
   }
 
-  return [actualTheme, isDarkThemeActive, changeTheme];
+  return {actualTheme, isDarkThemeActive, changeTheme};
 }
  
 export default UseDarkMode;

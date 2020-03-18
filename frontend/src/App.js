@@ -37,7 +37,7 @@ import UseCustomAPI from "./Hooks/UseCustomAPI";
 import API from "./Route/Api";
 
 function App() {
-  const [actualTheme] = UseDarkMode();
+  const {actualTheme} = UseDarkMode();
   const [theme, setTheme] = useState(actualTheme());
   const [response, executeAPI] = UseCustomAPI({});
 
@@ -53,7 +53,7 @@ function App() {
           <CheckLogRoute exact path="/singup" component={Register} />
           <CheckLogRoute exact path="/singin" component={LogIn} />
           <ThemeProvider theme={theme}>
-            <ThemeContext.Provider value={[theme, setTheme]}>
+            <ThemeContext.Provider value={setTheme}>
               <BasicUserInfoContext.Provider value={[user]}>
                 <GlobalStyles />
                 <Navbar />
