@@ -8,6 +8,21 @@ export const GlobalStyles = createGlobalStyle`
     transition: 1s;
   }
 
+  .mobile-navbar-top {
+    position: fixed;
+    transition: 0.4s;
+    width: 100%;
+    background: rgb(2, 9, 35);
+  }
+
+  .mobile-navbar-top-hidden {
+    top: -60px;
+  }
+
+  .mobile-navbar-top-visible {
+    top: -1px;
+  }
+
   .search-bar {
     position: fixed;
     z-index: -1;

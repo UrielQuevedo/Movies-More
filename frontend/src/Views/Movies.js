@@ -1,11 +1,15 @@
 import React, { useContext } from 'react'
+import CustomMobileNav from '../Components/CustomMobileNav';
 
 const Movies = () => {
 
-  return ( 
-    <div>
-      <h1>MOVIES</h1>
-    </div>
+  return (
+    <>
+      <CustomMobileNav />
+      <div>
+        <h1>MOVIES</h1>
+      </div>
+    </>
    );
 }
  

@@ -1,19 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
-const MobileNavbarTop = () => {
+const HomeMobileNavbarTop = () => {
   const { t } = useTranslation();
+  const [showNav, setShowNav] = useState({
+    visible: true,
+    prevScrollPos: window.pageYOffset,
+    isRender: true,
+  })
+
+  const handleScroll = () => {
+    const prevPos = showNav.prevScrollPos;
+    const currentScrollPos = window.pageYOffset;
+    const isVisible = prevPos > currentScrollPos;
+
+    if (!showNav.isRender) {
+      setShowNav({
+        ...showNav,
+        prevScrollPos: currentScrollPos,
+        visible: isVisible,
+      });
+    } else {
+      setShowNav({
+        ...showNav,
+        isRender: false,
+      })
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, [showNav]);
 
   return (
     <div
-      className="show-on-med-only hide-on-large-only"
-      style={{
-        position: "fixed",
-        top: "-1px",
-        width: "100%",
-        background: "#020923"
-      }}
+      className={"show-on-med-only hide-on-large-only mobile-navbar-top " + (showNav.visible ? 'mobile-navbar-top-visible' : 'mobile-navbar-top-hidden')}
     >
       <nav className="mobile-nav-top">
         <div class="nav-wrapper">
@@ -64,4 +90,4 @@ const MobileNavbarTop = () => {
   );
 };
 
-export default MobileNavbarTop;
+export default HomeMobileNavbarTop;

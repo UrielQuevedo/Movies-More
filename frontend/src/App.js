@@ -17,7 +17,6 @@ import Mylist from "./Views/Mylist";
   Components
 */
 import MobileNavbarBottom from "./Components/MobileNavbarBottom";
-import MobileNavbarTop from "./Components/MobileNavbarTop";
 import Footer from "./Components/Footer";
 import Navbar from "./Components/Navbar";
 
@@ -57,7 +56,6 @@ function App() {
               <BasicUserInfoContext.Provider value={[user]}>
                 <GlobalStyles />
                 <Navbar />
-                <MobileNavbarTop />
                 <MobileNavbarBottom />
                 <div style={{flex: '1 0 auto'}}>
                   <Switch>
