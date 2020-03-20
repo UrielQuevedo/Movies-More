@@ -8,6 +8,43 @@ export const GlobalStyles = createGlobalStyle`
     transition: 1s;
   }
 
+  .collapse-menu-genre {
+    width: 100%;
+    background: linear-gradient(0deg, 
+      rgba(23,30,61,1) 15%, 
+      rgba(23,30,61,1) 15%, 
+      rgba(23,30,61,1) 15%, 
+      rgba(23,30,61,1) 15%, 
+      rgba(23,30,61,0.8136205165660014) 30%, 
+      rgba(23,30,61,0.8136205165660014) 77%, 
+      rgba(23,30,61,1) 98%)
+  }
+
+  .close-buttom-genre {
+    color: #ffffff;
+    background: black;
+    border-radius: 31px;
+    transform: scale(1.5);
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0) scale(2);
+  }
+
+  .genre-title {
+    color: #9c9595;
+    height: 40px;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .genre-list {
+    overflow: auto;
+    height: 92%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .title-genres-nav {
     color: #fff;
     font-weight: 600;
@@ -19,6 +56,7 @@ export const GlobalStyles = createGlobalStyle`
     position: fixed;
     width: 100%;
     top: 54px;
+    background: #171e3d;
     animation-name: genres;
     animation-duration: 0.5s;
     z-index: 0;

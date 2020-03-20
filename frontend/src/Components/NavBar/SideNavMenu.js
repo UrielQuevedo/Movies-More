@@ -37,8 +37,6 @@ const SideNavMenu = ({sideNavElem}) => {
     );
   }
 
-  console.log(sideNavElem);
-
   return (
     <ul
       class="sidenav show-on-med-only hide-on-large-only collapse-menu"
