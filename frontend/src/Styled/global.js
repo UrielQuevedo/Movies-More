@@ -8,7 +8,30 @@ export const GlobalStyles = createGlobalStyle`
     transition: 1s;
   }
 
+  .title-genres-nav {
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0 !important;
+  }
+
+  .genres-navbar {
+    position: fixed;
+    width: 100%;
+    top: 54px;
+    animation-name: genres;
+    animation-duration: 0.5s;
+    z-index: 0;
+  }
+
+  @keyframes genres {
+    0% {
+      top: 0px;
+    }
+  }
+
   .mobile-navbar-top {
+    z-index: 1;
     position: fixed;
     transition: 0.4s;
     width: 100%;

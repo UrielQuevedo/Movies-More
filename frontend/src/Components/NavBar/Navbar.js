@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import LOGO from '../ICONO.png';
+import LOGO from '../../ICONO.png';
 import M from 'materialize-css';
 import { NavLink } from 'react-router-dom';
-import API from '../Route/Api';
+import API from '../../Route/Api';
 import { useTranslation } from 'react-i18next';
-import UseLenguage from '../Hooks/UseLenguage';
-import UseDarkMode from '../Hooks/UseDarkMode';
+import UseLenguage from '../../Hooks/UseLenguage';
+import UseDarkMode from '../../Hooks/UseDarkMode';
 import { useContext } from 'react';
-import { ThemeContext } from '../Hooks/ThemeContext';
+import { ThemeContext } from '../../Hooks/ThemeContext';
 
 const Navbar = () => {
   const [user, setUser] = useState({});

@@ -16,9 +16,9 @@ import Mylist from "./Views/Mylist";
 /*
   Components
 */
-import MobileNavbarBottom from "./Components/MobileNavbarBottom";
+import MobileNavbarBottom from "./Components/NavBar/MobileNavbarBottom";
 import Footer from "./Components/Footer";
-import Navbar from "./Components/Navbar";
+import Navbar from "./Components/NavBar/Navbar";
 
 /*
   Styles
@@ -34,7 +34,7 @@ import CheckLogRoute from "./Route/CheckLogRoute";
 import { BasicUserInfoContext } from "./Hooks/BasicUserInfoContext";
 import UseCustomAPI from "./Hooks/UseCustomAPI";
 import API from "./Route/Api";
-import MobileNavbarTop from "./Components/MobileNavbarTop";
+import MobileNavbarTop from "./Components/NavBar/MobileNavbarTop";
 
 function App() {
   const {actualTheme} = UseDarkMode();

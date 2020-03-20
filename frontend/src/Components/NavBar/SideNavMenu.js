@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react'; 
-import { ThemeContext } from "../Hooks/ThemeContext";
-import UseDarkMode from "../Hooks/UseDarkMode";
-import { BasicUserInfoContext } from "../Hooks/BasicUserInfoContext";
-import UseLenguage from "../Hooks/UseLenguage";
+import { ThemeContext } from "../../Hooks/ThemeContext";
+import UseDarkMode from "../../Hooks/UseDarkMode";
+import { BasicUserInfoContext } from "../../Hooks/BasicUserInfoContext";
+import UseLenguage from "../../Hooks/UseLenguage";
 import { useState } from 'react';
 import M from "materialize-css";
 import { useTranslation } from 'react-i18next';
