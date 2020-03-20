@@ -28,9 +28,9 @@ const MobileNavbarBottom = () => {
           <form className="row" style={{ textAlign:'center' }}>
             <i class="material-icons col s1 m1">search</i>
             <div class="input-field col s9 m10">
-              <input autocomplete="off" placeholder="Movies, Actors, Directors, etc.." id="search" type="search" className="input-search-bar" required />
+              <input autofocus="true" autocomplete="off" placeholder="Movies, Actors, Directors, etc.." id="search" type="search" className="input-search-bar" required />
             </div>
-            <i class="material-icons col s2 m1" style={{ padding:'0px' }}>close</i>
+            <i class="material-icons col s2 m1" style={{ padding:'0px' }} onClick={() => setIsSearchBarActive(false)}>close</i>
           </form>
         </div>
       </nav>

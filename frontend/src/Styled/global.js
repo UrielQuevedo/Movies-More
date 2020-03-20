@@ -71,14 +71,25 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .mobile-nav-item {
-    margin: 0px !important;
     color: #fff;
     font-weight: 800;
     text-transform: uppercase;
-    margin-left: 14px;
     padding: 0 !important;
-    height: 51px;
+    transition: 0.5s;
+    @media (max-width: 320px)
+    {
+      font-size: 12px;
+    }
   }
+
+  .mobile-nav-item-selected {
+    font-size: 17px;
+    @media (max-width: 320px)
+    {
+      font-size: 14.5px;
+    }
+  }
+
 
   .collapse-user {
     display: flex;

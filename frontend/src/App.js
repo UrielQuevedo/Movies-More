@@ -34,6 +34,7 @@ import CheckLogRoute from "./Route/CheckLogRoute";
 import { BasicUserInfoContext } from "./Hooks/BasicUserInfoContext";
 import UseCustomAPI from "./Hooks/UseCustomAPI";
 import API from "./Route/Api";
+import MobileNavbarTop from "./Components/MobileNavbarTop";
 
 function App() {
   const {actualTheme} = UseDarkMode();
@@ -56,6 +57,7 @@ function App() {
               <BasicUserInfoContext.Provider value={[user]}>
                 <GlobalStyles />
                 <Navbar />
+                <MobileNavbarTop />
                 <MobileNavbarBottom />
                 <div style={{flex: '1 0 auto'}}>
                   <Switch>

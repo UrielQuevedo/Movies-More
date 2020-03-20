@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 
-const HomeMobileNavbarTop = () => {
+const MobileNavbarTop = () => {
   const { t } = useTranslation();
   const [showNav, setShowNav] = useState({
     visible: true,
@@ -53,6 +53,7 @@ const HomeMobileNavbarTop = () => {
             <li>
               <NavLink
                 className="mobile-nav-item"
+                activeClassName="mobile-nav-item-selected"
                 to="/movies"
               >
                 {t('movies')}
@@ -60,6 +61,7 @@ const HomeMobileNavbarTop = () => {
             </li>
             <li>
               <NavLink
+                activeClassName="mobile-nav-item-selected"
                 className="mobile-nav-item"
                 to="/programs"
               >
@@ -68,6 +70,7 @@ const HomeMobileNavbarTop = () => {
             </li>
             <li>
               <NavLink
+                activeClassName="mobile-nav-item-selected"
                 className="mobile-nav-item"
                 to="/trailers"
               >
@@ -76,6 +79,7 @@ const HomeMobileNavbarTop = () => {
             </li>
             <li>
               <NavLink
+                activeClassName="mobile-nav-item-selected"
                 className="mobile-nav-item"
                 style={{ marginRight: "10px" }}
                 to="/mylist"
@@ -90,4 +94,4 @@ const HomeMobileNavbarTop = () => {
   );
 };
 
-export default HomeMobileNavbarTop;
+export default MobileNavbarTop;

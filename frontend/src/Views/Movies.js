@@ -1,11 +1,9 @@
-import React, { useContext } from 'react'
-import CustomMobileNav from '../Components/CustomMobileNav';
+import React, { useContext } from 'react';
 
 const Movies = () => {
 
   return (
     <>
-      <CustomMobileNav />
       <div>
         <h1>MOVIES</h1>
       </div>
