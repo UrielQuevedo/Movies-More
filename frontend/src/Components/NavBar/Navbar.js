@@ -79,7 +79,7 @@ const Navbar = () => {
   };
 
   const createSelectLenguage = (leng, lengView) => {
-    return <li className="dropdown-content-lenguage-item" onClick={() => changeLenguage(leng, window.location.reload())}>{lengView}</li>
+    return <li className="dropdown-content-lenguage-item" onClick={() => changeLenguage(leng)}>{lengView}</li>
   }
 
   const dropdownLenguage = () => {

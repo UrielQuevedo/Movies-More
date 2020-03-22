@@ -29,8 +29,8 @@ const SideNavMenu = ({sideNavElem}) => {
   const createViewLenguage = (leng, lengView) => {
     return (
       <span onClick={() => {
-        changeLenguage(leng);
         elem.close(1);
+        changeLenguage(leng);
         }}>
         {lengView}
       </span>

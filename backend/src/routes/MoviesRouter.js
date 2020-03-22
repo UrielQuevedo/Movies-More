@@ -4,6 +4,7 @@ const MovieService = require('../service/MovieService');
 const router = Router();
 const rp = require('request-promise');
 const GenreService = require('../service/GenreService');
+const { translate, translateAll } = require('../translate/moviesTranslate');
 
 // // Devuelve una pelicula con todos los detalles
 // router.get('/:id', (executeFunction(['lenguage'], (req, res) => {
@@ -26,18 +27,18 @@ router.get('/genre/:genre', (executeFunction(['page','lenguage'], (req, res) => 
 router.get('/genre/:genre/:limit', (executeFunction(['lenguage'], (req, res) => {
   const limit = parseInt(req.params.limit)
   const genre = req.params.genre;
+  const leng = req.query.lenguage;
 
   MovieService.getLimitMovies(genre, limit)
-    .then((response) => res.status(201).json(response));
+    .then((movies) => res.status(201).json(translateAll(leng, movies)));
 })))
 
 // Devuelve los comentarios de una pelicula
 router.get('/:id/comments', (executeFunction([], (req, res) => {
-  console.log("ENTRO2");
+
 })))
 
 router.get('/movie/traer', (executeFunction([],(_, res) => {
-  console.log("ENTRO3");
   let ids = [];
   let genres = new Set();
   for (let i = 1; i < 9; i++) {

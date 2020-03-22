@@ -9,10 +9,8 @@ const getMovies = (genre, lastLimit, limit) => {
     .offset(lastLimit)
     .get()
     .then((snap) => {
-      let c = 1;
       const movies = []
       snap.forEach((doc) => {
-        c = c + 1;
         movies.push(doc.data())
       })
       return movies;
