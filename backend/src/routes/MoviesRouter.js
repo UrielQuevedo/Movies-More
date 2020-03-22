@@ -2,11 +2,99 @@ const { Router } = require('express');
 const { executeFunction } = require('../connection');
 const MovieService = require('../service/MovieService');
 const router = Router();
+const rp = require('request-promise');
+const GenreService = require('../service/GenreService');
 
-router.get('/', (executeFunction([], (_, res) => {
-  MovieService.getMovies()
-    .then(response => res.status(200).json(response))
-    .catch(e => res.status(401).json(e))
+// // Devuelve una pelicula con todos los detalles
+// router.get('/:id', (executeFunction(['lenguage'], (req, res) => {
+//   console.log("ENTRO1");
+//   const movie = MovieService.getMovie(req.params.id);
+//   // traducir la movie y retornarla
+//   res.status(201).json(movie);
+// })))
+
+// Devuelve una paginacion de peliculas
+router.get('/genre/:genre', (executeFunction(['page','lenguage'], (req, res) => {
+  const page = parseInt(req.query.page);
+  const genre = req.params.genre;
+   
+  MovieService.getMovies(genre, page)
+    .then((response) => res.status(201).json(response))
+})))
+
+// Devuelve una cantidad de peliculas limitadas
+router.get('/genre/:genre/:limit', (executeFunction(['lenguage'], (req, res) => {
+  const limit = parseInt(req.params.limit)
+  const genre = req.params.genre;
+
+  MovieService.getLimitMovies(genre, limit)
+    .then((response) => res.status(201).json(response));
+})))
+
+// Devuelve los comentarios de una pelicula
+router.get('/:id/comments', (executeFunction([], (req, res) => {
+  console.log("ENTRO2");
+})))
+
+router.get('/movie/traer', (executeFunction([],(_, res) => {
+  console.log("ENTRO3");
+  let ids = [];
+  let genres = new Set();
+  for (let i = 1; i < 9; i++) {
+    rp(`https://api.themoviedb.org/3/movie/popular?api_key=79a3f2fba1eb064439c6aecab8c7d7b2&language=en-US&page=${i}`)
+    .then((response) => {
+      const result = JSON.parse(response);
+      result.results.forEach(element => {
+        ids.push(element.id)
+      });
+      if(i === 8) {
+        ids.forEach(id => {
+          rp(`https://api.themoviedb.org/3/movie/${id}?api_key=79a3f2fba1eb064439c6aecab8c7d7b2&language=es`)
+          .then((data) => {
+            const _data = JSON.parse(data);
+            const _backdrop = `https://image.tmdb.org/t/p/original${_data.backdrop_path}`;
+            const poster = `https://image.tmdb.org/t/p/original${_data.poster_path}`; 
+            var newMovie = {
+              backdrop_url: _backdrop,
+              es_title: _data.title,
+              es_overview: _data.overview,
+              runtime: _data.runtime,
+              es_poster_url: poster,
+            }
+            rp(`https://api.themoviedb.org/3/movie/${id}?api_key=79a3f2fba1eb064439c6aecab8c7d7b2&language=en`)
+            .then((en) => {
+              const _en = JSON.parse(en)
+              const poster = `https://image.tmdb.org/t/p/original${_en.poster_path}`; 
+              newMovie.en_overview = _en.overview;
+              newMovie.en_title = _en.title,
+              newMovie.en_poster_url = poster,
+              newMovie.genres = _en.genres.map((e) => e.name.toLowerCase());
+              newMovie.genres.forEach(e => genres.add(e));
+              rp(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=79a3f2fba1eb064439c6aecab8c7d7b2`)
+              .then((credits) => {
+                const _credist = JSON.parse(credits);
+                const director = _credist.crew.find((e) => e.job === "Director");
+
+                if (director) {
+                  newMovie.director = director.name;
+                } else {
+                  newMovie.director = "?";
+                }
+                MovieService.addMovie(newMovie);
+                const ls = Array.from(genres);
+                GenreService.addGenres(ls);
+              })
+              .catch((error) => console.log(error))
+            })
+            .catch((error) => console.log(error));
+          })
+          .catch((error) => console.log(error))
+        })
+      }
+    })
+    .catch((error) => console.log("ERROR"));     
+  }
+  res.status(201).json("OK");
 })));
 
 module.exports = router;

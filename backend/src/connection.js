@@ -16,6 +16,7 @@ function executeFunction(params,func) {
       try {
         func(req, res);
       } catch (error) {
+        console.log(error)
         catchError(error, res);
       }
     } else {

@@ -20,6 +20,10 @@ export const GlobalStyles = createGlobalStyle`
       rgba(23,30,61,1) 98%)
   }
 
+  .genre-list::-webkit-scrollbar {
+    display: none;
+  }
+
   .close-buttom-genre {
     color: #ffffff;
     background: black;
@@ -32,9 +36,9 @@ export const GlobalStyles = createGlobalStyle`
 
   .genre-title {
     color: #9c9595;
-    height: 40px;
+    height: 48px;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 22px;
   }
 
   .genre-list {

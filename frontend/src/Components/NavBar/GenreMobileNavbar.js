@@ -12,6 +12,7 @@ const GenreMobileNavbar = () => {
   useEffect(() => {
     const options = {
       edge: "right",
+      draggable: false,
     };
 
     const elem = document.querySelectorAll(".sidenav");
