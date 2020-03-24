@@ -59,7 +59,7 @@ function App() {
                 <Navbar />
                 <MobileNavbarTop />
                 <MobileNavbarBottom />
-                <div style={{flex: '1 0 auto'}}>
+                <div style={{flex: '1 0 auto', marginTop:"5%"}}>
                   <Switch>
                     <UsePrivateRoute path='/' exact component={Home} />
                     <UsePrivateRoute path='/movies' exact component={Movies} />

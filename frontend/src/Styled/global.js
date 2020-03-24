@@ -2,6 +2,82 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+
+  .contenedor-imagen {
+    position: relative;
+    height: 0;
+    padding-top: 150.27%;
+    overflow: hidden;
+    background: #202124;
+    transition: -webkit-transform .3s ease-in-out;
+    transition: transform .3s ease-in-out;
+    transition: transform .3s ease-in-out,-webkit-transform .3s ease-in-out;
+  }
+
+  .sarasa {
+    opacity: 0;
+  }
+
+  .contenedor-imagen .imagenes img {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  .imagenes .imagen {
+    opacity: 1;
+  }
+
+  .contenedor-imagen img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: scale(.97);
+    transform: scale(.97);
+  }
+
+  .imagen {
+    display: block;
+    min-height: 1px;
+    opacity: 0;
+    transition: all .3s ease-in-out;
+  }
+
+  img {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+  }
+
+  .carde {
+    @media (max-width: 1024px)
+    {
+        width: 20%;
+    }
+    @media (max-width: 640px)
+    {
+        width: 25%;
+    }
+    @media (max-width: 640px)
+    {
+      width: 40%;
+      margin-bottom: 2rem;
+    }
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    width: 16%;
+    padding: 0 .4rem;
+  }
+
+  .container-items {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -.4rem;
+    margin-left: -.4rem;
+  }
+
   body {
     background-color: ${({ theme }) => theme.body};
     background-image: url('');

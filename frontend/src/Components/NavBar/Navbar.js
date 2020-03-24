@@ -110,7 +110,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="navbar-fixed hide-on-med-and-down">
+    <div className="hide-on-med-and-down" style={{position:'fixed', width:'100%', zIndex:'1'}}>
       {dropdownSetting()}
       {dropdownLenguage()}
       <ul id="notification" className="dropdown-content">

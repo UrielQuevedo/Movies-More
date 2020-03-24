@@ -54,7 +54,7 @@ router.get('/movie/traer', (executeFunction([],(_, res) => {
           .then((data) => {
             const _data = JSON.parse(data);
             const _backdrop = `https://image.tmdb.org/t/p/original${_data.backdrop_path}`;
-            const poster = `https://image.tmdb.org/t/p/original${_data.poster_path}`; 
+            const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_data.poster_path}`; 
             var newMovie = {
               backdrop_url: _backdrop,
               es_title: _data.title,
@@ -65,7 +65,7 @@ router.get('/movie/traer', (executeFunction([],(_, res) => {
             rp(`https://api.themoviedb.org/3/movie/${id}?api_key=79a3f2fba1eb064439c6aecab8c7d7b2&language=en`)
             .then((en) => {
               const _en = JSON.parse(en)
-              const poster = `https://image.tmdb.org/t/p/original${_en.poster_path}`; 
+              const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_en.poster_path}`; 
               newMovie.en_overview = _en.overview;
               newMovie.en_title = _en.title,
               newMovie.en_poster_url = poster,
