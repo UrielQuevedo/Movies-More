@@ -18,7 +18,7 @@ export const GlobalStyles = createGlobalStyle`
     opacity: 0;
   }
 
-  .contenedor-imagen .imagenes img {
+  .contenedor-imagen.imagenes img {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
@@ -51,24 +51,30 @@ export const GlobalStyles = createGlobalStyle`
     vertical-align: middle;
   }
 
-  .carde {
+  .container-items .carde {
     @media (max-width: 1024px)
     {
-        width: 20%;
+        width: 18%;
     }
     @media (max-width: 640px)
     {
-        width: 25%;
+        width: 33.33333%;
     }
-    @media (max-width: 640px)
+    width: 14%;
+    padding: 0 .4rem;
+  }
+
+  .react-multi-carousel-item  {
+    margin-right: 22px !important;
+  }
+
+  .carde {
+    @media (min-width: 640px)
     {
-      width: 40%;
       margin-bottom: 2rem;
     }
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     line-height: 1.6;
-    width: 16%;
-    padding: 0 .4rem;
   }
 
   .container-items {

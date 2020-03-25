@@ -119,7 +119,7 @@ const Navbar = () => {
       <nav>
         <div className="row">
           <div className="col s2">
-            <a href="/"><img src={LOGO} width='140' height='140' alt="Movies&More Logotype"/></a>
+            <a href="/"><img src={LOGO} width='110' height='110' alt="Movies&More Logotype"/></a>
           </div>
           {searchComponent()}
           <ul className="col s5" style={{ display:'flex', justifyContent:'flex-end'}}>

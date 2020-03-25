@@ -13,7 +13,7 @@ const Home = () => {
   const [showImage, setImage] = useState('sarasa');
 
    useEffect(() => {
-    executeAPI({ API: API, type: 'get', path: `/movies/genre/action/18?lenguage=${lenguage()}` });
+    executeAPI({ API: API, type: 'get', path: `/movies/genre/action/21?lenguage=${lenguage()}` });
     const timer = setTimeout(() => {
       setImage('imagen');
     }, 500);
@@ -23,28 +23,52 @@ const Home = () => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
+      items: 7,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 2,
+      items: 5,
+      partialVisibilityGutter: 40,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 1,
+      items: 4,
+      partialVisibilityGutter: 40,
     },
   };
 
-  const caroulsel = () => {
+  const caroulsel = (title) => {
     return (
-      <Carousel
+      <div>
+        <h5 style={{color: "#21FFE2"}}>{title}</h5>
+        <Carousel
+        slidesToSlide={6}
         responsive={responsive}
-        infinite={true}
+        infinite={false}
+        deviceType="desktop"
+
         removeArrowOnDeviceType={["tablet", "mobile"]}
-      >
-        {moviesComponent()}
-      </Carousel>
+        >
+          {moviesCarouserl()}
+        </Carousel>
+      </div>
     );
+  }
+
+  const moviesCarouserl = () => {
+    //174px
+    return movies.map( movie => (
+      <div className="" style={{width:'91px'}}>
+        <div className="contenedor-imagen imagenes">
+          <div className="fade">
+            <img className='imagen' loading='lazy' src={movie.poster_url} width="200" height="325" alt="" style={{borderRadius:'2px'}}/>
+          </div>
+        </div> 
+        <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', textAlign:'center' }}>
+          {movie.title}
+        </div>
+      </div>
+    ));
   }
 
 
@@ -56,21 +80,7 @@ const Home = () => {
             <img className='imagen' loading='lazy' src={movie.poster_url} width="200" height="325" alt="" style={{borderRadius:'2px'}}/>
           </div>
         </div> 
-        <div className="truncate" style={{ color:'white', fontWeight:'500', textAlign:'center', width:'202px' }}>
-              {movie.title}
-            </div>
-      </div>
-    ));
-  }
-
-
-  const movies2 = () => {
-    return movies.map( movie => (
-      <div className="carde">
-        <div className="fade">
-          <img loading='lazy' src={movie.poster_url} width="200" height="325" alt="" style={{borderRadius:'2px'}}/>
-        </div>
-        <div style={{ color:'white', fontWeight:'500', textAlign:'center', width:'202px' }}>
+        <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', textAlign:'center' }}>
           {movie.title}
         </div>
       </div>
@@ -107,9 +117,11 @@ const Home = () => {
   return (
     <div className="row">
       <div className="col s12 offset-m1 m11">
+        {movies && caroulsel('Premiere')}
+        {movies && caroulsel('SuperHeroes')}
         {movies && createContent('New Movies')}
         {movies && createContent('New Chapters')}
-    </div>
+      </div>
     </div>
   );
 };
