@@ -3,6 +3,33 @@ import { createGlobalStyle } from 'styled-components';
 export const GlobalStyles = createGlobalStyle`
 
 
+  .react-multiple-carousel__arrow--right {
+    right: 0;
+  }
+
+  .react-multiple-carousel__arrow--left {
+    left: 0;
+}
+
+  .react-multiple-carousel__arrow {
+    position: absolute;
+    outline: 0;
+    transition: all .5s;
+    border-radius: 0px !important;
+    z-index: 0;
+    top: 0;
+    border: 0;
+    background: rgba(0,0,0,.5);
+    min-width: 43px;
+    min-height: 21.6rem;
+    opacity: 1;
+    cursor: pointer;
+}
+
+button:focus {
+  background: rgba(0,0,0,.5) !important;
+}
+
   .contenedor-imagen {
     position: relative;
     height: 0;
@@ -14,8 +41,8 @@ export const GlobalStyles = createGlobalStyle`
     transition: transform .3s ease-in-out,-webkit-transform .3s ease-in-out;
   }
 
-  .sarasa {
-    opacity: 0;
+  .contenedor-imagen:hover {
+    transform: scale(1.02);
   }
 
   .contenedor-imagen.imagenes img {
@@ -27,7 +54,7 @@ export const GlobalStyles = createGlobalStyle`
     opacity: 1;
   }
 
-  .contenedor-imagen img {
+  .contenedor-imagen img, .contenedor-imagen span {
     position: absolute;
     top: 0;
     left: 0;
@@ -61,11 +88,7 @@ export const GlobalStyles = createGlobalStyle`
         width: 33.33333%;
     }
     width: 14%;
-    padding: 0 .4rem;
-  }
-
-  .react-multi-carousel-item  {
-    margin-right: 22px !important;
+    padding: 0 .6rem 0 0;
   }
 
   .carde {

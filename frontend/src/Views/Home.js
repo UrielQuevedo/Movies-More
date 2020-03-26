@@ -23,7 +23,7 @@ const Home = () => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 7,
+      items: 6,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -32,7 +32,7 @@ const Home = () => {
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 4,
+      items: 3,
       partialVisibilityGutter: 40,
     },
   };
@@ -40,8 +40,18 @@ const Home = () => {
   const caroulsel = (title) => {
     return (
       <div>
-        <h5 style={{color: "#21FFE2"}}>{title}</h5>
+        <div style={styleTitulo}>
+          <h5 style={{color: "#21FFE2", marginRight:'10px'}}>{title}</h5>
+          <div style={{color: '#1ABC9C', fontSize:'11px', textTransform:'uppercase'}}>
+            explore all
+          </div>
+          <div style={styleButton}>
+            <button className="btn" style={buttons}>suscribe</button>
+          </div>
+        </div>
         <Carousel
+        draggable={false}
+        customTransition="transform 750ms ease-in-out"
         slidesToSlide={6}
         responsive={responsive}
         infinite={false}
@@ -50,21 +60,37 @@ const Home = () => {
         removeArrowOnDeviceType={["tablet", "mobile"]}
         >
           {moviesCarouserl()}
+          <div className="carde">
+            <div className="contenedor-imagen">
+              <span style={styleSpan}>
+                Explore All
+              </span>
+            </div>
+          </div>
         </Carousel>
       </div>
     );
   }
 
+  const styleSpan = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '1.1rem',
+    color: '#ffff',
+  }
+
   const moviesCarouserl = () => {
-    //174px
+    //95% grande
+    //
     return movies.map( movie => (
-      <div className="" style={{width:'91px'}}>
+      <div className="carde" style={{width:'97%'}}>
         <div className="contenedor-imagen imagenes">
           <div className="fade">
             <img className='imagen' loading='lazy' src={movie.poster_url} width="200" height="325" alt="" style={{borderRadius:'2px'}}/>
           </div>
         </div> 
-        <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', textAlign:'center' }}>
+        <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500',marginTop:'5px', textAlign:'center' }}>
           {movie.title}
         </div>
       </div>
@@ -80,32 +106,41 @@ const Home = () => {
             <img className='imagen' loading='lazy' src={movie.poster_url} width="200" height="325" alt="" style={{borderRadius:'2px'}}/>
           </div>
         </div> 
-        <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', textAlign:'center' }}>
+        <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', marginTop:'5px', textAlign:'center' }}>
           {movie.title}
         </div>
       </div>
     ));
   }
 
-  const styleButton = {
+  const styleTitulo = {
     display: 'flex',
+    alignItems: 'baseline',
+  }
+
+  const styleButton = {
+    flex: '1 0 auto',
     justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginRight: '62px',
-    transform: 'translateY(27px)',
-    alignSelf: 'end',
+    display: 'flex',
+  }
+
+  const buttons = {
+    background: 'rgb(243, 67, 53)',
+    position: 'relative',
+    right: '36px',
+    borderRadius: '4px',
+    bottom: '8px',
   }
 
   //b92f34 color para de desuscripcion
   const createContent = (title) => {
     return (
       <div>
-        <div className="row" style={{padding:'0px', margin:'0px'}}>
-          <h5 style={{color: "#21FFE2"}} className="col s1">{title}</h5>
-          <span className="col s1" style={{color: '#1ABC9C', fontSize:'11px', textTransform:'uppercase', transform:'translateY(53px)'}}>explore all</span>
-          <div style={styleButton}>
-            <button className="btn" style={{background:'#F34335'}}>suscribe</button>
-          </div>
+        <div style={styleTitulo}>
+          <h5 style={{color: "#21FFE2", marginRight:'10px'}}>{title}</h5>
+          <div style={{color: '#1ABC9C', fontSize:'11px', textTransform:'uppercase'}}>
+            explore all
+          </div> 
         </div>
         <div className="container-items" style={{padding:'0px', margin:'0px'}}>
           {movies && moviesComponent()}
@@ -116,7 +151,7 @@ const Home = () => {
 
   return (
     <div className="row">
-      <div className="col s12 offset-m1 m11">
+      <div className="col s12 offset-l1 l11" style={{padding:'0px', paddingLeft: '0.75rem'}}>
         {movies && caroulsel('Premiere')}
         {movies && caroulsel('SuperHeroes')}
         {movies && createContent('New Movies')}
