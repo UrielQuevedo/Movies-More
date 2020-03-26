@@ -110,14 +110,14 @@ const Navbar = () => {
   }
 
   return (
-    <div className="hide-on-med-and-down" style={{position:'fixed', width:'100%', zIndex:'1'}}>
+    <div className="hide-on-med-and-down" style={{position:'fixed', width:'100%', zIndex:'1', height:'63px'}}>
       {dropdownSetting()}
       {dropdownLenguage()}
       <ul id="notification" className="dropdown-content">
         <li>NOTIFICACIONES</li>
       </ul>
       <nav>
-        <div className="row">
+        <div className="row" style={{magin:'0px', height:'63px'}}>
           <div className="col s2">
             <a href="/"><img src={LOGO} width='110' height='110' alt="Movies&More Logotype"/></a>
           </div>

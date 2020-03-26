@@ -3,6 +3,93 @@ import { createGlobalStyle } from 'styled-components';
 export const GlobalStyles = createGlobalStyle`
 
 
+  .head-response {
+    @media (max-width: 600px) 
+    {
+      display: unset !important;
+    }
+  }
+
+  .head-content {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 3px;
+  }
+
+  .head-explore-all {
+    @media (max-width: 600px) 
+    {
+      margin-bottom: 11px;
+    }
+    color: #1ABC9C;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+
+  .head-content-button {
+    flex: 1 0 auto;
+    justify-content: flex-end;
+    display: flex;
+  }
+
+  .button-suscribe {
+    @media (max-width: 600px) 
+    {
+      bottom: 17px;
+      height: 30px;
+    }
+    background: rgb(243, 67, 53) !important;
+    position: relative;
+    right: 36px;
+    border-radius: 4px;
+    bottom: 8px;
+    font-size: 11px;
+    margin: -26px;
+    text-align: center;
+    line-height: 1px;
+  }
+
+  .explore-all-on-carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: #ffff;
+  }
+
+  .web-body {
+    @media (max-width: 1225px) 
+    {
+      margin-top: 6%;
+    }
+    @media (max-width: 1020px) 
+    {
+      margin-top: 7%;
+    }
+    @media (max-width: 920px)
+    {
+        margin-top: 8%;
+    }
+    @media (max-width: 753px)
+    {
+        margin-top: 10%;
+    }
+    @media (max-width: 552px)
+    {
+        margin-top: 12%;
+    }
+    @media (max-width: 465px)
+    {
+        margin-top: 14%;
+    }
+    @media (max-width: 390px)
+    {
+        margin-top: 16%;
+    }
+    flex: 1 0 auto; 
+    margin-top:5%;
+  }
+
   .react-multiple-carousel__arrow--right {
     right: 0;
   }
@@ -21,7 +108,7 @@ export const GlobalStyles = createGlobalStyle`
     border: 0;
     background: rgba(0,0,0,.5);
     min-width: 43px;
-    min-height: 21.6rem;
+    min-height: calc(100% - 3.9rem);
     opacity: 1;
     cursor: pointer;
 }
@@ -79,9 +166,9 @@ button:focus {
   }
 
   .container-items .carde {
-    @media (max-width: 1024px)
+    @media (max-width: 920px)
     {
-        width: 18%;
+        width: 20%;
     }
     @media (max-width: 640px)
     {
@@ -131,7 +218,7 @@ button:focus {
 
   .close-buttom-genre {
     color: #ffffff;
-    background: black;
+    background: transparent;
     border-radius: 31px;
     transform: scale(1.5);
     position: fixed;
@@ -144,6 +231,7 @@ button:focus {
     height: 48px;
     font-weight: 600;
     font-size: 22px;
+    margin-top: 6px;
   }
 
   .genre-list {
@@ -356,8 +444,9 @@ button:focus {
     @media (max-width: 992px)
     {
       padding-bottom: 65px;
+      margin-top: 40px;
     }
-    margin-top: 40px;
+    margin-top: 20px;
     left: 0;
     bottom: 0;;
     width: 100%;
