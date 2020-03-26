@@ -42,7 +42,7 @@ export const GlobalStyles = createGlobalStyle`
     position: relative;
     right: 36px;
     border-radius: 4px;
-    bottom: 8px;
+    bottom: 11px;
     font-size: 11px;
     margin: -26px;
     text-align: center;
