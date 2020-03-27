@@ -127,7 +127,7 @@ const Navbar = () => {
             <li><NavLink activeClassName='item-selected' className='nav-item' to="/movies">{t('movies')}</NavLink></li>
             <li><NavLink activeClassName='item-selected' className='nav-item' to="/programs" >{t('programs')}</NavLink></li>
             <li><NavLink activeClassName='item-selected' className='nav-item' to="/trailers">{t('trailers')}</NavLink></li>
-            <li><NavLink activeClassName='item-selected' className='nav-item' to="/mylist">{t('mylist')}</NavLink></li>
+            <li><NavLink activeClassName='item-selected' className='nav-item' to="/mylist">{t('my list')}</NavLink></li>
           </ul>
           {dropdownContainer()}
         </div>

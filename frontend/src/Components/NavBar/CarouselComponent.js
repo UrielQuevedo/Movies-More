@@ -36,15 +36,6 @@ const CarouselComponent = ({title, genre}) => {
     },
   };
 
-  //Al 600
-  const mobileButton = {
-    marginBottom: '3px',
-  }
-
-  const spanMobile = {
-    marginBottom: '3px',
-  }
-
   const carouselContent = () => {
     return contentToExpose.map( content => (
       <div className="carde" style={{width:'95%'}}>
@@ -97,6 +88,7 @@ const CarouselComponent = ({title, genre}) => {
           <button className="btn button-suscribe">suscribe</button>
         </div>
       </div>
+      {/* PONER LOADING */}
       {contentToExpose && createCarousel()}
     </>
   );

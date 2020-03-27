@@ -2,6 +2,19 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+  .card-subscription {
+    @media (max-width: 921px) 
+    {
+      width: 100%;
+    }
+    text-align: center;
+    font-size: 20px;
+    width: 50%;
+    color: #FAEBD7;
+    background: #0F2064;
+    border-radius: 5px;
+    padding: 29px;
+  }
 
   .head-response {
     @media (max-width: 600px) 
@@ -33,14 +46,17 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .button-suscribe {
+    @media (max-width: 670px) 
+    {
+      right: 36px;
+    }
     @media (max-width: 600px) 
     {
-      bottom: 17px;
-      height: 30px;
+      bottom: 24px;
     }
     background: rgb(243, 67, 53) !important;
     position: relative;
-    right: 36px;
+    right: 76px;
     border-radius: 4px;
     bottom: 11px;
     font-size: 11px;
@@ -87,7 +103,7 @@ export const GlobalStyles = createGlobalStyle`
         margin-top: 16%;
     }
     flex: 1 0 auto; 
-    margin-top:5%;
+    margin-top: 6%;
   }
 
   .react-multiple-carousel__arrow--right {
@@ -162,7 +178,6 @@ button:focus {
     display: inline-block;
     max-width: 100%;
     height: auto;
-    vertical-align: middle;
   }
 
   .container-items .carde {
@@ -553,6 +568,10 @@ button:focus {
 
   .select-dropdown li.disabled>span {
     color: #fff
+  }
+  
+  nav ul a:hover {
+    background-color: transparent;
   }
 
   .select-dropdown li.disabled>span:hover {

@@ -51,6 +51,14 @@ const Home = () => {
       <div className="col s12 offset-l1 l11" style={{padding:'0px', paddingLeft: '0.75rem'}}>
         <CarouselComponent title='Premiere' genre='premiere'/>
         <CarouselComponent title='SuperHeroes' genre='superheroes'/>
+        <div style={{display:'flex', justifyContent:'center', margin:'10px 0 10px 0', paddingRight: '0.75rem'}}>
+          <div className="card-subscription">
+            You can subscribe to different categories, trailer, 
+            series and you will be notified by email and on the page 
+            when there is something new, you can see your subscriptions on 
+            <span style={{color:'#21ffe2', textTransform:'capitalize'}}> my list</span>
+          </div>
+        </div>
         {movies && createContent('New Movies')}
         {movies && createContent('New Chapters')}
       </div>
