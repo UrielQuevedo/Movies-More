@@ -4,6 +4,11 @@ const addGenres = (genres) => {
   GenreDaoFirebase.addGenres(genres);
 }
 
+const getGenres = (content) => {
+  return GenreDaoFirebase.getGenres(content);
+}
+
 module.exports = {
   addGenres,
+  getGenres,
 }
