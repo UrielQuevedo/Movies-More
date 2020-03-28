@@ -1,5 +1,5 @@
 const DEFAULT_NUMBER_OF_ITEMS = 20;
-const ContentDaoFirebase = require('');
+const ContentDaoFirebase = require('../persistence/ContentDaoFirebase');
 
 const getValuesOfPagination = (page, range) => {
   let NUMBER_OF_ITEMS = DEFAULT_NUMBER_OF_ITEMS;
