@@ -19,7 +19,7 @@ const Home = () => {
       <div className="carde">
         <div className="contenedor-imagen imagenes">
           <div className="fade">
-            <img className='imagen' loading='lazy' src={movie.poster_url} width="200" height="325" alt="" style={{borderRadius:'2px'}}/>
+            <img className='imagen' loading='lazy' lazy="loaded" src={movie.poster_url} width="200" height="325" alt="" style={{borderRadius:'2px'}}/>
           </div>
         </div> 
         <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', marginTop:'5px', textAlign:'center' }}>

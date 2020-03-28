@@ -13,8 +13,9 @@ app.use(express.json());
 // routes 
 app.use(cors());
 app.use('/user', require('./routes/UserRouter'));
-app.use('/movies', require('./routes/MoviesRouter'));
-app.use('/genres', require('./routes/GenresRouter'));
+app.use('/movies', require('./routes/MovieRouter'));
+app.use('/genres', require('./routes/GenreRouter'));
+app.use('/programs', require('./routes/ProgramRouter'));
 app.use((err, req, res, next) => {
   if (err.type === 'entity.parse.failed') {
     res.status(400).json({status:400, errorCode:'BAD_REQUEST'});
