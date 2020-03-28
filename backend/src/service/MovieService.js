@@ -1,15 +1,8 @@
 const MovieDAOFirebase = require('../persistence/MovieDAOFirebase');
-const ITEMS = 20;
+const PaginationService = require('../service/PaginationService');
 
-const getMovies = (genre, page) => {
-  const lastItems = (page - 1) * ITEMS;
-  const limit = (page * ITEMS);
-
-  return MovieDAOFirebase.getMovies(genre, lastItems, limit);
-}
-
-const getLimitMovies = (genre, limit) => {
-  return MovieDAOFirebase.getMovies(genre, 0, limit);
+const getMovies = (genre, page, range) => {
+  return PaginationService.getContents('movies', genre, page, range);
 }
 
 const addMovie = (movie) => {
@@ -24,5 +17,4 @@ module.exports = {
   getMovies,
   getMovie,
   addMovie,
-  getLimitMovies,
 }

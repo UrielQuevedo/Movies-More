@@ -35,10 +35,9 @@ router.get('/:uid/season/:season_number/episode/:episode_number', (executeFuncti
   Devuelvo las ultimas series enpaginadas Puede o no contener el rango, en caso que no el default es 20
 */
 router.get('/genre/:genre', (executeFunction(['page', 'lenguage'], (req, res) => {
-  const number_page = parseInt(req.query.page);
-  const range = parseInt(req.query.range);
-  const genre = req.params.genre;
-  ProgramService.getPrograms(genre, number_page, range)
+  const { page, range } = req.query;
+  const { genre } = req.params;
+  ProgramService.getPrograms(genre, parseInt(page), parseInt(range))
     .then((programs) => res.status(201).json(programs))
 })));
 
@@ -46,9 +45,8 @@ router.get('/genre/:genre', (executeFunction(['page', 'lenguage'], (req, res) =>
   Devuelvo los ultimos capitulos enpaginadas Puede o no contener el rango, en caso que no el default es 20
 */
 router.get('/episodes/latest', (executeFunction(['page', 'lenguage'], (req, res) => {
-  const number_page = parseInt(req.query.page);
-  const range = parseInt(req.query.range);
-  ProgramService.getLatestEpisodes(number_page, range)
+  const { page, range } = req.query;
+  ProgramService.getLatestEpisodes(parseInt(page), parseInt(range))
     .then((latest_episodes) => res.status(201).json(latest_episodes))
 })));
 

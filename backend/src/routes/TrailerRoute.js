@@ -16,7 +16,8 @@ router.get('/:uid', (executeFunction(['language'], (req, res) => {
   Devuelvo los generos correspondiente con el nombre pasado por parametro
 */
 router.get('/genre/:genre', (executeFunction(['page', 'language'], (req, res) => {
-  const { genre, page, range } = req.params;
+  const { genre } = req.params;
+  const { page, range } = req.query;
   TrailerService.getTrailers(genre, parseInt(page), parseInt(range))
     .then((trailers) => res.status(201).json(trailers))
 })));

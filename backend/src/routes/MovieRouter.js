@@ -16,21 +16,10 @@ const { translate, translateAll } = require('../translate/moviesTranslate');
 
 // Devuelve una paginacion de peliculas
 router.get('/genre/:genre', (executeFunction(['page','lenguage'], (req, res) => {
-  const page = parseInt(req.query.page);
-  const genre = req.params.genre;
-   
-  MovieService.getMovies(genre, page)
-    .then((response) => res.status(201).json(response))
-})))
-
-// Devuelve una cantidad de peliculas limitadas
-router.get('/genre/:genre/:limit', (executeFunction(['lenguage'], (req, res) => {
-  const limit = parseInt(req.params.limit)
-  const genre = req.params.genre;
-  const leng = req.query.lenguage;
-
-  MovieService.getLimitMovies(genre, limit)
-    .then((movies) => res.status(201).json(translateAll(leng, movies)));
+  const { genre } = req.params;
+  const { page, range } = req.query;
+  MovieService.getMovies(genre, parseInt(page), parseInt(range))
+    .then((movies) => res.status(201).json(movies))
 })))
 
 // Devuelve los comentarios de una pelicula
