@@ -4,7 +4,7 @@ const db = admin.firestore();
 const getContents = (content, genre, lastLimit, limit) => {
   return db.collection(content)
     .where('genres', 'array-contains', genre)
-    .orderBy('date', 'asc')
+    .orderBy('upload_date', 'desc')
     .limit(limit)
     .offset(lastLimit)
     .get()
@@ -19,7 +19,7 @@ const getContents = (content, genre, lastLimit, limit) => {
 
 const getLastContents = (content, lastLimit, limit) => {
   return db.collection(content)
-    .orderBy('date', 'asc')
+    .orderBy('upload_date', 'desc')
     .limit(limit)
     .offset(lastLimit)
     .get()

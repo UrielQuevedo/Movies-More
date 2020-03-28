@@ -45,6 +45,7 @@ router.get('/movie/traer', (executeFunction([],(_, res) => {
             const _backdrop = `https://image.tmdb.org/t/p/original${_data.backdrop_path}`;
             const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_data.poster_path}`; 
             var newMovie = {
+              upload_date: new Date(),
               backdrop_url: _backdrop,
               es_title: _data.title,
               es_overview: _data.overview,
@@ -72,7 +73,7 @@ router.get('/movie/traer', (executeFunction([],(_, res) => {
                 }
                 MovieService.addMovie(newMovie);
                 const ls = Array.from(genres);
-                GenreService.addGenres(ls);
+                GenreService.addGenres(ls, 'movies');
               })
               .catch((error) => console.log(error))
             })

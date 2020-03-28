@@ -6,6 +6,5 @@ const addMovie = (movie) => {
 }
 
 module.exports = {
-  getMovies,
   addMovie,
 };

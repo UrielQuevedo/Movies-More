@@ -30,7 +30,7 @@ const getEpisode = (uid, season_number, episode_number) => {
 
 const getLatestEpisodes = (lastItem, limit) => {
   return db.collection('episodes')
-    .orderBy('date', 'asc')
+    .orderBy('upload_date', 'desc')
     .limit(limit)
     .offset(lastItem)
     .get()

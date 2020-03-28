@@ -1,7 +1,7 @@
 const GenreDaoFirebase = require('../persistence/GenreDaoFirebase');
 
-const addGenres = (genres) => {
-  GenreDaoFirebase.addGenres(genres);
+const addGenres = (genres, content) => {
+  GenreDaoFirebase.addGenres(genres, content);
 }
 
 const getGenres = (content) => {
