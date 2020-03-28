@@ -13,6 +13,9 @@ const getValuesOfPagination = (page, range) => {
 
 const getContents = (content, genre, page, range) => {
   const { lastItems, limit} = getValuesOfPagination(page, range);
+  if (genre === 'new') {
+    return ContentDaoFirebase.getLastContents(content, lastItems, limit);
+  }
   return ContentDaoFirebase.getContents(content, genre, lastItems, limit);
 }
 

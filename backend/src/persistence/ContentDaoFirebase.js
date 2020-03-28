@@ -4,7 +4,22 @@ const db = admin.firestore();
 const getContents = (content, genre, lastLimit, limit) => {
   return db.collection(content)
     .where('genres', 'array-contains', genre)
-    .orderBy('en_title')
+    .orderBy('date', 'asc')
+    .limit(limit)
+    .offset(lastLimit)
+    .get()
+    .then((snap) => {
+      const content = [];
+      snap.forEach((doc) => {
+        content.push(doc.data())
+      })
+      return content;
+    })
+}
+
+const getLastContents = (content, lastLimit, limit) => {
+  return db.collection(content)
+    .orderBy('date', 'asc')
     .limit(limit)
     .offset(lastLimit)
     .get()
@@ -19,4 +34,5 @@ const getContents = (content, genre, lastLimit, limit) => {
 
 module.exports = {
   getContents,
+  getLastContents,
 }
