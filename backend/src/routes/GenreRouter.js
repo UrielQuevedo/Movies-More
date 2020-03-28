@@ -9,7 +9,7 @@ const router = Router();
 router.get('/:content', (executeFunction([], (req, res) => {
   const { content } = req.params;
   GenresService.getGenres(content)
-    .then(genres => res.status(201).json(genres))
+    .then((genres) => res.status(201).json(genres))
 })));
 
 module.exports = router;
