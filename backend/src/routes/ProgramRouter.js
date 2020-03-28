@@ -17,9 +17,8 @@ router.get('/:uid', (executeFunction(['lenguage'], (req, res) => {
   Devuelve todos los capitulos de una season
 */
 router.get('/:uid/season/:season_number', (executeFunction(['lenguage'], (req, res) => {
-  const uid = req.params.uid;
-  const season_number = req.params.season_number;
-  return ProgramService.getSeason(uid, season_number)
+  const { uid, season_number } = req.params;
+  return ProgramService.getSeason(uid, parseInt(season_number))
     .then((season) => res.status(201).json(season));
 })));
 
@@ -27,10 +26,8 @@ router.get('/:uid/season/:season_number', (executeFunction(['lenguage'], (req, r
   Devuelve el capitulo especifico
 */
 router.get('/:uid/season/:season_number/episode/:episode_number', (executeFunction(['lenguage'], (req, res) => {
-  const uid = req.params.uid;
-  const episode_number = parseInt(req.params.episode_number);
-  const season_number = parseInt(req.params.season_number);
-  ProgramService.getEpisode(uid, season_number, episode_number)
+  const { uid, episode_number, season_number } = req.params;
+  ProgramService.getEpisode(uid, parseInt(season_number), parseInt(episode_number))
     .then((episode) => res.status(201).json(episode));
 })));
 
