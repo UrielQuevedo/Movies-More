@@ -10,8 +10,8 @@ const getContents = (content, genre, lastLimit, limit) => {
     .get()
     .then((snap) => {
       const content = [];
-      snap.forEach((doc) => {
-        content.push(doc.data())
+      snap.forEach((content_doc) => {
+        content.push({...content_doc.data(), uid: content_doc.id});
       })
       return content;
     })
@@ -24,11 +24,11 @@ const getLastContents = (content, lastLimit, limit) => {
     .offset(lastLimit)
     .get()
     .then((snap) => {
-      const content = [];
-      snap.forEach((doc) => {
-        content.push(doc.data())
+      const contents = [];
+      snap.forEach((content_doc) => {
+        contents.push({...content_doc.data(), uid: content_doc.id});
       })
-      return content;
+      return contents;
     })
 }
 

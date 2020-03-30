@@ -35,7 +35,7 @@ const addEpisode = (episode, programUid) => {
 
 const getProgram = async (programUid) => {
   const program_doc = await programsRef.doc(programUid).get();
-  return JSON.parse(JSON.stringify(program_doc.data()));
+  return program_doc.data();
 }
 
 const getSeason = async (programUid, season_number) => {
