@@ -8,39 +8,38 @@ const GenreService = require('../service/GenreService');
 /* 
   Devuelvo un programa por el uid
 */
-// router.get('/:uid', (executeFunction(['language'], (req, res) => {
-//   console.log("ENtro");
-//   const { uid } = req.params;
-//   ProgramService.getProgram(uid)
-//     .then((program) => res.status(201).json(program));
-// })));
+router.get('/:uid', (executeFunction(['language'], async (req, res) => {
+  const { uid } = req.params;
+  const program = await ProgramService.getProgram(uid);
+  res.status(201).json(program);
+})));
 
 /*
   Devuelve todos los capitulos de una season
 */
-router.get('/:uid/season/:season_number', (executeFunction(['language'], (req, res) => {
+router.get('/:uid/season/:season_number', (executeFunction(['language'], async (req, res) => {
   const { uid, season_number } = req.params;
-  return ProgramService.getSeason(uid, parseInt(season_number))
-    .then((season) => res.status(201).json(season));
+  const season = await ProgramService.getSeason(uid, parseInt(season_number));
+  res.status(201).json(season);
 })));
 
 /*
   Devuelve el capitulo especifico
 */
-router.get('/:uid/season/:season_number/episode/:episode_number', (executeFunction(['language'], (req, res) => {
+router.get('/:uid/season/:season_number/episode/:episode_number', (executeFunction(['language'], async (req, res) => {
   const { uid, episode_number, season_number } = req.params;
-  ProgramService.getEpisode(uid, parseInt(season_number), parseInt(episode_number))
-    .then((episode) => res.status(201).json(episode));
+  const episode = await ProgramService.getEpisode(uid, parseInt(season_number), parseInt(episode_number));
+  res.status(201).json(episode);
 })));
 
 /*
   Devuelvo las ultimas series enpaginadas Puede o no contener el rango, en caso que no el default es 20
 */
-router.get('/genre/:genre', (executeFunction(['page', 'language'], (req, res) => {
+router.get('/genre/:genre', (executeFunction(['page', 'language'], async (req, res) => {
   const { page, range } = req.query;
   const { genre } = req.params;
-  ProgramService.getPrograms(genre, parseInt(page), parseInt(range))
-    .then((programs) => res.status(201).json(programs))
+  const programs = await ProgramService.getPrograms(genre, parseInt(page), parseInt(range));
+  res.status(201).json(programs);
 })));
 
 /*
