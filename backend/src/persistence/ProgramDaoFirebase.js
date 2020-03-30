@@ -39,8 +39,8 @@ const getProgram = async (programUid) => {
 }
 
 const getSeason = async (programUid, season_number) => {
-  const program_doc = await programsRef.doc(programUid).get();
-  return program_doc.data().seasons[season_number];
+  const program_doc = await programsRef.doc(programUid).collection('seasons').doc(season_number).get();
+  return program_doc.data();
 }
 
 const getEpisode = async (programUid, season_number, episode_number) => {
