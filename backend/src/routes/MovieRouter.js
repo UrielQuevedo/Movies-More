@@ -17,9 +17,9 @@ const { translate, translateAll } = require('../translate/moviesTranslate');
 // Devuelve una paginacion de peliculas
 router.get('/genre/:genre', (executeFunction(['page','lenguage'], (req, res) => {
   const { genre } = req.params;
-  const { page, range } = req.query;
+  const { page, range, lenguage } = req.query;
   MovieService.getMovies(genre, parseInt(page), parseInt(range))
-    .then((movies) => res.status(201).json(movies))
+    .then((movies) => res.status(201).json(translateAll(lenguage, movies)))
 })))
 
 // Devuelve los comentarios de una pelicula

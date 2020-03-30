@@ -1,59 +1,77 @@
 const admin = require("firebase-admin");
 const db = admin.firestore();
-const collection = db.collection('programs');
+const programsRef = db.collection('programs');
 
 const addProgram = (program) => {
-  collection.add(program);
+  return programsRef.add(program);
 }
 
-const getProgram = (uid) => {
-  return collection.doc(uid)
-    .get()
-    .then(doc => JSON.parse(JSON.stringify(doc.data())));
+const addSeason = (season, programUid) => {
+  programsRef.doc(programUid)
+    .collection('seasons')
+    .doc(`${season.season_number}`)
+    .set(season);
+  }
+
+const addEpisode = (episode, programUid) => {
+  const little_episode_inf = {
+    season_number: episode.season_number,
+    episode_number: episode.episode_number,
+    upload_date: new Date(),
+    reference: db.doc(`/programs/${programUid}/seasons/${episode.season_number}`)
+  };
+  //agrego para tener referencia a una collecion episodes
+  db.collection('episodes').add(little_episode_inf);
+  //agrego el episode a su programa y temporada correspondiente
+  programsRef.doc(programUid)
+    .collection('seasons')
+    .doc(`${episode.season_number}`)
+    .update(
+      {
+        episodes: admin.firestore.FieldValue.arrayUnion(episode)
+      }
+    );
 }
 
-const getSeason = (uid, season_number) => {
-  return collection.doc(uid)
-    .then((doc) => {
-      const program = JSON.parse(JSON.stringify(doc.data()));
-      return program.seasons[season_number];
-    })
+const getProgram = async (programUid) => {
+  const program_doc = await programsRef.doc(programUid).get();
+  return JSON.parse(JSON.stringify(program_doc.data()));
 }
 
-const getEpisode = (uid, season_number, episode_number) => {
-  return collection.doc(uid)
-    .then((doc) => {
-      const program = JSON.parse(JSON.stringify(doc.data()));
-      return program.seasons[season_number].episodes[episode_number];
-    })
+const getSeason = async (programUid, season_number) => {
+  const program_doc = await programsRef.doc(programUid).get();
+  return program_doc.data().seasons[season_number];
 }
 
-const getLatestEpisodes = (lastItem, limit) => {
-  return db.collection('episodes')
+const getEpisode = async (programUid, season_number, episode_number) => {
+  const program_doc = await programsRef.doc(programUid).get();
+  return program_doc.data().seasons[season_number].episodes[episode_number];
+}
+
+const getLatestEpisodes = async (lastItem, limit) => {
+  const promises = [];
+  const snap = await db.collection('episodes')
     .orderBy('upload_date', 'desc')
     .limit(limit)
     .offset(lastItem)
-    .get()
-    .then((snap) => {
-      const episodes = []
-      snap.forEach((doc) => {
-        const little_episode_inf = doc.data();
-        const season_number = little_episode_inf.season_number;
-        const episode_number = little_episode_inf.episode_number;
-        little_episode_inf.reference.get()
-          .then((program_doc) => {
-            const episode = program_doc.data().seasons[season_number].episodes[episode_number];
-            episodes.push(episode);
-          })
-      })
-      return episodes;
-    })
+    .get();
+  
+  snap.forEach((doc) => {
+    const little_episode_inf = doc.data();
+    const episode_number = parseInt(little_episode_inf.episode_number);
+    promises.push(little_episode_inf.reference.get().then(episode_doc => episode_doc.data().episodes[episode_number]));
+  })
+
+  return Promise.all(promises)
+    .then((promise) => promise.map(episode => episode));
 }
 
 module.exports = {
+  addSeason,
   addProgram,
   getProgram,
   getSeason,
   getEpisode,
   getLatestEpisodes,
+  addEpisode,
 };

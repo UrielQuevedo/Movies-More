@@ -11,7 +11,7 @@ const Home = () => {
   const [lenguage] = UseLenguage();
 
    useEffect(() => {
-    executeAPI({ API: API, type: 'get', path: `/movies/genre/action/21?lenguage=${lenguage()}` });
+    executeAPI({ API: API, type: 'get', path: `/movies/genre/action?page=1&range=21&lenguage=${lenguage()}` });
    },[]);
 
   const moviesComponent = () => {

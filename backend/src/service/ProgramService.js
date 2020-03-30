@@ -2,7 +2,15 @@ const ProgramDaoFirebase = require('../persistence/ProgramDaoFirebase');
 const PaginationService = require('../service/PaginationService');
 
 const addProgram = (program) => {
-  ProgramDaoFirebase.addProgram(program);
+  return ProgramDaoFirebase.addProgram(program);
+}
+
+const addSeason = (season, programUid) => {
+  ProgramDaoFirebase.addSeason(season, programUid);
+}
+
+const addEpisode = (episode, season_number, episode_number, programUid) => {
+  ProgramDaoFirebase.addEpisode(episode, season_number, episode_number, programUid);
 }
 
 const getProgram = (uid) => {
@@ -27,10 +35,12 @@ const getLatestEpisodes = (page, range) => {
 }
 
 module.exports = {
+  addSeason,
   addProgram,
   getProgram,
   getSeason,
   getEpisode,
   getPrograms,
+  addEpisode,
   getLatestEpisodes,
 }
