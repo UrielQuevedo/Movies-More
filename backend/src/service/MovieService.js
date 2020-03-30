@@ -9,8 +9,8 @@ const addMovie = (movie) => {
   MovieDAOFirebase.addMovie(movie);
 }
 
-const getMovie = (id) => {
-
+const getMovie = (uid) => {
+  return MovieDAOFirebase.getMovie(uid);
 }
 
 module.exports = {

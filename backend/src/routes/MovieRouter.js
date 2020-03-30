@@ -6,24 +6,25 @@ const rp = require('request-promise');
 const GenreService = require('../service/GenreService');
 const { translate, translateAll } = require('../translate/moviesTranslate');
 
-// // Devuelve una pelicula con todos los detalles
-// router.get('/:id', (executeFunction(['lenguage'], (req, res) => {
-//   console.log("ENTRO1");
-//   const movie = MovieService.getMovie(req.params.id);
-//   // traducir la movie y retornarla
-//   res.status(201).json(movie);
-// })))
+// Devuelve una pelicula con todos los detalles
+router.get('/:id', (executeFunction(['language'], async (req, res) => {
+  const { id } = req.params;
+  const { language } = req.query;
+  const movie = await MovieService.getMovie(id);
+  // traducir la movie y retornarla
+  res.status(201).json(movie);
+})))
 
 // Devuelve una paginacion de peliculas
-router.get('/genre/:genre', (executeFunction(['page','lenguage'], (req, res) => {
+router.get('/genre/:genre', (executeFunction(['page','language'], async (req, res) => {
   const { genre } = req.params;
-  const { page, range, lenguage } = req.query;
-  MovieService.getMovies(genre, parseInt(page), parseInt(range))
-    .then((movies) => res.status(201).json(translateAll(lenguage, movies)))
+  const { page, range, language } = req.query;
+  const movies = await MovieService.getMovies(genre, parseInt(page), parseInt(range));
+  res.status(201).json(translateAll(language, movies));
 })))
 
 // Devuelve los comentarios de una pelicula
-router.get('/:id/comments', (executeFunction([], (req, res) => {
+router.get('/:id/comments', (executeFunction([], async (req, res) => {
 
 })))
 
