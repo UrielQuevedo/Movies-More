@@ -44,8 +44,11 @@ const getSeason = async (programUid, season_number) => {
 }
 
 const getEpisode = async (programUid, season_number, episode_number) => {
-  const program_doc = await programsRef.doc(programUid).get();
-  return program_doc.data().seasons[season_number].episodes[episode_number];
+  const season_doc = await programsRef.doc(programUid)
+    .collection('seasons')
+    .doc(season_number)
+    .get()
+  return season_doc.data().episodes.find((episode) => episode.episode_number === episode_number);
 }
 
 const getLatestEpisodes = async (lastItem, limit) => {

@@ -19,7 +19,7 @@ router.get('/:uid', (executeFunction(['language'], async (req, res) => {
 */
 router.get('/:uid/season/:season_number', (executeFunction(['language'], async (req, res) => {
   const { uid, season_number } = req.params;
-  const season = await ProgramService.getSeason(uid, parseInt(season_number));
+  const season = await ProgramService.getSeason(uid, season_number);
   res.status(201).json(season);
 })));
 
@@ -28,7 +28,7 @@ router.get('/:uid/season/:season_number', (executeFunction(['language'], async (
 */
 router.get('/:uid/season/:season_number/episode/:episode_number', (executeFunction(['language'], async (req, res) => {
   const { uid, episode_number, season_number } = req.params;
-  const episode = await ProgramService.getEpisode(uid, parseInt(season_number), parseInt(episode_number));
+  const episode = await ProgramService.getEpisode(uid, season_number, parseInt(episode_number));
   res.status(201).json(episode);
 })));
 
