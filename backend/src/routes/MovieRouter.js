@@ -12,7 +12,7 @@ router.get('/:id', (executeFunction(['language'], async (req, res) => {
   const { language } = req.query;
   const movie = await MovieService.getMovie(id);
   // traducir la movie y retornarla
-  res.status(201).json(movie);
+  res.status(201).json(translate(language, movie));
 })))
 
 // Devuelve una paginacion de peliculas
@@ -25,6 +25,16 @@ router.get('/genre/:genre', (executeFunction(['page','language'], async (req, re
 
 // Devuelve los comentarios de una pelicula
 router.get('/:id/comments', (executeFunction([], async (req, res) => {
+
+})))
+
+// Devuelve los comentarios de una pelicula
+router.get('/:id/videos', (executeFunction([], async (req, res) => {
+
+})))
+
+// Devuelve los comentarios de una pelicula
+router.get('/:id/links', (executeFunction([], async (req, res) => {
 
 })))
 
