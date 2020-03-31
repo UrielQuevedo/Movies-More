@@ -5,11 +5,13 @@ import "../../Css/home.css";
 import UseCustomAPI from '../../Hooks/UseCustomAPI';
 import API from '../../Route/Api';
 import UseLenguage from '../../Hooks/UseLenguage';
+import { useTranslation } from 'react-i18next';
 
 const CarouselComponent = ({title, genre}) => {
   const [response, executeAPI] = UseCustomAPI(null);
   const {loading , data: contentToExpose} = response;
   const [lenguage] = UseLenguage();
+  const {t} = useTranslation();
 
   useEffect(() => {
     executeAPI({ API: API, type: 'get', path: `/movies/genre/${genre}/17?lenguage=${lenguage()}`});
@@ -80,12 +82,12 @@ const CarouselComponent = ({title, genre}) => {
   return (
     <>
       <div className="head-content head-response">
-        <h5 style={{color: "#21FFE2", marginRight:'10px', marginBottom:'3px'}}>{title}</h5>
+        <h5 style={{color: "#21FFE2", marginRight:'10px', marginBottom:'3px'}}>{t(title)}</h5>
         <div className="head-explore-all">
-          explore all
+          {t('explore all')}
         </div>
         <div className="head-content-button">
-          <button className="btn button-suscribe">suscribe</button>
+          <button className="btn button-suscribe">{t('suscribe')}</button>
         </div>
       </div>
       {/* PONER LOADING */}

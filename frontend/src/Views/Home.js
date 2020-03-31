@@ -3,6 +3,7 @@ import API from '../Route/Api';
 import useCustomAPI from "../Hooks/UseCustomAPI";
 import UseLenguage from "../Hooks/UseLenguage";
 import "../Css/home.css";
+import { useTranslation } from 'react-i18next';
 import CarouselComponent from "../Components/NavBar/CarouselComponent";
 import { Link } from "react-router-dom";
 
@@ -20,6 +21,7 @@ const Home = () => {
   const {data: latest_episodes} = responseLatest_episodes;
 
   const [lenguage] = UseLenguage();
+  const {t} = useTranslation();
 
   useEffect(() => {
     getNewMovies({ API: API, type: 'get', path: `/movies/genre/new?page=1&range=21&language=${lenguage()}` });
@@ -66,9 +68,9 @@ const Home = () => {
     return (
       <div>
         <div className="head-content">
-          <h5 style={{color: "#21FFE2", marginRight:'10px'}}>{title}</h5>
+          <h5 style={{color: "#21FFE2", marginRight:'10px'}}>{t(title)}</h5>
           <Link to={`/${content}?genre=new&page=1`}  style={{color: '#1ABC9C', fontSize:'11px', textTransform:'uppercase'}}>
-            explore all
+            {t('explore all')}
           </Link> 
         </div>
         <div className="container-items" style={{padding:'0px', margin:'0px'}}>
@@ -85,14 +87,12 @@ const Home = () => {
         <CarouselComponent title='SuperHeroes' genre='superheroes'/>
         <div style={{display:'flex', justifyContent:'center', margin:'10px 0 10px 0', paddingRight: '0.75rem'}}>
           <div className="card-subscription">
-            You can subscribe to different categories, trailer, 
-            series and you will be notified by email and on the page 
-            when there is something new, you can see your subscriptions on 
-            <span style={{color:'#21ffe2', textTransform:'capitalize'}}> my list</span>
+            {t('You can subscribe to different categories, trailer, series and you will be notified by email and on the page when there is something new, you can see your subscriptions on')} 
+            <span style={{color:'#21ffe2', textTransform:'capitalize'}}> {t('my list')}</span>
           </div>
         </div>
         {new_movies && createContent('New Movies', 'movies', moviesComponent())}
-        {latest_episodes && createContent('New Chapters', 'programs/episodes', episodesComponent())}
+        {latest_episodes && createContent('New Episodes', 'programs/episodes', episodesComponent())}
       </div>
     </div>
   );

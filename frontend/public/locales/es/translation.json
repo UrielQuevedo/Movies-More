@@ -3,7 +3,7 @@
   "programs":"programas",
   "movies":"peliculas",
   "trailers":"trailers",
-  "mylist":"milista",
+  "my list":"mi lista",
   "Profile":"Perfil",
   "Dark Theme":"Tema Oscuro",
   "Log Out":"Salir",
@@ -35,5 +35,12 @@
   "Home":"Inicio",
   "Search":"Buscar",
   "More":"Mas",
-  "Lenguage":"Lenguaje"
+  "Lenguage":"Lenguaje",
+  "explore all":"ver todo",
+  "New Movies":"Peliculas Nuevas",
+  "New Episodes":"Episodios Nuevos",
+  "SuperHeroes":"SuperHéroes",
+  "Premiere":"Estrenos",
+  "suscribe":"suscribirse",
+  "You can subscribe to different categories, trailer, series and you will be notified by email and on the page when there is something new, you can see your subscriptions on":"Puedes suscribirte a distintas categorias, programas o trailers y se te notificaria via email o por la pagina cuando haya algo nuevo, puedes ver tus suscripciones en"
 }
