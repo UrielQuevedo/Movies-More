@@ -6,11 +6,13 @@ const addProgram = (program) => {
   return programsRef.add(program);
 }
 
-const addSeason = (season, programUid) => {
+const addSeason = async (season, programUid) => {
+  const program_doc = await programsRef.doc(programUid).get();
+  const program = program_doc.data();
   programsRef.doc(programUid)
     .collection('seasons')
     .doc(`${season.season_number}`)
-    .set(season);
+    .set({...season, en_program_title: program.en_title, es_program_title: program.es_title});
   }
 
 const addEpisode = (episode, programUid) => {
@@ -62,7 +64,16 @@ const getLatestEpisodes = async (lastItem, limit) => {
   snap.forEach((doc) => {
     const little_episode_inf = doc.data();
     const episode_number = parseInt(little_episode_inf.episode_number);
-    promises.push(little_episode_inf.reference.get().then(episode_doc => episode_doc.data().episodes[episode_number]));
+    promises.push(little_episode_inf.reference.get().then((season_doc) => {
+      const season = season_doc.data();
+      return { 
+        ...season.episodes[episode_number], 
+        en_season_poster_url: season.en_poster_url,
+        es_season_poster_url: season.es_poster_url,
+        en_program_title: season.en_program_title,
+        es_program_title: season.es_program_title 
+      }
+    }));
   })
 
   return Promise.all(promises)

@@ -6,7 +6,8 @@ const translate = (leng, movie) => {
     overview: movie[`${leng}_overview`],
     poster_url: movie[`${leng}_poster_url`],
     genres: movie.genres,
-    runtime: movie.runtime
+    runtime: movie.runtime,
+    uid: movie.uid,
   }
   return translated_movie;
 }

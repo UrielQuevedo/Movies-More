@@ -48,7 +48,7 @@ router.get('/genre/:genre', (executeFunction(['page', 'language'], async (req, r
 router.get('/episodes/latest', (executeFunction(['page', 'language'], async (req, res) => {
   const { page, range } = req.query;
   const latest_episodes = await ProgramService.getLatestEpisodes(parseInt(page), parseInt(range));
-  res.status(201).json(latest_episodes);
+  res.status(201).json(latest_episodes.filter(e => e != null));
 })));
 
 router.get('/create', (executeFunction([], (req, res) => {
@@ -81,25 +81,38 @@ router.get('/create', (executeFunction([], (req, res) => {
                 upload_date: new Date(),
               }
               rp(`${URL}/${id}?api_key=${API_KEY}&language=en`)
-              .then((en) => {
+              .then( async (en) => {
                 const _en = JSON.parse(en);
                 const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_en.poster_path}`; 
                 newProgram.en_overview = _en.overview;
-                newProgram.en_title = _en.name,
-                newProgram.en_poster_url = poster,
+                newProgram.en_title = _en.name;
+                newProgram.en_poster_url = poster;
                 newProgram.genres = _en.genres.map((e) => e.name.toLowerCase());
                 newProgram.genres.forEach(e => genres.add(e));
-                ProgramService.addProgram(newProgram).then(doc => {
-                  const programUid = doc.id;
-                    for (let s = 1; s < _data.number_of_seasons + 1; s++) {
+                const program_data = await ProgramService.addProgram(newProgram)
+                const programUid = program_data.id;
+                for (let s = 1; s < _data.number_of_seasons + 1; s++) {
+                  rp(`${URL}/${id}/season/${s}?api_key=${API_KEY}&lenguage=en`)
+                    .then(season => {
+                      const _season = JSON.parse(season);
+                      const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_season.poster_path}`; 
                       const newSeason = {
-                        season_number : s,
+                        season_number: s,
+                        en_program_title: newProgram.en_title,
+                        es_program_title: newProgram.es_title,
+                        en_poster_url: poster,
                         episodes: [],
                       }
-                      ProgramService.addSeason(newSeason, programUid);
-                    }
-                  cargarCarpitulos(id, _data, programUid);
-                })
+                      rp(`${URL}/${id}/season/${s}?api_key=${API_KEY}&lenguage=es`)
+                        .then(season2 => {
+                          const _season2 = JSON.parse(season2);
+                          const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_season2.poster_path}`; 
+                          newSeason.es_poster_url = poster;
+                          ProgramService.addSeason(newSeason, programUid);
+                        });
+                    });
+                  }
+                cargarCarpitulos(id, _data, programUid);
                 const ls = Array.from(genres);
                 GenreService.addGenres(ls, 'programs');
               })
@@ -120,13 +133,13 @@ const cargarCarpitulos = (id, data, programUid) => {
         rp(`${URL}/${id}/season/${index}/episode/${e}?api_key=${API_KEY}&language=es`)
         .then((episode) => {
           const _episode = JSON.parse(episode);
-          const poster = `https://image.tmdb.org/t/p/w400/${_episode.season_number}`;
+          const poster = `https://image.tmdb.org/t/p/w400/${_episode.profile_path}`;
           const newEpisode = {
             es_title : _episode.name,
             es_overview : _episode.overview,
             season_number : _episode.season_number,
             episode_number : e,
-            preview_image_url: poster,
+            profile_path: poster,
           }
           rp(`${URL}/${id}/season/${index}/episode/${e}?api_key=${API_KEY}&language=en`)
           .then((en2) => {
