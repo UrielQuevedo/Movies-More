@@ -50,13 +50,13 @@ const Home = () => {
       <div className="carde">
         <div className="contenedor-imagen imagenes">
           <div className="fade">
-            <img src={episode.season_poster_url} alt={`Imagen de la temporada ${episode.season_number} de la serie ${episode.program_title}`} width="200" height="325" className="imagen"/>
+            <img src={episode.es_season_poster_url} alt={`Imagen de la temporada ${episode.season_number} de la serie ${episode.program_title}`} width="200" height="325" className="imagen"/>
           </div>
         </div>
         <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', marginTop:'5px', textAlign:'center' }}>
-          {episode.program_title}
-          <p>
-            E{episode.episode_number}xS{episode.season_number}
+          {episode.es_program_title}
+          <p style={{margin:'0', color:'#FAEBD7'}}>
+            E0{episode.episode_number}xS0{episode.season_number}
           </p>
         </div>
       </div>
@@ -69,7 +69,7 @@ const Home = () => {
       <div>
         <div className="head-content">
           <h5 style={{color: "#21FFE2", marginRight:'10px'}}>{t(title)}</h5>
-          <Link to={`/${content}?genre=new&page=1`}  style={{color: '#1ABC9C', fontSize:'11px', textTransform:'uppercase'}}>
+          <Link to={`/${content}?genre=new`}  style={{color: '#1ABC9C', fontSize:'11px', textTransform:'uppercase'}}>
             {t('explore all')}
           </Link> 
         </div>
@@ -82,13 +82,14 @@ const Home = () => {
 
   return (
     <div className="row">
+      {console.log(latest_episodes)}
       <div className="col s12 offset-l1 l11" style={{padding:'0px', paddingLeft: '0.75rem'}}>
         <CarouselComponent title='Premiere' genre='premiere'/>
         <CarouselComponent title='SuperHeroes' genre='superheroes'/>
         <div style={{display:'flex', justifyContent:'center', margin:'10px 0 10px 0', paddingRight: '0.75rem'}}>
           <div className="card-subscription">
             {t('You can subscribe to different categories, trailer, series and you will be notified by email and on the page when there is something new, you can see your subscriptions on')} 
-            <span style={{color:'#21ffe2', textTransform:'capitalize'}}> {t('my list')}</span>
+            <Link to='/mylist' style={{color:'#21ffe2', textTransform:'capitalize'}}> {t('my list')}</Link>
           </div>
         </div>
         {new_movies && createContent('New Movies', 'movies', moviesComponent())}

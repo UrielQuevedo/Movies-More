@@ -2,6 +2,20 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+.genres-container {
+  height: 96%;
+  margin-top: 3.7rem;
+}
+
+  .genres {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 5rem;
+    -webkit-box-shadow: 0px 10px 50px -10px rgba(16,32,89,1);
+    -moz-box-shadow: 0px 10px 50px -10px rgba(16,32,89,1);
+    box-shadow: 0px 10px 50px -10px rgba(16,32,89,1);
+  }
+  
   .card-subscription {
     @media (max-width: 921px) 
     {

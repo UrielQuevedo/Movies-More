@@ -66,6 +66,7 @@ const getLatestEpisodes = async (lastItem, limit) => {
     const episode_number = parseInt(little_episode_inf.episode_number);
     promises.push(little_episode_inf.reference.get().then((season_doc) => {
       const season = season_doc.data();
+      console.log(season.episodes[episode_number]);
       return { 
         ...season.episodes[episode_number], 
         en_season_poster_url: season.en_poster_url,

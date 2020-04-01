@@ -9,7 +9,7 @@ const getGenres = (content) => {
   return db.collection('genres')
     .doc(content)
     .get()
-    .then(doc => JSON.parse(JSON.stringify(doc.data())));
+    .then(doc => doc.data().genres);
 }
 
 module.exports = {

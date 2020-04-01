@@ -8,11 +8,11 @@ const GenreService = require('../service/GenreService');
 /* 
   Devuelvo un programa por el uid
 */
-router.get('/:uid', (executeFunction(['language'], async (req, res) => {
-  const { uid } = req.params;
-  const program = await ProgramService.getProgram(uid);
-  res.status(201).json(program);
-})));
+// router.get('/:uid', (executeFunction(['language'], async (req, res) => {
+//   const { uid } = req.params;
+//   const program = await ProgramService.getProgram(uid);
+//   res.status(201).json(program);
+// })));
 
 /*
   Devuelve todos los capitulos de una season
@@ -111,10 +111,10 @@ router.get('/create', (executeFunction([], (req, res) => {
                           ProgramService.addSeason(newSeason, programUid);
                         });
                     });
-                  }
-                cargarCarpitulos(id, _data, programUid);
+                }
                 const ls = Array.from(genres);
                 GenreService.addGenres(ls, 'programs');
+                cargarCarpitulos(id, _data, programUid);
               })
             })
           })
