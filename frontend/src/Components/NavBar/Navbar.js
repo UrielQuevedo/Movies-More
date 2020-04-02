@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import LOGO from '../../ICONO.png';
+import LOGO from '../../ICONO2.png';
 import M from 'materialize-css';
 import { NavLink } from 'react-router-dom';
 import API from '../../Route/Api';
@@ -119,7 +119,7 @@ const Navbar = () => {
       <nav>
         <div className="row" style={{magin:'0px', height:'63px'}}>
           <div className="col s2">
-            <a href="/"><img src={LOGO} width='110' height='110' alt="Movies&More Logotype"/></a>
+            <a href="/"><img src={LOGO} width='130' height='110' alt="Movies&More Logotype"/></a>
           </div>
           {searchComponent()}
           <ul className="col s5" style={{ display:'flex', justifyContent:'flex-end'}}>

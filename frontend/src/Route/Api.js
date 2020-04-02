@@ -3,11 +3,12 @@ import Axios from 'axios';
 
 const server = 'http://localhost:5000';
 
-const request = (type, path, body) => axios
+const request = (type, path, body, params) => axios
   ({
     url: `${server}${path}`,
     method: type,
     data: body,
+    params: params,
   })
   .then(req => req.data);
 
@@ -19,4 +20,6 @@ const API = {
 };
 
 export const getContent = (path) => request('GET', path);
+export const getMovies = (genre, page, language, range) => request('GET', `/movies/genre/${genre}`, undefined, { page: page, language: language, range: range });
+export const getLatestEpisodes = (page, language, range) => request('GET', '/programs/episodes/latest', undefined, { page: page, range: range, language: language });
 export default API;

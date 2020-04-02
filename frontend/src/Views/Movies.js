@@ -1,21 +1,31 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import GenreMobileNavbar from '../Components/NavBar/GenreMobileNavbar';
 import {getContent} from '../Route/Api';
 import UseLenguage from '../Hooks/UseLenguage';
-import UseCustomAPI from '../Hooks/UseCustomAPI';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import usePagination from '../Hooks/UsePagination';
+import { useCallback } from 'react';
 
 const Movies = () => {
   
   const [lenguage] = UseLenguage();
   const {t} = useTranslation();
-  const [movies] = usePagination(getContent(`/movies/genre/new?page=1&range=30&language=${lenguage()}`));
-  const [genres] = usePagination(getContent(`/genres/movies`));
+  const {contents: movies, hasMore} = usePagination(getContent(`/movies/genre/new?page=1&range=30&language=${lenguage()}`));
+  const {contents: genres} = usePagination(getContent(`/genres/movies`));
+
+  // const observer = useRef();
+  // const lastMovieRef = useCallback(node => {
+  //   if (observer.current) new IntersectionObserver(entries => {
+  //     if(entries[0].isIntersecting) {
+  //       console.log('visible');
+  //     }
+  //   })
+  //   if(node) observer.current.observe(node);
+  // });
 
   const createMovies = () => {
-    return movies.map((movie) => (
+    return movies.map((movie, index) => (
       <div className="carde" style={{ width: '16.6%' }}>
         <div className="contenedor-imagen imagenes">
           <Link to={`/movies/${movie.uid}`} className="fade">
@@ -25,7 +35,7 @@ const Movies = () => {
         <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', marginTop:'5px', textAlign:'center' }}>
           {movie.title}
         </div>
-      </div>
+      </div>  
     ));
   }
 
@@ -45,7 +55,9 @@ const Movies = () => {
           <h5 style={{color: "#21FFE2", marginRight:'10px'}}>{t('New Movies')}</h5>
         </div>
         <div className="container-items" style={{padding:'0px', margin:'0px'}}>
-          {movies && createMovies()}
+          {
+            movies && createMovies()
+          }
         </div>
       </div>
       <div className="col m2 genres-container">
