@@ -7,6 +7,20 @@ export const GlobalStyles = createGlobalStyle`
   margin-top: 3.7rem;
 }
 
+.react-multi-carousel-list {
+  margin-top: 11px !important;
+}
+
+.home {
+  @media (max-width: 920px) 
+    {
+      padding: 0 !important;
+      padding-left: 0.75rem !important;
+    }
+  padding: 0px !important;
+  padding-left: 2.5rem !important;
+}
+
   .genres {
     position: -webkit-sticky;
     position: sticky;
@@ -66,7 +80,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     @media (max-width: 600px) 
     {
-      bottom: 24px;
+      bottom: 15px;
     }
     background: rgb(243, 67, 53) !important;
     position: relative;

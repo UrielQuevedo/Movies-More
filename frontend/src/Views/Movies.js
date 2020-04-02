@@ -1,18 +1,19 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import GenreMobileNavbar from '../Components/NavBar/GenreMobileNavbar';
-import {getContent} from '../Route/Api';
+import {getMovies, getGenres} from '../Route/Api';
 import UseLenguage from '../Hooks/UseLenguage';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import usePagination from '../Hooks/UsePagination';
 import { useCallback } from 'react';
+import UseApi from '../Hooks/UseApi';
 
 const Movies = () => {
   
   const [lenguage] = UseLenguage();
   const {t} = useTranslation();
-  const {contents: movies, hasMore} = usePagination(getContent(`/movies/genre/new?page=1&range=30&language=${lenguage()}`));
-  const {contents: genres} = usePagination(getContent(`/genres/movies`));
+  const [moviesResponse, getContents] = UseApi([]);
+  const [genresResponse, getContentGenres] = UseApi([]);
 
   // const observer = useRef();
   // const lastMovieRef = useCallback(node => {
@@ -24,8 +25,14 @@ const Movies = () => {
   //   if(node) observer.current.observe(node);
   // });
 
+  useEffect(() => {
+    const genre = new URLSearchParams(window.location.search).get('genre');
+    getContents(getMovies(genre, 1, lenguage(), '30'));
+    getContentGenres(getGenres('movies'));
+  }, [])
+
   const createMovies = () => {
-    return movies.map((movie, index) => (
+    return moviesResponse.data.map((movie, index) => (
       <div className="carde" style={{ width: '16.6%' }}>
         <div className="contenedor-imagen imagenes">
           <Link to={`/movies/${movie.uid}`} className="fade">
@@ -40,7 +47,7 @@ const Movies = () => {
   }
 
   const createGenres = () => {
-    return genres.map((genre) => (
+    return genresResponse.data.map((genre) => (
       <div className="genre" style={{textTransform: 'uppercase', color:'#21FFE2', marginBottom:'5px'}}>
         {genre}
       </div>
@@ -56,7 +63,7 @@ const Movies = () => {
         </div>
         <div className="container-items" style={{padding:'0px', margin:'0px'}}>
           {
-            movies && createMovies()
+            !moviesResponse.loading && createMovies()
           }
         </div>
       </div>
@@ -66,7 +73,7 @@ const Movies = () => {
           <div style={{textTransform: 'uppercase', color:'#21FFE2', marginBottom:'5px'}}>
             new movie
           </div>
-          {genres && createGenres()} 
+          {!genresResponse.loading && createGenres()} 
         </div>
       </div>
     </div>

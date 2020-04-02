@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getMovies } from '../Route/Api';
+import { getMovies, getLatestEpisodes } from '../Route/Api';
 import UseApi from "../Hooks/UseApi";
 import UseLenguage from "../Hooks/UseLenguage";
 import "../Css/home.css";
@@ -12,11 +12,11 @@ const Home = () => {
   const {t} = useTranslation();
 
   const [newMoviesResponse, getNewMovies] = UseApi([]);
-  //const [latestEpisodesResponse, getLatestEpisodes] = UseApi([]);
+  const [latestEpisodesResponse, getLatestEpisodesExecute] = UseApi([]);
 
   useEffect(() => {
-    getNewMovies(getMovies('new', '1', language(), '30'))
-    // getLatestEpisodes(getLatestEpisodes(1, language(), '30'))
+    getNewMovies(getMovies('new', '1', language(), '21'));
+    getLatestEpisodesExecute(getLatestEpisodes(1, language(), '21'));
   },[]);
 
   const moviesComponent = () => {
@@ -34,23 +34,23 @@ const Home = () => {
     ));
   }
 
-  // const episodesComponent = () => {
-  //   return latest_episodes.map((episode) => (
-  //     <div className="carde">
-  //       <div className="contenedor-imagen imagenes">
-  //         <Link className="fade">
-  //           <img src={episode.es_season_poster_url} alt={`Imagen de la temporada ${episode.season_number} de la serie ${episode.program_title}`} width="200" height="325" className="imagen"/>
-  //         </Link>
-  //       </div>
-  //       <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', marginTop:'5px', textAlign:'center' }}>
-  //         {episode.es_program_title}
-  //         <p style={{margin:'0', color:'#FAEBD7'}}>
-  //           E0{episode.episode_number}xS0{episode.season_number}
-  //         </p>
-  //       </div>
-  //     </div>
-  //   ))
-  // }
+  const episodesComponent = () => {
+    return latestEpisodesResponse.data.map((episode) => (
+      <div className="carde">
+        <div className="contenedor-imagen imagenes">
+          <Link className="fade">
+            <img src={episode.es_season_poster_url} alt={`Imagen de la temporada ${episode.season_number} de la serie ${episode.program_title}`} width="200" height="325" className="imagen"/>
+          </Link>
+        </div>
+        <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', marginTop:'5px', textAlign:'center' }}>
+          {episode.es_program_title}
+          <p style={{margin:'0', color:'#FAEBD7'}}>
+            E0{episode.episode_number}xS0{episode.season_number}
+          </p>
+        </div>
+      </div>
+    ))
+  }
 
   //b92f34 color para de desuscripcion
   const createContent = (title, content, createComponents) => {
@@ -71,7 +71,7 @@ const Home = () => {
 
   return (
     <div className="row">
-      <div className="col s12 offset-l1 l11" style={{padding:'0px', paddingLeft: '0.75rem'}}>
+      <div className="col s12 home">
         <CarouselComponent title='Premiere' genre='premiere'/>
         <CarouselComponent title='SuperHeroes' genre='superheroes'/>
         <div style={{display:'flex', justifyContent:'center', margin:'10px 0 10px 0', paddingRight: '0.75rem'}}>
@@ -81,7 +81,7 @@ const Home = () => {
           </div>
         </div>
         {!newMoviesResponse.loading && createContent('New Movies', 'movies', moviesComponent())}
-        {/* {latest_episodes && createContent('New Episodes', 'programs/episodes', episodesComponent())} */}
+        {!latestEpisodesResponse.loading && createContent('New Episodes', 'programs/episodes', episodesComponent())}
       </div>
     </div>
   );

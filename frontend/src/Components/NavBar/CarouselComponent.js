@@ -2,19 +2,19 @@ import React, { useEffect } from 'react';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "../../Css/home.css";
-import UseCustomAPI from '../../Hooks/UseCustomAPI';
-import API from '../../Route/Api';
+import { getMovies } from '../../Route/Api';
 import UseLenguage from '../../Hooks/UseLenguage';
 import { useTranslation } from 'react-i18next';
+import UseApi from '../../Hooks/UseApi';
+import { Link } from 'react-router-dom';
 
 const CarouselComponent = ({title, genre}) => {
-  const [response, executeAPI] = UseCustomAPI(null);
-  const {loading , data: contentToExpose} = response;
+  const [contentResponse, getContent] = UseApi([]);
   const [lenguage] = UseLenguage();
   const {t} = useTranslation();
 
   useEffect(() => {
-    executeAPI({ API: API, type: 'get', path: `/movies/genre/${genre}/17?lenguage=${lenguage()}`});
+    getContent(getMovies(genre, 1, lenguage(), 17));
    },[]);
 
   const responsive = {
@@ -22,7 +22,7 @@ const CarouselComponent = ({title, genre}) => {
       breakpoint: { max: 3000, min: 1024 },
       items: 6,
       slidesToSlide: 6,
-      partialVisibilityGutter : 38
+      partialVisibilityGutter : 40
     },
     tablet: {
       breakpoint: { max: 1024, min: 641 },
@@ -39,7 +39,7 @@ const CarouselComponent = ({title, genre}) => {
   };
 
   const carouselContent = () => {
-    return contentToExpose.map( content => (
+    return contentResponse.data.map( content => (
       <div className="carde" style={{width:'95%'}}>
         <div className="contenedor-imagen imagenes">
           <div className="fade">
@@ -67,32 +67,32 @@ const CarouselComponent = ({title, genre}) => {
         removeArrowOnDeviceType={["mobile"]}
       >
         {carouselContent()}
-        <div className="carde" style={{width:'95%'}}>
+        <Link to={`/movies?genre=${genre}`} className="carde" style={{width:'95%'}}>
           <div className="contenedor-imagen">
             <span className="explore-all-on-carousel">
               Explore All
             </span>
           </div>
-        </div>
+        </Link>
       </Carousel>
     );
   }
 
   {/* b92f34 color para de desuscripcion */}
   return (
-    <>
+    <div>
       <div className="head-content head-response">
         <h5 style={{color: "#21FFE2", marginRight:'10px', marginBottom:'3px'}}>{t(title)}</h5>
-        <div className="head-explore-all">
+        <Link to={`/movies?genre=${genre}`} className="head-explore-all">
           {t('explore all')}
-        </div>
+        </Link>
         <div className="head-content-button">
           <button className="btn button-suscribe">{t('suscribe')}</button>
         </div>
       </div>
       {/* PONER LOADING */}
-      {contentToExpose && createCarousel()}
-    </>
+      {!contentResponse.loading && createCarousel()}
+    </div>
   );
 }
  
