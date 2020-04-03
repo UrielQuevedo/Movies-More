@@ -5,6 +5,7 @@ const rp = require('request-promise');
 const ProgramService = require('../service/ProgramService');
 const GenreService = require('../service/GenreService');
 const { checkGenre } = require('../middleware/latest-episodes-middleware');
+const { translateAll } = require('../translate/programsTranslate');
 
 /* 
   Devuelvo un programa por el uid
@@ -37,10 +38,11 @@ router.get('/:uid/season/:season_number/episode/:episode_number', (executeFuncti
   Devuelvo las ultimas series enpaginadas Puede o no contener el rango, en caso que no el default es 20
 */
 router.get('/genre/:genre', checkGenre, (executeFunction(['page', 'language'], async (req, res) => {
+  //TODO: chequear si devuelve
   const { page, range, language } = req.query;
   const { genre } = req.params;
   const programs = await ProgramService.getPrograms(genre, parseInt(page), parseInt(range));
-  res.status(201).json(programs);
+  res.status(201).json(translateAll(language, programs));
 })));
 
 router.get('/create', (executeFunction([], (req, res) => {
