@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getMovies, getLatestEpisodes } from '../Route/Api';
+import { getMovies, getPrograms } from '../Route/Api';
 import UseApi from "../Hooks/UseApi";
 import UseLenguage from "../Hooks/UseLenguage";
 import "../Css/home.css";
@@ -16,7 +16,7 @@ const Home = () => {
 
   useEffect(() => {
     getNewMovies(getMovies('new', '1', language(), '21'));
-    getLatestEpisodesExecute(getLatestEpisodes(1, language(), '21'));
+    getLatestEpisodesExecute(getPrograms('latest_episodes', 1, language(), '21'));
   },[]);
 
   const moviesComponent = () => {
@@ -53,12 +53,12 @@ const Home = () => {
   }
 
   //b92f34 color para de desuscripcion
-  const createContent = (title, content, createComponents) => {
+  const createContent = (title, path, genre, createComponents) => {
     return (
       <div>
         <div className="head-content">
           <h5 style={{color: "#21FFE2", marginRight:'10px'}}>{t(title)}</h5>
-          <Link to={`/${content}?genre=new`}  style={{color: '#1ABC9C', fontSize:'11px', textTransform:'uppercase'}}>
+          <Link to={`/${path}?genre=${genre}`}  style={{color: '#1ABC9C', fontSize:'11px', textTransform:'uppercase'}}>
             {t('explore all')}
           </Link> 
         </div>
@@ -80,8 +80,8 @@ const Home = () => {
             <Link to='/mylist' style={{color:'#21ffe2', textTransform:'capitalize'}}> {t('my list')}</Link>
           </div>
         </div>
-        {!newMoviesResponse.loading && createContent('New Movies', 'movies', moviesComponent())}
-        {!latestEpisodesResponse.loading && createContent('New Episodes', 'programs/episodes', episodesComponent())}
+        {!newMoviesResponse.loading && createContent('New Movies', 'movies', 'new', moviesComponent())}
+        {!latestEpisodesResponse.loading && createContent('New Episodes', 'programs', 'latest_episodes', episodesComponent())}
       </div>
     </div>
   );

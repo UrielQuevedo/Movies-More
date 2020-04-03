@@ -125,7 +125,7 @@ const Navbar = () => {
           <ul className="col s5" style={{ display:'flex', justifyContent:'flex-end'}}>
             <li><NavLink activeClassName='item-selected' className='nav-item' exact to="/" >{t('home')}</NavLink></li>
             <li><NavLink activeClassName='item-selected' className='nav-item' to="/movies?genre=new">{t('movies')}</NavLink></li>
-            <li><NavLink activeClassName='item-selected' className='nav-item' to="/programs" >{t('programs')}</NavLink></li>
+            <li><NavLink activeClassName='item-selected' className='nav-item' to="/programs?genre=new" >{t('programs')}</NavLink></li>
             <li><NavLink activeClassName='item-selected' className='nav-item' to="/trailers">{t('trailers')}</NavLink></li>
             <li><NavLink activeClassName='item-selected' className='nav-item' to="/mylist">{t('my list')}</NavLink></li>
           </ul>

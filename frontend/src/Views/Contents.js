@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import GenreMobileNavbar from '../Components/NavBar/GenreMobileNavbar';
-import {getMovies, getGenres} from '../Route/Api';
+import {getGenres} from '../Route/Api';
 import UseLenguage from '../Hooks/UseLenguage';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import usePagination from '../Hooks/UsePagination';
 import { useCallback } from 'react';
 import UseApi from '../Hooks/UseApi';
 
-const Movies = () => {
+const Contents = ({ request, content_genre }) => {
   
   const [lenguage] = UseLenguage();
   const {t} = useTranslation();
@@ -27,9 +27,9 @@ const Movies = () => {
 
   useEffect(() => {
     const genre = new URLSearchParams(window.location.search).get('genre');
-    getContents(getMovies(genre, 1, lenguage(), '30'));
-    getContentGenres(getGenres('movies'));
-  }, [])
+    getContents(request(genre, 1, lenguage(), '30'));
+    getContentGenres(getGenres(content_genre));
+  }, [request, content_genre])
 
   const createMovies = () => {
     return moviesResponse.data.map((movie, index) => (
@@ -80,4 +80,4 @@ const Movies = () => {
    );
 }
  
-export default Movies;
+export default Contents;

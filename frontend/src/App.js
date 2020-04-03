@@ -8,7 +8,7 @@ import { ThemeContext } from './Hooks/ThemeContext';
 */
 import LogIn from "./Views/LogIn";
 import Home from "./Views/Home";
-import Movies from './Views/Movies'
+import Contents from './Views/Contents'
 import Register from "./Views/Register";
 import Profile from "./Views/Profile";
 import Mylist from "./Views/Mylist";
@@ -33,7 +33,7 @@ import UsePrivateRoute from "./Route/UsePrivateRoute";
 import CheckLogRoute from "./Route/CheckLogRoute";
 import { BasicUserInfoContext } from "./Hooks/BasicUserInfoContext";
 import UseCustomAPI from "./Hooks/UseCustomAPI";
-import API from "./Route/Api";
+import API, { getMovies, getPrograms } from "./Route/Api";
 import MobileNavbarTop from "./Components/NavBar/MobileNavbarTop";
 
 function App() {
@@ -62,7 +62,9 @@ function App() {
                 <div className="web-body">
                   <Switch>
                     <UsePrivateRoute path='/' exact component={Home} />
-                    <UsePrivateRoute path='/movies' exact component={Movies} />
+                    <UsePrivateRoute path='/movies' exact component={Contents} content_genre="movies" request={getMovies} />
+                    <UsePrivateRoute path='/programs' exact component={Contents} content_genre="programs" request={getPrograms} />
+                    <UsePrivateRoute path='/traiers' exact component={Contents} />
                     <UsePrivateRoute path='/profile' exact component={Profile} />
                     <UsePrivateRoute path='/mylist' exact component={Mylist} />
                     <Redirect to='/' />
