@@ -13,7 +13,7 @@ const translate = (leng, movie) => {
 }
 
 const translateAll = (leng, movies) => {
-  return movies.map(movie => translate(leng, movie));
+  return movies.map((movie) => translate(leng, movie));
 }
 
 module.exports = {

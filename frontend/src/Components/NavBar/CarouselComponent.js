@@ -22,7 +22,7 @@ const CarouselComponent = ({title, genre}) => {
       breakpoint: { max: 3000, min: 1024 },
       items: 6,
       slidesToSlide: 6,
-      partialVisibilityGutter : 40
+      partialVisibilityGutter : 41
     },
     tablet: {
       breakpoint: { max: 1024, min: 641 },

@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { executeFunction } = require('../connection');
+const { translate, translateAll } = require('../translate/episodesTranslate');
 const router = Router();
 const rp = require('request-promise');
 const ProgramService = require('../service/ProgramService');
@@ -36,11 +37,12 @@ router.get('/:uid/season/:season_number/episode/:episode_number', (executeFuncti
   Devuelvo las ultimas series enpaginadas Puede o no contener el rango, en caso que no el default es 20
 */
 router.get('/genre/:genre', (executeFunction(['page', 'language'], async (req, res) => {
-  const { page, range } = req.query;
+  const { page, range, language } = req.query;
   const { genre } = req.params;
   if (genre === 'latest_episodes') {
     const latest_episodes = await ProgramService.getLatestEpisodes(parseInt(page), parseInt(range));
-    res.status(201).json(latest_episodes.filter(e => e != null));
+    const latest_episodes_filtered = latest_episodes.filter(e => e != null);
+    res.status(201).json(translateAll(language, latest_episodes_filtered));
   }
   const programs = await ProgramService.getPrograms(genre, parseInt(page), parseInt(range));
   res.status(201).json(programs);
@@ -130,7 +132,7 @@ const cargarCarpitulos = (id, data, programUid) => {
           const _episode = JSON.parse(episode);
           const poster = `https://image.tmdb.org/t/p/w400/${_episode.profile_path}`;
           const newEpisode = {
-            es_title : _episode.name,
+            es_episode_title : _episode.name,
             es_overview : _episode.overview,
             season_number : _episode.season_number,
             episode_number : e,
@@ -139,7 +141,7 @@ const cargarCarpitulos = (id, data, programUid) => {
           rp(`${URL}/${id}/season/${index}/episode/${e}?api_key=${API_KEY}&language=en`)
           .then((en2) => {
             const _en2 = JSON.parse(en2);
-            newEpisode.en_title = _en2.name;
+            newEpisode.en_episode_title = _en2.name;
             newEpisode.en_overview = _en2.overview
             ProgramService.addEpisode(newEpisode, programUid);
           })

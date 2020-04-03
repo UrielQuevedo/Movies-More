@@ -69,10 +69,10 @@ const getLatestEpisodes = async (lastItem, limit) => {
       console.log(season.episodes[episode_number]);
       return { 
         ...season.episodes[episode_number], 
-        en_season_poster_url: season.en_poster_url,
-        es_season_poster_url: season.es_poster_url,
-        en_program_title: season.en_program_title,
-        es_program_title: season.es_program_title 
+        en_poster_url: season.en_poster_url,
+        es_poster_url: season.es_poster_url,
+        en_title: season.en_program_title,
+        es_title: season.es_program_title 
       }
     }));
   })
