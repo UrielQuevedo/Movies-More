@@ -1,10 +1,10 @@
 const { Router } = require('express');
 const { executeFunction } = require('../connection');
-const { translate, translateAll } = require('../translate/episodesTranslate');
 const router = Router();
 const rp = require('request-promise');
 const ProgramService = require('../service/ProgramService');
 const GenreService = require('../service/GenreService');
+const { checkGenre } = require('../middleware/latest-episodes-middleware');
 
 /* 
   Devuelvo un programa por el uid
@@ -36,14 +36,9 @@ router.get('/:uid/season/:season_number/episode/:episode_number', (executeFuncti
 /*
   Devuelvo las ultimas series enpaginadas Puede o no contener el rango, en caso que no el default es 20
 */
-router.get('/genre/:genre', (executeFunction(['page', 'language'], async (req, res) => {
+router.get('/genre/:genre', checkGenre, (executeFunction(['page', 'language'], async (req, res) => {
   const { page, range, language } = req.query;
   const { genre } = req.params;
-  if (genre === 'latest_episodes') {
-    const latest_episodes = await ProgramService.getLatestEpisodes(parseInt(page), parseInt(range));
-    const latest_episodes_filtered = latest_episodes.filter(e => e != null);
-    res.status(201).json(translateAll(language, latest_episodes_filtered));
-  }
   const programs = await ProgramService.getPrograms(genre, parseInt(page), parseInt(range));
   res.status(201).json(programs);
 })));
