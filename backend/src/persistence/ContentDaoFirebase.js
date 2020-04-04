@@ -5,8 +5,8 @@ const getContents = (content, genre, lastLimit, limit) => {
   return db.collection(content)
     .where('genres', 'array-contains', genre)
     .orderBy('upload_date', 'desc')
-    .limit(limit)
     .offset(lastLimit)
+    .limit(limit)
     .get()
     .then((snap) => {
       const content = [];
@@ -20,8 +20,8 @@ const getContents = (content, genre, lastLimit, limit) => {
 const getLastContents = (content, lastLimit, limit) => {
   return db.collection(content)
     .orderBy('upload_date', 'desc')
-    .limit(limit)
     .offset(lastLimit)
+    .limit(limit)
     .get()
     .then((snap) => {
       const contents = [];

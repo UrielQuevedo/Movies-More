@@ -18,9 +18,14 @@ const logInWithEmailPassword = (data) => {
   return UserDAOFirebase.getUserByEmailPassword(data.email, data.password);
 }
 
+const suscribeGenre = (uid, genre) => {
+  return UserDAOFirebase.suscribeGenre(uid, genre);
+}
+
 module.exports = {
   getUserByUID,
   createUser,
+  suscribeGenre,
   registerUser,
   logInWithEmailPassword,
 };

@@ -41,9 +41,22 @@ const getUserByEmailPassword = (email, password) => {
     });
 }
 
+const suscribeGenre = (uid, genre) => {
+  return db.collection('users').doc(uid).collection('movies-genre').doc(genre).set(genre);
+}
+
+const unsuscribeGenre = (uid, genre) => {
+  return db.collection('users').doc(uid).collection('movies-genre').doc(genre).delete();
+}
+
+const getSuscribes = (uid) => {
+  const suscribes = await db.collection('users').doc(uid).collection('movies-genre').get();
+}
+
 module.exports = {
   getUserByUID,
   createUser,
+  suscribeGenre,
   registerUser,
   getUserByEmailPassword,
 };

@@ -27,6 +27,31 @@ router.get('/:uid', (executeFunction([], (req, res) => {
     .catch(_ => res.status(401).json('User doesn´t exist'));
 })));
 
+router.post('/:uid/suscribe', checkIfAuthenticated, (executeFunction([genre], (req, res) => {
+  //TODO Buscar una forma de Generalizar
+  const { genre } = req.body;
+  const { uid } = req.params;
+  //TODO Cambiar nombre de suscribirse a una lista por uno mas general
+  UserService.suscribeGenre(uid, genre);
+  res.status(201).json("OK");
+})));
+
+router.post('/:uid/unsuscribe', checkIfAuthenticated, (executeFunction([genre], (req, res) => {
+  //TODO Buscar una forma de Generalizar
+  const { genre } = req.body;
+  const { uid } = req.params;
+  //TODO Cambiar el nombre
+  UserService.unsuscribeGenre(uid, genre);
+  res.status(201).json("OK");
+})));
+
+router.get('/:uid/suscribes', (executeFunction([], async (req, res) => {
+  //TODO Buscar una forma de Generalizar
+  const { uid } = req.params;
+  const moviesGenres = await UserService.getSuscribesGenres(uid, genre);
+  res.status(201).json(moviesGenres);
+})));
+
 /*
   Registro a un usuario y lo guardo en firebase y devuelvo su uid y su idToken
 */
