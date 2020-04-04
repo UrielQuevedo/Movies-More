@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { suscribeGenre, unsuscribeGenre } from '../../Route/ApiAuth';
 import { useState } from 'react';
 import Axios from 'axios';
+import ViewItemContent from '../ViewItemContent';
 
 const CarouselComponent = ({title, genre}) => {
   const [contentResponse, getContent] = UseApi([]);
@@ -76,17 +77,8 @@ const CarouselComponent = ({title, genre}) => {
   }
 
   const carouselContent = () => {
-    return contentResponse.data.map( content => (
-      <div className="carde" style={{width:'95%'}}>
-        <div className="contenedor-imagen imagenes">
-          <div className="fade">
-            <img className='imagen' loading='lazy' src={content.poster_url} width="200" height="325" alt="" style={{borderRadius:'2px'}}/>
-          </div>
-        </div> 
-        <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500',marginTop:'5px', textAlign:'center' }}>
-          {content.title}
-        </div>
-      </div>
+    return contentResponse.data.map((content) => (
+      <ViewItemContent content={content} redirectPath='/movies' cardStyle={{ width:'95%' }}/>
     ));
   }
 

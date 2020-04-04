@@ -6,6 +6,7 @@ import "../Css/home.css";
 import { useTranslation } from 'react-i18next';
 import CarouselComponent from "../Components/NavBar/CarouselComponent";
 import { Link } from "react-router-dom";
+import ViewItemContent from "../Components/ViewItemContent";
 
 const Home = () => {
   const [language] = UseLenguage();
@@ -21,16 +22,7 @@ const Home = () => {
 
   const moviesComponent = () => {
     return newMoviesResponse.data.map((movie) => (
-      <div className="carde">
-        <div className="contenedor-imagen imagenes">
-          <Link to={`/movies/${movie.uid}`} className="fade">
-            <img className='imagen' src={movie.poster_url} width="200" height="325" alt="" style={{borderRadius:'2px'}}/>
-          </Link>
-        </div> 
-        <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', marginTop:'5px', textAlign:'center' }}>
-          {movie.title}
-        </div>
-      </div>
+      <ViewItemContent content={movie} redirectPath='/movies' />
     ));
   }
 
@@ -39,7 +31,7 @@ const Home = () => {
       <div className="carde">
         <div className="contenedor-imagen imagenes">
           <Link className="fade">
-            <img src={episode.es_season_poster_url} alt={`Imagen de la temporada ${episode.season_number} de la serie ${episode.program_title}`} width="200" height="325" className="imagen"/>
+            <img src={episode.es_season_poster_url} alt="" width="200" height="325" className="imagen"/>
           </Link>
         </div>
         <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', marginTop:'5px', textAlign:'center' }}>
