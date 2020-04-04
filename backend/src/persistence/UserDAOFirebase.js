@@ -41,27 +41,27 @@ const getUserByEmailPassword = (email, password) => {
     });
 }
 
-const suscribeGenre = (uid, genre) => {
+const suscribeTo = (uid, type, uid_type) => {
   //TODO Mejorar esto
-  db.collection('users').doc(uid).collection('suscribes').doc('movies').update({ genres: admin.firestore.FieldValue.arrayUnion(genre) })
-    .catch(_ => db.collection('users').doc(uid).collection('suscribes').doc('movies').set({ genres: admin.firestore.FieldValue.arrayUnion(genre) }))
+  db.collection('users').doc(uid).collection('subscriptions').doc(type).update({ subscriptions: admin.firestore.FieldValue.arrayUnion(uid_type) })
+    .catch(_ => db.collection('users').doc(uid).collection('subscriptions').doc(type).set({ subscriptions: admin.firestore.FieldValue.arrayUnion(uid_type) }))
 }
 
-const unsuscribeGenre = (uid, genre) => {
-  return db.collection('users').doc(uid).collection('suscribes').doc('movies').update({ genres: admin.firestore.FieldValue.arrayRemove(genre)});
+const unsuscribeTo = (uid, type, uid_type) => {
+  return db.collection('users').doc(uid).collection('subscriptions').doc(type).update({ subscriptions: admin.firestore.FieldValue.arrayRemove(uid_type)});
 }
 
-const getSuscribes = async (uid) => {
-  const suscribe_movies = await db.collection('users').doc(uid).collection('suscribes').doc('movies').get();
-  return suscribe_movies.data().genres;
+const getSubscriptions = async (uid, type) => {
+  const suscribe_movies = await db.collection('users').doc(uid).collection('subscriptions').doc(type).get();
+  return suscribe_movies.data().subscriptions;
 }
 
 module.exports = {
   getUserByUID,
-  unsuscribeGenre,
-  getSuscribes,
+  unsuscribeTo,
+  getSubscriptions,
   createUser,
-  suscribeGenre,
+  suscribeTo,
   registerUser,
   getUserByEmailPassword,
 };

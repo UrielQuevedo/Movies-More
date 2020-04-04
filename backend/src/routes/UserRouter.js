@@ -27,29 +27,27 @@ router.get('/:uid', (executeFunction([], (req, res) => {
     .catch(_ => res.status(401).json('User doesn´t exist'));
 })));
 
-router.post('/:uid/suscribe', checkIfAuthenticated, (executeFunction(['genre'], (req, res) => {
-  //TODO Buscar una forma de Generalizar
-  const { genre } = req.body;
+router.post('/:uid/suscribe', checkIfAuthenticated, (executeFunction(['type', 'uid_type'], (req, res) => {
+  const { uid_type } = req.body;
+  const { type } = req.query;
   const { uid } = req.params;
-  //TODO Cambiar nombre de suscribirse a una lista por uno mas general
-  UserService.suscribeGenre(uid, genre);
+  UserService.suscribeTo(uid, type, uid_type);
   res.status(201).json("OK");
 })));
 
-router.post('/:uid/unsuscribe', checkIfAuthenticated, (executeFunction(['genre'], (req, res) => {
-  //TODO Buscar una forma de Generalizar
-  const { genre } = req.body;
+router.post('/:uid/unsuscribe', checkIfAuthenticated, (executeFunction(['type', 'uid_type'], (req, res) => {
+  const { uid_type } = req.body;
+  const { type } = re.query;
   const { uid } = req.params;
-  //TODO Cambiar el nombre
-  UserService.unsuscribeGenre(uid, genre);
+  UserService.unsuscribeTo(uid, type, uid_type);
   res.status(201).json("OK");
 })));
 
-router.get('/:uid/suscribes', (executeFunction([], async (req, res) => {
-  //TODO Buscar una forma de Generalizar
+router.get('/:uid/suscribes', (executeFunction(['type'], async (req, res) => {
   const { uid } = req.params;
-  const moviesGenres = await UserService.getSuscribes(uid);
-  res.status(201).json(moviesGenres);
+  const { type } = req.query;
+  const subscriptions = await UserService.getSubscriptions(uid, type);
+  res.status(201).json(subscriptions);
 })));
 
 /*

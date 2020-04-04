@@ -23,7 +23,7 @@ const CarouselComponent = ({title, genre}) => {
   useEffect(() => {
     getContent(getMovies(genre, 1, lenguage(), 17));
     //TODO estoy repitiendo el windows.localStorage.getItem(uid)
-    getUserSuscribe(getSuscribes(window.localStorage.getItem('uid')));
+    //getUserSuscribe(getSuscribes('genres', window.localStorage.getItem('uid')));
    },[]);
 
   const responsive = {
@@ -50,12 +50,12 @@ const CarouselComponent = ({title, genre}) => {
   const suscribeToGenre = () => {
     //TODO se repide el uid localstorage
     const uid = window.localStorage.getItem('uid');
-    sendSuscribeGenre(suscribeGenre(genre, uid));
+    sendSuscribeGenre(suscribeGenre('genres', genre, uid));
   }
 
   const unsuscribeToGenre = () => {
     const uid = window.localStorage.getItem('uid');
-    sendUnsuscribeGenre(unsuscribeGenre(genre, uid));
+    sendUnsuscribeGenre(unsuscribeGenre('genres', genre, uid));
   }
 
   const carouselContent = () => {
@@ -108,7 +108,7 @@ const CarouselComponent = ({title, genre}) => {
           {t('explore all')}
         </Link>
         <div className="head-content-button">
-          <button className="btn button-suscribe" onClick={() => unsuscribeToGenre()}>{t('suscribe')}</button>
+          <button className="btn button-suscribe" onClick={() => suscribeToGenre()}>{t('suscribe')}</button>
         </div>
       </div>
       {/* PONER LOADING */}

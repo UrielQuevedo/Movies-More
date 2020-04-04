@@ -23,5 +23,5 @@ export const getContent = (path) => request('GET', path);
 export const getMovies = (genre, page, language, range) => request('GET', `/movies/genre/${genre}`, undefined, { page: page, language: language, range: range });
 export const getPrograms = (genre, page, language, range) => request('GET', `/programs/genre/${genre}`, undefined, { page: page, language: language, range: range});
 export const getGenres = (content) => request('GET', `/genres/${content}`);
-export const getSuscribes = (uid) => request('GET', `/user/${uid}/suscribes`);
+export const getSuscribes = (type, uid) => request('GET', `/user/${uid}/suscribes?type=${type}`);
 export default API;

@@ -29,6 +29,6 @@ const APIAUTH = {
   delete: (path, body, idToken) => axios.delete(`${server}${path}`, body, header(idToken)).then(response => response.data),
 };
 
-export const suscribeGenre = (genre, uid) => request('POST', `/user/${uid}/suscribe`, { genre: genre });
-export const unsuscribeGenre = (genre, uid) => request('POST', `/user/${uid}/unsuscribe`, { genre: genre });
+export const suscribeGenre = (type, uid_type, uid) => request('POST', `/user/${uid}/suscribe?type=${type}`, { uid_type: uid_type });
+export const unsuscribeGenre = (type, uid_type, uid) => request('POST', `/user/${uid}/unsuscribe?type=${type}`, { uid_type: uid_type });
 export default APIAUTH;
