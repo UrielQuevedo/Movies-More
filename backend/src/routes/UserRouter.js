@@ -37,7 +37,7 @@ router.post('/:uid/suscribe', checkIfAuthenticated, (executeFunction(['type', 'u
 
 router.post('/:uid/unsuscribe', checkIfAuthenticated, (executeFunction(['type', 'uid_type'], (req, res) => {
   const { uid_type } = req.body;
-  const { type } = re.query;
+  const { type } = req.query;
   const { uid } = req.params;
   UserService.unsuscribeTo(uid, type, uid_type);
   res.status(201).json("OK");

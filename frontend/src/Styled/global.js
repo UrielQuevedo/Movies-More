@@ -82,7 +82,6 @@ export const GlobalStyles = createGlobalStyle`
     {
       bottom: 15px;
     }
-    background: rgb(243, 67, 53) !important;
     position: relative;
     right: 76px;
     border-radius: 4px;
@@ -157,9 +156,6 @@ export const GlobalStyles = createGlobalStyle`
     cursor: pointer;
 }
 
-button:focus {
-  background: rgba(0,0,0,.5) !important;
-}
 
   .contenedor-imagen {
     position: relative;

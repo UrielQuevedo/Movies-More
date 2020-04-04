@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 import UseApi from '../../Hooks/UseApi';
 import { Link } from 'react-router-dom';
 import { suscribeGenre, unsuscribeGenre } from '../../Route/ApiAuth';
+import { useState } from 'react';
+import Axios from 'axios';
 
 const CarouselComponent = ({title, genre}) => {
   const [contentResponse, getContent] = UseApi([]);
@@ -17,13 +19,18 @@ const CarouselComponent = ({title, genre}) => {
   const [_, sendSuscribeGenre] = UseApi();
   //TODO ver si se puede hacer que no sea un hook si no una funcion auxiliar y que retorne o no lo que se necesite
   const [__, sendUnsuscribeGenre] = UseApi();
+  const [isSuscribe, setIsSuscribe] = useState();
   const [lenguage] = UseLenguage();
   const {t} = useTranslation();
 
   useEffect(() => {
     getContent(getMovies(genre, 1, lenguage(), 17));
     //TODO estoy repitiendo el windows.localStorage.getItem(uid)
-    //getUserSuscribe(getSuscribes('genres', window.localStorage.getItem('uid')));
+    getSuscribes('genres', window.localStorage.getItem('uid'))
+      .then(response =>  {
+        setIsSuscribe(response.includes(genre));
+      })
+    //setIsSuscribe(suscribesResponse.data.includes(genre));
    },[]);
 
   const responsive = {
@@ -51,11 +58,21 @@ const CarouselComponent = ({title, genre}) => {
     //TODO se repide el uid localstorage
     const uid = window.localStorage.getItem('uid');
     sendSuscribeGenre(suscribeGenre('genres', genre, uid));
+    setIsSuscribe(true);
   }
 
   const unsuscribeToGenre = () => {
     const uid = window.localStorage.getItem('uid');
     sendUnsuscribeGenre(unsuscribeGenre('genres', genre, uid));
+    setIsSuscribe(false);
+  }
+
+  const button = (action, title, color) => {
+    return (
+      <div className="head-content-button">
+        <button className="btn button-suscribe" style={{ background: color }} onClick={() => action()}>{t(title)}</button>
+      </div>
+    );
   }
 
   const carouselContent = () => {
@@ -98,18 +115,14 @@ const CarouselComponent = ({title, genre}) => {
     );
   }
 
-  {/* b92f34 color para de desuscripcion */}
   return (
     <div>
       <div className="head-content head-response">
-        {console.log(suscribesResponse.data)}
         <h5 style={{color: "#21FFE2", marginRight:'10px', marginBottom:'3px'}}>{t(title)}</h5>
         <Link to={`/movies?genre=${genre}`} className="head-explore-all">
           {t('explore all')}
         </Link>
-        <div className="head-content-button">
-          <button className="btn button-suscribe" onClick={() => suscribeToGenre()}>{t('suscribe')}</button>
-        </div>
+        {isSuscribe ? button(unsuscribeToGenre, 'unsuscribe', '#77191c') : button(suscribeToGenre, 'suscribe', '#f34335')}
       </div>
       {/* PONER LOADING */}
       {!contentResponse.loading && createCarousel()}
