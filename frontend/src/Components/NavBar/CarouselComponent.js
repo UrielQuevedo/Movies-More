@@ -3,7 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 //TODO Sacar home.css
 import "../../Css/home.css";
-import { getMovies } from '../../Route/Api';
+import { getMovies, getSuscribes } from '../../Route/Api';
 import UseLenguage from '../../Hooks/UseLenguage';
 import { useTranslation } from 'react-i18next';
 import UseApi from '../../Hooks/UseApi';
@@ -12,6 +12,7 @@ import { suscribeGenre } from '../../Route/ApiAuth';
 
 const CarouselComponent = ({title, genre}) => {
   const [contentResponse, getContent] = UseApi([]);
+  const [suscribesResponse, getUserSuscribe] = UseApi([]);
   //TODO hacer que no sean con [] si no {}
   const [_, sendSuscribeGenre] = UseApi();
   const [lenguage] = UseLenguage();
@@ -19,6 +20,8 @@ const CarouselComponent = ({title, genre}) => {
 
   useEffect(() => {
     getContent(getMovies(genre, 1, lenguage(), 17));
+    //TODO estoy repitiendo el windows.localStorage.getItem(uid)
+    getUserSuscribe(getSuscribes(window.localStorage.getItem('uid')));
    },[]);
 
   const responsive = {
@@ -91,6 +94,7 @@ const CarouselComponent = ({title, genre}) => {
   return (
     <div>
       <div className="head-content head-response">
+        {console.log(suscribesResponse.data)}
         <h5 style={{color: "#21FFE2", marginRight:'10px', marginBottom:'3px'}}>{t(title)}</h5>
         <Link to={`/movies?genre=${genre}`} className="head-explore-all">
           {t('explore all')}

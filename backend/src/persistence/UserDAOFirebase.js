@@ -42,21 +42,18 @@ const getUserByEmailPassword = (email, password) => {
 }
 
 const suscribeGenre = (uid, genre) => {
-  //TODO No tener que armar el json aca
-  db.collection('users').doc(uid).collection('movies-genre').doc(genre).set({ genre: genre});
+  //TODO Mejorar esto
+  db.collection('users').doc(uid).collection('suscribes').doc('movies').update({ genres: admin.firestore.FieldValue.arrayUnion(genre) })
+    .catch(_ => db.collection('users').doc(uid).collection('suscribes').doc('movies').set({ genres: admin.firestore.FieldValue.arrayUnion(genre) }))
 }
 
 const unsuscribeGenre = (uid, genre) => {
-  return db.collection('users').doc(uid).collection('movies-genre').doc(genre).delete();
+  return db.collection('users').doc(uid).collection('suscribes').doc('movies').update({ genres: admin.firestore.FieldValue.arrayRemove(genre)});
 }
 
 const getSuscribes = async (uid) => {
-  const snap = await db.collection('users').doc(uid).collection('movies-genre').get();
-  const suscribes = [];
-  snap.forEach((suscribe_doc) => {
-    suscribes.push(suscribe_doc.data());
-  });
-  return suscribes;
+  const suscribe_movies = await db.collection('users').doc(uid).collection('suscribes').doc('movies').get();
+  return suscribe_movies.data().genres;
 }
 
 module.exports = {

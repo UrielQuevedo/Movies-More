@@ -2,8 +2,7 @@ import axios from 'axios';
 
 const server = 'http://localhost:5000';
 //TODO Sacar x, que seria el idToken y no se usa, se deja para que no rompa con lo de APIAUTH
-const header =  (x) => {
-  const idToken = window.localStorage.getItem('idToken');
+const header =  (idToken) => {
   const config = {
     headers: {
       "Authorization": `Bearer ${idToken}`, 
