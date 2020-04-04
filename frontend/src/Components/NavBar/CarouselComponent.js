@@ -8,13 +8,15 @@ import UseLenguage from '../../Hooks/UseLenguage';
 import { useTranslation } from 'react-i18next';
 import UseApi from '../../Hooks/UseApi';
 import { Link } from 'react-router-dom';
-import { suscribeGenre } from '../../Route/ApiAuth';
+import { suscribeGenre, unsuscribeGenre } from '../../Route/ApiAuth';
 
 const CarouselComponent = ({title, genre}) => {
   const [contentResponse, getContent] = UseApi([]);
   const [suscribesResponse, getUserSuscribe] = UseApi([]);
   //TODO hacer que no sean con [] si no {}
   const [_, sendSuscribeGenre] = UseApi();
+  //TODO ver si se puede hacer que no sea un hook si no una funcion auxiliar y que retorne o no lo que se necesite
+  const [__, sendUnsuscribeGenre] = UseApi();
   const [lenguage] = UseLenguage();
   const {t} = useTranslation();
 
@@ -46,8 +48,14 @@ const CarouselComponent = ({title, genre}) => {
   };
 
   const suscribeToGenre = () => {
+    //TODO se repide el uid localstorage
     const uid = window.localStorage.getItem('uid');
     sendSuscribeGenre(suscribeGenre(genre, uid));
+  }
+
+  const unsuscribeToGenre = () => {
+    const uid = window.localStorage.getItem('uid');
+    sendUnsuscribeGenre(unsuscribeGenre(genre, uid));
   }
 
   const carouselContent = () => {
@@ -100,7 +108,7 @@ const CarouselComponent = ({title, genre}) => {
           {t('explore all')}
         </Link>
         <div className="head-content-button">
-          <button className="btn button-suscribe" onClick={() => suscribeToGenre()}>{t('suscribe')}</button>
+          <button className="btn button-suscribe" onClick={() => unsuscribeToGenre()}>{t('suscribe')}</button>
         </div>
       </div>
       {/* PONER LOADING */}

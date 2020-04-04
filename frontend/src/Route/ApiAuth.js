@@ -30,4 +30,5 @@ const APIAUTH = {
 };
 
 export const suscribeGenre = (genre, uid) => request('POST', `/user/${uid}/suscribe`, { genre: genre });
+export const unsuscribeGenre = (genre, uid) => request('POST', `/user/${uid}/unsuscribe`, { genre: genre });
 export default APIAUTH;
