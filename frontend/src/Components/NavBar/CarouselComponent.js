@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+//TODO Sacar home.css
 import "../../Css/home.css";
 import { getMovies } from '../../Route/Api';
 import UseLenguage from '../../Hooks/UseLenguage';
 import { useTranslation } from 'react-i18next';
 import UseApi from '../../Hooks/UseApi';
 import { Link } from 'react-router-dom';
+import { suscribeGenre } from '../../Route/ApiAuth';
 
 const CarouselComponent = ({title, genre}) => {
   const [contentResponse, getContent] = UseApi([]);
+  //TODO hacer que no sean con [] si no {}
+  const [_, sendSuscribeGenre] = UseApi();
   const [lenguage] = UseLenguage();
   const {t} = useTranslation();
 
@@ -37,6 +41,11 @@ const CarouselComponent = ({title, genre}) => {
       partialVisibilityGutter : 6,
     },
   };
+
+  const suscribeToGenre = () => {
+    const uid = window.localStorage.getItem('uid');
+    sendSuscribeGenre(suscribeGenre(genre, uid));
+  }
 
   const carouselContent = () => {
     return contentResponse.data.map( content => (
@@ -87,7 +96,7 @@ const CarouselComponent = ({title, genre}) => {
           {t('explore all')}
         </Link>
         <div className="head-content-button">
-          <button className="btn button-suscribe">{t('suscribe')}</button>
+          <button className="btn button-suscribe" onClick={() => suscribeToGenre()}>{t('suscribe')}</button>
         </div>
       </div>
       {/* PONER LOADING */}

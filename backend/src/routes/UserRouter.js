@@ -27,7 +27,7 @@ router.get('/:uid', (executeFunction([], (req, res) => {
     .catch(_ => res.status(401).json('User doesn´t exist'));
 })));
 
-router.post('/:uid/suscribe', checkIfAuthenticated, (executeFunction([genre], (req, res) => {
+router.post('/:uid/suscribe', checkIfAuthenticated, (executeFunction(['genre'], (req, res) => {
   //TODO Buscar una forma de Generalizar
   const { genre } = req.body;
   const { uid } = req.params;
@@ -36,7 +36,7 @@ router.post('/:uid/suscribe', checkIfAuthenticated, (executeFunction([genre], (r
   res.status(201).json("OK");
 })));
 
-router.post('/:uid/unsuscribe', checkIfAuthenticated, (executeFunction([genre], (req, res) => {
+router.post('/:uid/unsuscribe', checkIfAuthenticated, (executeFunction(['genre'], (req, res) => {
   //TODO Buscar una forma de Generalizar
   const { genre } = req.body;
   const { uid } = req.params;
@@ -48,7 +48,7 @@ router.post('/:uid/unsuscribe', checkIfAuthenticated, (executeFunction([genre], 
 router.get('/:uid/suscribes', (executeFunction([], async (req, res) => {
   //TODO Buscar una forma de Generalizar
   const { uid } = req.params;
-  const moviesGenres = await UserService.getSuscribesGenres(uid, genre);
+  const moviesGenres = await UserService.getSuscribes(uid);
   res.status(201).json(moviesGenres);
 })));
 

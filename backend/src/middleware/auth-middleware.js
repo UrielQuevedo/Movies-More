@@ -13,6 +13,7 @@ const getAuthToken = (req, next) => {
 }
 
 const checkIfAuthenticated = (req, res, next) => {
+  console.log("HOLA PAPA")
   getAuthToken(req, async () => {
     try {
       const { authToken } = req;

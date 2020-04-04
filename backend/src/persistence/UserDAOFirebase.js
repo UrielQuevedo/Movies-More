@@ -42,19 +42,27 @@ const getUserByEmailPassword = (email, password) => {
 }
 
 const suscribeGenre = (uid, genre) => {
-  return db.collection('users').doc(uid).collection('movies-genre').doc(genre).set(genre);
+  //TODO No tener que armar el json aca
+  db.collection('users').doc(uid).collection('movies-genre').doc(genre).set({ genre: genre});
 }
 
 const unsuscribeGenre = (uid, genre) => {
   return db.collection('users').doc(uid).collection('movies-genre').doc(genre).delete();
 }
 
-const getSuscribes = (uid) => {
-  const suscribes = await db.collection('users').doc(uid).collection('movies-genre').get();
+const getSuscribes = async (uid) => {
+  const snap = await db.collection('users').doc(uid).collection('movies-genre').get();
+  const suscribes = [];
+  snap.forEach((suscribe_doc) => {
+    suscribes.push(suscribe_doc.data());
+  });
+  return suscribes;
 }
 
 module.exports = {
   getUserByUID,
+  unsuscribeGenre,
+  getSuscribes,
   createUser,
   suscribeGenre,
   registerUser,
