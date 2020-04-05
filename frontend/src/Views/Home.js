@@ -6,7 +6,7 @@ import "../Css/home.css";
 import { useTranslation } from 'react-i18next';
 import CarouselComponent from "../Components/NavBar/CarouselComponent";
 import { Link } from "react-router-dom";
-import ViewItemContent from "../Components/ViewItemContent";
+import ViewGenericItemContent from "../Components/ViewGenericItemContent";
 
 const Home = () => {
   const [language] = UseLenguage();
@@ -17,40 +17,27 @@ const Home = () => {
 
   useEffect(() => {
     getNewMovies(getMovies('new', '1', language(), '21'));
-    getLatestEpisodesExecute(getPrograms('latest_episodes', 1, language(), '21'));
+    getLatestEpisodesExecute(getPrograms('new episodes', 1, language(), '21'));
   },[]);
 
   const moviesComponent = () => {
     return newMoviesResponse.data.map((movie) => (
-      <ViewItemContent content={movie} redirectPath='/movies' />
+      <ViewGenericItemContent content={movie} redirectPath={`/movies/${movie.uid}`} />
     ));
   }
 
   const episodesComponent = () => {
     return latestEpisodesResponse.data.map((episode) => (
-      <div className="carde">
-        <div className="contenedor-imagen imagenes">
-          <Link className="fade">
-            <img src={episode.es_season_poster_url} alt="" width="200" height="325" className="imagen"/>
-          </Link>
-        </div>
-        <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', marginTop:'5px', textAlign:'center' }}>
-          {episode.es_program_title}
-          <p style={{margin:'0', color:'#FAEBD7'}}>
-            E0{episode.episode_number}xS0{episode.season_number}
-          </p>
-        </div>
-      </div>
+      <ViewGenericItemContent content={episode} redirectPath='/programs/episode' type='episode' />
     ))
   }
 
-  //b92f34 color para de desuscripcion
-  const createContent = (title, path, genre, createComponents) => {
+  const createContent = (title, path, createComponents) => {
     return (
       <div>
         <div className="head-content">
           <h5 style={{color: "#21FFE2", marginRight:'10px'}}>{t(title)}</h5>
-          <Link to={`/${path}?genre=${genre}`}  style={{color: '#1ABC9C', fontSize:'11px', textTransform:'uppercase'}}>
+          <Link to={path}  style={{color: '#1ABC9C', fontSize:'11px', textTransform:'uppercase'}}>
             {t('explore all')}
           </Link> 
         </div>
@@ -72,8 +59,8 @@ const Home = () => {
             <Link to='/mylist' style={{color:'#21ffe2', textTransform:'capitalize'}}> {t('my list')}</Link>
           </div>
         </div>
-        {!newMoviesResponse.loading && createContent('New Movies', 'movies', 'new', moviesComponent())}
-        {!latestEpisodesResponse.loading && createContent('New Episodes', 'programs', 'latest_episodes', episodesComponent())}
+        {!newMoviesResponse.loading && createContent('New Movies', '/movies?genre=new', moviesComponent())}
+        {!latestEpisodesResponse.loading && createContent('New Episodes', '/programs?genre=new episodes', episodesComponent())}
       </div>
     </div>
   );

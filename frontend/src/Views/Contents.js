@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import GenreMobileNavbar from '../Components/NavBar/GenreMobileNavbar';
-import UseLenguage from '../Hooks/UseLenguage';
 import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 import Genres from '../Components/Genres';
@@ -9,7 +8,6 @@ import ViewItemContent from '../Components/ViewItemContent';
 
 const Contents = ({ content_ref }) => {
   
-  const [lenguage] = UseLenguage();
   const {t} = useTranslation();
   const [pageNumber, setPageNumber] = useState(1);
   const genre = new URLSearchParams(window.location.search).get('genre');
