@@ -1,26 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 import GenreMobileNavbar from '../Components/NavBar/GenreMobileNavbar';
-import {getGenres} from '../Route/Api';
 import UseLenguage from '../Hooks/UseLenguage';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
-import UseApi from '../Hooks/UseApi';
 import Genres from '../Components/Genres';
 import UsePagination from '../Hooks/UsePagination';
 import ViewItemContent from '../Components/ViewItemContent';
 
-const Contents = ({ request, content_genre }) => {
+const Contents = ({ content_ref }) => {
   
   const [lenguage] = UseLenguage();
   const {t} = useTranslation();
-  const [selectedGenre, setSelectedGenre] = useState("New Movies");
   const [pageNumber, setPageNumber] = useState(1);
-  const { loading, error, contents, hasMore } = UsePagination('asd', pageNumber);
+  const genre = new URLSearchParams(window.location.search).get('genre');
+  const { loading, error, contents, hasMore } = UsePagination(content_ref, genre, pageNumber);
 
-  // useEffect(() => {
-  //   const genre = new URLSearchParams(window.location.search).get('genre');
-  // }, [request])
+  useEffect(() => {
+    setPageNumber(1);
+  }, [content_ref])
 
   const observer = useRef();
 
@@ -36,11 +33,11 @@ const Contents = ({ request, content_genre }) => {
   }, [loading, hasMore]);
 
   const createMovies = () => {
-    return contents.map((movie, index) => 
+    return contents.map((content, index) => 
       (contents.length === index + 1) ?
-        <ViewItemContent content={movie} redirectPath='/movies' cardStyle={{width: '16.6%'}} reference={lastMovieRef} />
+        <ViewItemContent content={content} redirectPath='/movies' cardStyle={{width: '16.6%'}} reference={lastMovieRef} />
         :
-        <ViewItemContent content={movie} redirectPath='/movies' cardStyle={{width: '16.6%'}} />
+        <ViewItemContent content={content} redirectPath='/movies' cardStyle={{width: '16.6%'}} />
     );
   }
 
@@ -50,14 +47,14 @@ const Contents = ({ request, content_genre }) => {
       <div className="col s12 m9 offset-m1">
         <div className="head-content">
           <h5 style={{color: "#21FFE2", textTransform:'capitalize', marginRight:'10px'}}>
-            {selectedGenre}
+            { genre === 'new' ? 'new ' + content_ref : genre }
           </h5>
         </div>
         <div className="container-items" style={{padding:'0px', margin:'0px'}}>
           { createMovies() }
         </div>
       </div>
-      <Genres content_genre={content_genre} changeGenre={setSelectedGenre}/>
+      <Genres content_ref={content_ref} />
       <div>{loading && 'loading...'}</div>
       <div>{error && 'error...'}</div>
     </div>

@@ -62,8 +62,8 @@ function App() {
                 <div className="web-body">
                   <Switch>
                     <UsePrivateRoute path='/' exact component={Home} />
-                    <UsePrivateRoute path='/movies' exact component={Contents} content_genre="movies" request={getMovies} />
-                    <UsePrivateRoute path='/programs' exact component={Contents} content_genre="programs" request={getPrograms} />
+                    <UsePrivateRoute path='/movies' exact component={Contents} content_ref="movies" />
+                    <UsePrivateRoute path='/programs' exact component={Contents} content_ref="programs" />
                     <UsePrivateRoute path='/traiers' exact component={Contents} />
                     <UsePrivateRoute path='/profile' exact component={Profile} />
                     <UsePrivateRoute path='/mylist' exact component={Mylist} />

@@ -2,25 +2,26 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { getGenres } from '../Route/Api';
 import UseApi from '../Hooks/UseApi';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import UseSelectedGenre from '../Hooks/UseSelectedGenre';
 
-const Genres = ({ content_genre, changeGenre }) => {
+const Genres = ({ content_ref }) => {
   const [genresResponse, getContentGenres] = UseApi([]);
 
   useEffect(() => {
-    getContentGenres(getGenres(content_genre));
-  }, [content_genre]);
+    getContentGenres(getGenres(content_ref));
+  }, [content_ref]);
 
   const createGenres = () => {
-    //TODO No funciona el color
     return genresResponse.data.map((genre) => (
-      <div 
+      <div>
+        <a 
+        href={`/${content_ref}?genre=${genre}`}
         className="genre" 
-        style={{textTransform: 'uppercase', color:'#21FFE2', marginBottom:'5px'}} 
-        onClick={() => changeGenre(genre)}
+        style={{textTransform: 'uppercase', color:'#21FFE2', marginBottom:'5px'}}
       >
-        {genre}  
+        { genre === 'new' ? 'new ' + content_ref : genre }
+      </a>
       </div>
     ));
   }

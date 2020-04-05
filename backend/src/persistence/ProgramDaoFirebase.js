@@ -53,7 +53,7 @@ const getEpisode = async (programUid, season_number, episode_number) => {
   return season_doc.data().episodes.find((episode) => episode.episode_number === episode_number);
 }
 
-const getLatestEpisodes = async (lastItem, limit) => {
+const getNewEpisodes = async (lastItem, limit) => {
   const promises = [];
   const snap = await db.collection('episodes')
     .orderBy('upload_date', 'desc')
@@ -86,6 +86,6 @@ module.exports = {
   getProgram,
   getSeason,
   getEpisode,
-  getLatestEpisodes,
+  getNewEpisodes,
   addEpisode,
 };
