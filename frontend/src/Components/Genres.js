@@ -35,7 +35,7 @@ const Genres = ({ content_ref }) => {
   return (
     <div className="col m2 genres-container">
       <div className="genres" style={{background: '#05144F', color: 'white', textAlign:'center', padding: '10px 0 10px 0'}}>
-        <h5 style={{textTransform: 'uppercase'}}>genders</h5>
+        <h5 style={{textTransform: 'uppercase', color:'#FAEBD7'}}>genders</h5>
         <div className="divider-genre"></div>
         {!genresResponse.loading && createGenres()}
       </div>

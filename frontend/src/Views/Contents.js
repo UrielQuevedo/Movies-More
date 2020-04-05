@@ -6,6 +6,7 @@ import Genres from '../Components/Genres';
 import UsePagination from '../Hooks/UsePagination';
 import ViewItemContent from '../Components/ViewItemContent';
 import ViewGenericItemContent from '../Components/ViewGenericItemContent';
+import Preloader from '../Components/Preloader';
 
 const Contents = ({ content_ref }) => {
   
@@ -53,10 +54,20 @@ const Contents = ({ content_ref }) => {
         <div className="container-items" style={{padding:'0px', margin:'0px'}}>
           { createMovies() }
         </div>
+        { 
+          loading && 
+          <div className="col-12" style={{color: 'white'}}>
+            <div style={{display:'flex', justifyContent:'center'}}>
+              <Preloader color="spinner-red-only" />
+            </div>
+          </div> 
+        }
+        <div className="col-12" style={{color:'white', marginBottom: '20px'}}>
+          No contamos con mas contenido por el moment.
+          Pero puede suscribirte en este genero, y te notificaremos cuando se publique algo nuevo. <span style={{color:'red'}}> Suscribirse </span>
+        </div>
       </div>
       <Genres content_ref={content_ref} />
-      <div>{loading && 'loading...'}</div>
-      <div>{error && 'error...'}</div>
     </div>
    );
 }

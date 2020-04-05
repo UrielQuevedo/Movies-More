@@ -4,7 +4,7 @@ export const GlobalStyles = createGlobalStyle`
 
 .divider-genre {
   height: 1.5px;
-  background: white;
+  background: #FAEBD7;
   position: relative;
   width: 29%;
   margin-bottom: 10px;
