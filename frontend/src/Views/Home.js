@@ -28,7 +28,8 @@ const Home = () => {
 
   const episodesComponent = () => {
     return latestEpisodesResponse.data.map((episode) => (
-      <ViewGenericItemContent content={episode} redirectPath='/programs/episode' type='episode' />
+      //TODO corregir el redictPath
+      <ViewGenericItemContent content={episode} redirectPath='/programs/episode' type='new episodes' />
     ))
   }
 

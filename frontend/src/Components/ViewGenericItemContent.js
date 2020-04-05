@@ -3,7 +3,7 @@ import ViewItemContent from './ViewItemContent';
 
 const ViewGenericItemContent = ({type, content, ...rest}) => {
   let season_and_episode_number_component;
-  if (type === 'episode') {
+  if (type === 'new episodes') {
     season_and_episode_number_component = (
       <div>
         <p style={{margin:'0', color:'#FAEBD7'}}>

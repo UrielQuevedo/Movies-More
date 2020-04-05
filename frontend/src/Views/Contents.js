@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import Genres from '../Components/Genres';
 import UsePagination from '../Hooks/UsePagination';
 import ViewItemContent from '../Components/ViewItemContent';
+import ViewGenericItemContent from '../Components/ViewGenericItemContent';
 
 const Contents = ({ content_ref }) => {
   
@@ -33,9 +34,10 @@ const Contents = ({ content_ref }) => {
   const createMovies = () => {
     return contents.map((content, index) => 
       (contents.length === index + 1) ?
-        <ViewItemContent content={content} redirectPath='/movies' cardStyle={{width: '16.6%'}} reference={lastMovieRef} />
+        //TODO Corregir redirectPath
+        <ViewGenericItemContent type={genre} content={content} redirectPath='/movies' cardStyle={{width: '16.6%'}} reference={lastMovieRef} />
         :
-        <ViewItemContent content={content} redirectPath='/movies' cardStyle={{width: '16.6%'}} />
+        <ViewGenericItemContent type={genre} content={content} redirectPath='/movies' cardStyle={{width: '16.6%'}} />
     );
   }
 
