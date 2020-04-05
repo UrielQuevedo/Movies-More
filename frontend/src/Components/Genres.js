@@ -14,15 +14,11 @@ const Genres = ({ content_ref }) => {
 
   const createGenres = () => {
     return genresResponse.data.map((genre) => (
-      <div>
-        <a 
-        href={`/${content_ref}?genre=${genre}`}
-        className="genre" 
-        style={{textTransform: 'uppercase', color:'#21FFE2', marginBottom:'5px'}}
-      >
-        { genre === 'new' ? 'new ' + content_ref : genre }
+      <a href={`/${content_ref}?genre=${genre}`}>
+        <div className="genre-selected" style={{padding:'5px', verticalAlign:'middle'}}>
+          { genre === 'new' ? 'new ' + content_ref : genre }
+        </div>
       </a>
-      </div>
     ));
   }
 
@@ -30,6 +26,7 @@ const Genres = ({ content_ref }) => {
     <div className="col m2 genres-container">
       <div className="genres" style={{background: '#05144F', color: 'white', textAlign:'center', padding: '10px 0 10px 0'}}>
         <h5 style={{textTransform: 'uppercase'}}>genders</h5>
+        <div className="divider-genre"></div>
         {!genresResponse.loading && createGenres()}
       </div>
     </div>

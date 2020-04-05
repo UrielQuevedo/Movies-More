@@ -2,6 +2,77 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+.divider-genre {
+  height: 1.5px;
+  background: white;
+  position: relative;
+  width: 29%;
+  margin-bottom: 10px;
+  left: 36%;
+}
+
+.genre-selected {
+  text-transform: uppercase;
+  color: #ffff;
+}
+
+.genre-selected::before {
+  content: " ";
+  transform: translateY(-5px);
+  transition: 1s;
+  background: #F34335;
+  position: absolute;
+  height: 6.4%;
+  width: 4%;
+  z-index: -1;
+  left: 0;
+}
+
+.genre {
+  text-transform: uppercase;
+  color: #21FFE2;
+}
+
+.genre:hover {
+  color: #ffff;
+}
+
+.genre:hover::after {
+  content: " ";
+  transition: 0.5s;
+  background: #F34335;
+  width: 3%;
+}
+
+.genre::after {
+  content: " ";
+  transform: translateY(-5px);
+  transition: 0.5s;
+  position: absolute;
+  height: 6.4%;
+  width: 0%;
+  z-index: -1;
+  right: 0;
+}
+
+.genre::before {
+  content: " ";
+  transform: translateY(-5px);
+  transition: 1s;
+  background: #14225A;
+  position: absolute;
+  height: 6.4%;
+  width: 4%;
+  z-index: -1;
+  left: 0;
+}
+
+.genre:hover::before {
+  content: " ";
+  transition: 0.5s;
+  width: 98%;
+}
+
 .genres-container {
   height: 96%;
   margin-top: 3.7rem;
