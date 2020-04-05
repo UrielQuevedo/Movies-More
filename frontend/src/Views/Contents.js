@@ -62,12 +62,21 @@ const Contents = ({ content_ref }) => {
             </div>
           </div> 
         }
-        <div className="col-12" style={{color:'white', marginBottom: '20px'}}>
-          No contamos con mas contenido por el moment.
-          Pero puede suscribirte en este genero, y te notificaremos cuando se publique algo nuevo. <span style={{color:'red'}}> Suscribirse </span>
+        <div className="col-12" style={{ marginBottom: '20px', display:'flex', justifyContent:'center'}}>
+          <div style={{ width:'60%', background:'#020F43', color:'#FAEBD7', padding: '20px', textAlign:'center', fontSize:'22px'  }}>
+            No contamos con mas contenido por el momento.
+            <div>
+              Pero puede suscribirte en este genero, y te notificaremos cuando se publique algo nuevo.
+            </div>
+            <div style={{marginTop:'5px', color: '#FF0000', textDecoration:'underline'}}>
+              <span style={{display:'inline-block', cursor:'pointer', borderBottom:'1px solid red', paddginBottom:'2px'}}>
+                Suscribirse
+              </span>
+            </div>
+          </div>  
         </div>
       </div>
-      <Genres content_ref={content_ref} />
+      <Genres content_ref={content_ref} /> 
     </div>
    );
 }
