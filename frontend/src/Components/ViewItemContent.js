@@ -11,8 +11,8 @@ const ViewItemContent = ({ content, redirectPath, cardStyle, reference, injectCo
       </div> 
       <div className="truncate hide-on-small-only" style={{ color:'white', fontWeight:'500', marginTop:'5px', textAlign:'center' }}>
         {content.title}
-        {injectComponent}
       </div>
+      {injectComponent}
     </div>
   );
 }

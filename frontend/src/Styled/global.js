@@ -100,24 +100,28 @@ export const GlobalStyles = createGlobalStyle`
     color: #ffff;
   }
 
+  .explore-all {
+    width: 95%;
+  }
+
   .web-body {
     @media (max-width: 1225px) 
     {
       margin-top: 6%;
     }
-    @media (max-width: 1020px) 
+    @media (max-width: 1200px) 
     {
       margin-top: 7%;
     }
-    @media (max-width: 920px)
+    @media (max-width: 1000px)
     {
         margin-top: 8%;
     }
-    @media (max-width: 753px)
+    @media (max-width: 850px)
     {
         margin-top: 10%;
     }
-    @media (max-width: 552px)
+    @media (max-width: 690px)
     {
         margin-top: 12%;
     }

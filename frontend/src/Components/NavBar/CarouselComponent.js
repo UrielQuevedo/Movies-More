@@ -10,7 +10,6 @@ import UseApi from '../../Hooks/UseApi';
 import { Link } from 'react-router-dom';
 import { suscribeGenre, unsuscribeGenre } from '../../Route/ApiAuth';
 import { useState } from 'react';
-import Axios from 'axios';
 import ViewItemContent from '../ViewItemContent';
 
 const CarouselComponent = ({title, genre}) => {
@@ -96,11 +95,13 @@ const CarouselComponent = ({title, genre}) => {
         removeArrowOnDeviceType={["mobile"]}
       >
         {carouselContent()}
-        <Link to={`/movies?genre=${genre}`} className="carde" style={{width:'95%'}}>
-          <div className="contenedor-imagen">
-            <span className="explore-all-on-carousel">
-              Explore All
-            </span>
+        <Link to={`/movies?genre=${genre}`}>
+          <div className="carde explore-all">
+            <div className="contenedor-imagen">
+              <span className="explore-all-on-carousel">
+                Explore All
+              </span>
+            </div>
           </div>
         </Link>
       </Carousel>

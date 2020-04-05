@@ -5,8 +5,8 @@ const ViewGenericItemContent = ({type, content, ...rest}) => {
   let season_and_episode_number_component;
   if (type === 'new episodes') {
     season_and_episode_number_component = (
-      <div>
-        <p style={{margin:'0', color:'#FAEBD7'}}>
+      <div className="show-on-small-only">
+        <p style={{margin:'0', color:'#FAEBD7', textAlign:'center'}}>
           E0{content.episode_number}xS0{content.season_number}
         </p>
       </div>
