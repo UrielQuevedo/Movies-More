@@ -30,6 +30,7 @@ const CarouselComponent = ({title, genre}) => {
       .then(response =>  {
         setIsSuscribe(response.includes(genre));
       })
+      //TODO estoy repitiendo para saber si esta subscrito o no
     //setIsSuscribe(suscribesResponse.data.includes(genre));
    },[]);
 

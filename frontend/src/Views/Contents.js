@@ -7,15 +7,22 @@ import UsePagination from '../Hooks/UsePagination';
 import ViewItemContent from '../Components/ViewItemContent';
 import ViewGenericItemContent from '../Components/ViewGenericItemContent';
 import Preloader from '../Components/Preloader';
+import UseApi from '../Hooks/UseApi';
+import { getSuscribes } from '../Route/Api';
 
 const Contents = ({ content_ref }) => {
   
   const {t} = useTranslation();
   const [pageNumber, setPageNumber] = useState(1);
   const genre = new URLSearchParams(window.location.search).get('genre');
-  const { loading, error, contents, hasMore } = UsePagination(content_ref, genre, pageNumber);
+  const { loading, contents, hasMore } = UsePagination(content_ref, genre, pageNumber);
+  const [ isSuscribe, setIsSuscribe ] = useState();
 
   useEffect(() => {
+    getSuscribes('genres', window.localStorage.getItem('uid'))
+      .then(response =>  {
+        setIsSuscribe(response.includes(genre));
+      });
     setPageNumber(1);
   }, [content_ref])
 
@@ -42,6 +49,38 @@ const Contents = ({ content_ref }) => {
     );
   }
 
+  const suscriptionComponent = () => {
+    return (
+      <div>
+        Pero puedes suscribirte en este genero, y te notificaremos cuando se publique algo nuevo.
+        <div style={{marginTop:'5px', color: '#FF0000', textDecoration:'underline'}}>
+          <span style={{display:'inline-block', cursor:'pointer', borderBottom:'1px solid red', paddginBottom:'2px'}}>
+            Suscribirse
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  const nonSuscriptionComponent = () => {
+    return (
+      <div>
+        Te notificaremos cuando haya algo nuevo {'(:'} .
+      </div>
+    );
+  }
+
+  const alertNotMoreContent = () => {
+    return (
+      <div className="col-12" style={{ marginBottom: '20px', display:'flex', justifyContent:'center'}}>
+        <div style={{ width:'60%', borderBottom:'1px solid #F34335', background:'#020F43', color:'#FAEBD7', padding: '20px', textAlign:'center', fontSize:'20px' }}>
+          No contamos con mas contenido por el momento  {`:'(`}
+          { genre !== 'new' &&  (isSuscribe  ? nonSuscriptionComponent() : suscriptionComponent())}
+        </div>  
+      </div>
+    );
+  }
+
   {/* <GenreMobileNavbar /> */}
   return (
     <div className="row" style={{height:'100%'}}>
@@ -62,19 +101,7 @@ const Contents = ({ content_ref }) => {
             </div>
           </div> 
         }
-        <div className="col-12" style={{ marginBottom: '20px', display:'flex', justifyContent:'center'}}>
-          <div style={{ width:'60%', background:'#020F43', color:'#FAEBD7', padding: '20px', textAlign:'center', fontSize:'22px'  }}>
-            No contamos con mas contenido por el momento.
-            <div>
-              Pero puede suscribirte en este genero, y te notificaremos cuando se publique algo nuevo.
-            </div>
-            <div style={{marginTop:'5px', color: '#FF0000', textDecoration:'underline'}}>
-              <span style={{display:'inline-block', cursor:'pointer', borderBottom:'1px solid red', paddginBottom:'2px'}}>
-                Suscribirse
-              </span>
-            </div>
-          </div>  
-        </div>
+        { !hasMore && !loading  &&  alertNotMoreContent() }
       </div>
       <Genres content_ref={content_ref} /> 
     </div>
