@@ -10,9 +10,9 @@ import Preloader from '../Components/Preloader';
 import UseApi from '../Hooks/UseApi';
 import { getSuscribes } from '../Route/Api';
 import { suscribeGenre, unsuscribeGenre } from '../Route/ApiAuth';
+import ButtonSuscribe from '../Components/ButtonSuscribe';
 
 const Contents = ({ content_ref }) => {
-  
   const {t} = useTranslation();
   const [pageNumber, setPageNumber] = useState(1);
   const genre = new URLSearchParams(window.location.search).get('genre');
@@ -46,22 +46,6 @@ const Contents = ({ content_ref }) => {
     const uid = window.localStorage.getItem('uid');
     suscribeRequest(suscribeGenre('genres', genre, uid));
     setIsSuscribe(true);
-  }
-
-  const unsuscribeToGenre = () => {
-    const uid = window.localStorage.getItem('uid');
-    suscribeRequest(unsuscribeGenre('genres', genre, uid));
-    setIsSuscribe(false);
-  }
-
-  //TODO este boton se repite en carousel component
-
-  const button = (action, title, color) => {
-    return (
-      <div className="head-content-button">
-        <button className="btn button-suscribe" style={{ background: color }} onClick={() => action()}>{t(title)}</button>
-      </div>
-    );
   }
 
   const createMovies = () => {
@@ -116,9 +100,9 @@ const Contents = ({ content_ref }) => {
             { genre === 'new' ? 'new ' + content_ref : genre }
           </h5>
         </div>
-        {isSuscribe ? button(unsuscribeToGenre, 'unsuscribe', '#77191c') : button(suscribeToGenre, 'suscribe', '#f34335')}
+        <ButtonSuscribe genre={genre} />
         <div className="container-items" style={{padding:'0px', margin:'0px'}}>
-          { createMovies() }
+          { createMovies(genre) }
         </div>
         { 
           loading && 

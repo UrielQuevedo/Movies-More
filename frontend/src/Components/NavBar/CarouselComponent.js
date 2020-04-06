@@ -3,35 +3,21 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 //TODO Sacar home.css
 import "../../Css/home.css";
-import { getMovies, getSuscribes } from '../../Route/Api';
+import { getMovies } from '../../Route/Api';
 import UseLenguage from '../../Hooks/UseLenguage';
 import { useTranslation } from 'react-i18next';
 import UseApi from '../../Hooks/UseApi';
 import { Link } from 'react-router-dom';
-import { suscribeGenre, unsuscribeGenre } from '../../Route/ApiAuth';
-import { useState } from 'react';
 import ViewItemContent from '../ViewItemContent';
+import ButtonSuscribe from '../ButtonSuscribe';
 
 const CarouselComponent = ({title, genre}) => {
   const [contentResponse, getContent] = UseApi([]);
-  const [suscribesResponse, getUserSuscribe] = UseApi([]);
-  //TODO hacer que no sean con [] si no {}
-  const [_, sendSuscribeGenre] = UseApi();
-  //TODO ver si se puede hacer que no sea un hook si no una funcion auxiliar y que retorne o no lo que se necesite
-  const [__, sendUnsuscribeGenre] = UseApi();
-  const [isSuscribe, setIsSuscribe] = useState();
   const [lenguage] = UseLenguage();
   const {t} = useTranslation();
 
   useEffect(() => {
     getContent(getMovies(genre, 1, lenguage(), 17));
-    //TODO estoy repitiendo el windows.localStorage.getItem(uid)
-    getSuscribes('genres', window.localStorage.getItem('uid'))
-      .then(response =>  {
-        setIsSuscribe(response.includes(genre));
-      })
-      //TODO estoy repitiendo para saber si esta subscrito o no
-    //setIsSuscribe(suscribesResponse.data.includes(genre));
    },[]);
 
   const responsive = {
@@ -54,29 +40,6 @@ const CarouselComponent = ({title, genre}) => {
       partialVisibilityGutter : 6,
     },
   };
-
-  //TODO suscribe y unsuscribe se repite en contents.js
-
-  const suscribeToGenre = () => {
-    //TODO se repide el uid localstorage
-    const uid = window.localStorage.getItem('uid');
-    sendSuscribeGenre(suscribeGenre('genres', genre, uid));
-    setIsSuscribe(true);
-  }
-
-  const unsuscribeToGenre = () => {
-    const uid = window.localStorage.getItem('uid');
-    sendUnsuscribeGenre(unsuscribeGenre('genres', genre, uid));
-    setIsSuscribe(false);
-  }
-
-  const button = (action, title, color) => {
-    return (
-      <div className="head-content-button">
-        <button className="btn button-suscribe" style={{ background: color }} onClick={() => action()}>{t(title)}</button>
-      </div>
-    );
-  }
 
   const carouselContent = () => {
     return contentResponse.data.map((content) => (
@@ -111,6 +74,7 @@ const CarouselComponent = ({title, genre}) => {
     );
   }
 
+  //TODO poner loading
   return (
     <div>
       <div className="head-content head-response">
@@ -118,9 +82,8 @@ const CarouselComponent = ({title, genre}) => {
         <Link to={`/movies?genre=${genre}`} className="head-explore-all">
           {t('explore all')}
         </Link>
-        {isSuscribe ? button(unsuscribeToGenre, 'unsuscribe', '#77191c') : button(suscribeToGenre, 'suscribe', '#f34335')}
+      <ButtonSuscribe genre={genre} />
       </div>
-      {/* PONER LOADING */}
       {!contentResponse.loading && createCarousel()}
     </div>
   );

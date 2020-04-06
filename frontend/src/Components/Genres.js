@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useEffect } from 'react';
 import { getGenres } from '../Route/Api';
 import UseApi from '../Hooks/UseApi';
