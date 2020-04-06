@@ -4,27 +4,19 @@ import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 import Genres from '../Components/Genres';
 import UsePagination from '../Hooks/UsePagination';
-import ViewItemContent from '../Components/ViewItemContent';
 import ViewGenericItemContent from '../Components/ViewGenericItemContent';
 import Preloader from '../Components/Preloader';
-import UseApi from '../Hooks/UseApi';
-import { getSuscribes } from '../Route/Api';
-import { suscribeGenre, unsuscribeGenre } from '../Route/ApiAuth';
 import ButtonSuscribe from '../Components/ButtonSuscribe';
+import UseSuscribe from '../Hooks/UseSuscribe';
 
 const Contents = ({ content_ref }) => {
   const {t} = useTranslation();
   const [pageNumber, setPageNumber] = useState(1);
   const genre = new URLSearchParams(window.location.search).get('genre');
   const { loading, contents, hasMore } = UsePagination(content_ref, genre, pageNumber);
-  const [ isSuscribe, setIsSuscribe ] = useState();
-  const [_, suscribeRequest] = UseApi();
+  const { isSuscribe, suscribeToGenre } = UseSuscribe({genre: genre});
 
   useEffect(() => {
-    getSuscribes('genres', window.localStorage.getItem('uid'))
-      .then(response =>  {
-        setIsSuscribe(response.includes(genre));
-      });
     setPageNumber(1);
   }, [content_ref])
 
@@ -40,13 +32,6 @@ const Contents = ({ content_ref }) => {
     })
     if(node) observer.current.observe(node);
   }, [loading, hasMore]);
-
-  const suscribeToGenre = () => {
-    //TODO se repide el uid localstorage
-    const uid = window.localStorage.getItem('uid');
-    suscribeRequest(suscribeGenre('genres', genre, uid));
-    setIsSuscribe(true);
-  }
 
   const createMovies = () => {
     return contents.map((content, index) => 
@@ -80,7 +65,7 @@ const Contents = ({ content_ref }) => {
         <div style={{ width:'60%', borderBottom:'1px solid #F34335', background:'#020F43', color:'#FAEBD7', padding: '20px', textAlign:'center', fontSize:'20px' }}>
           No contamos con mas contenido por el momento  {`:'(`}
           { genre !== 'new' && genre !== 'new episodes' &&  (
-              isSuscribe  ? 
+              isSuscribe ? 
               <div> Te notificaremos cuando haya algo nuevo. </div> 
               : 
               suscriptionComponent()
@@ -95,12 +80,13 @@ const Contents = ({ content_ref }) => {
   return (
     <div className="row" style={{height:'100%'}}>
       <div className="col s12 m9 offset-m1">
+        {console.log(isSuscribe)}
         <div className="head-content">
           <h5 style={{color: "#21FFE2", textTransform:'capitalize', marginRight:'10px'}}>
             { genre === 'new' ? 'new ' + content_ref : genre }
           </h5>
         </div>
-        <ButtonSuscribe genre={genre} />
+        { genre !== 'new' && genre !== 'new episodes' && <ButtonSuscribe genre={genre} />}
         <div className="container-items" style={{padding:'0px', margin:'0px'}}>
           { createMovies(genre) }
         </div>

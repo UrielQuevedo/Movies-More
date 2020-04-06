@@ -1,31 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import UseApi from '../Hooks/UseApi';
-import { getSuscribes } from '../Route/Api';
-import { suscribeGenre, unsuscribeGenre } from '../Route/ApiAuth';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import UseSuscribe from '../Hooks/UseSuscribe';
 
-const ButtonSuscribe = ({genre}) => {
+const ButtonSuscribe = (genre) => {
   const {t} = useTranslation();
-  const [isSuscribe, setIsSuscribe] = useState();
-  const [_, suscribeRequest] = UseApi();
-  const uid = window.localStorage.getItem('uid');
-
-  useEffect(() => {
-    getSuscribes('genres', uid)
-      .then(response =>  {
-        setIsSuscribe(response.includes(genre));
-      })
-   },[]);
-
-  const suscribeToGenre = () => {
-    suscribeRequest(suscribeGenre('genres', genre, uid));
-    setIsSuscribe(true);
-  }
-
-  const unsuscribeToGenre = () => {
-    suscribeRequest(unsuscribeGenre('genres', genre, uid));
-    setIsSuscribe(false);
-  }
+  const { isSuscribe, suscribeToGenre, unsuscribeToGenre } = UseSuscribe(genre);
   
   const button = (action, title, color) => {
     return (
