@@ -9,6 +9,7 @@ import ViewGenericItemContent from '../Components/ViewGenericItemContent';
 import Preloader from '../Components/Preloader';
 import UseApi from '../Hooks/UseApi';
 import { getSuscribes } from '../Route/Api';
+import { suscribeGenre, unsuscribeGenre } from '../Route/ApiAuth';
 
 const Contents = ({ content_ref }) => {
   
@@ -17,6 +18,7 @@ const Contents = ({ content_ref }) => {
   const genre = new URLSearchParams(window.location.search).get('genre');
   const { loading, contents, hasMore } = UsePagination(content_ref, genre, pageNumber);
   const [ isSuscribe, setIsSuscribe ] = useState();
+  const [_, suscribeRequest] = UseApi();
 
   useEffect(() => {
     getSuscribes('genres', window.localStorage.getItem('uid'))
@@ -39,6 +41,29 @@ const Contents = ({ content_ref }) => {
     if(node) observer.current.observe(node);
   }, [loading, hasMore]);
 
+  const suscribeToGenre = () => {
+    //TODO se repide el uid localstorage
+    const uid = window.localStorage.getItem('uid');
+    suscribeRequest(suscribeGenre('genres', genre, uid));
+    setIsSuscribe(true);
+  }
+
+  const unsuscribeToGenre = () => {
+    const uid = window.localStorage.getItem('uid');
+    suscribeRequest(unsuscribeGenre('genres', genre, uid));
+    setIsSuscribe(false);
+  }
+
+  //TODO este boton se repite en carousel component
+
+  const button = (action, title, color) => {
+    return (
+      <div className="head-content-button">
+        <button className="btn button-suscribe" style={{ background: color }} onClick={() => action()}>{t(title)}</button>
+      </div>
+    );
+  }
+
   const createMovies = () => {
     return contents.map((content, index) => 
       (contents.length === index + 1) ?
@@ -54,18 +79,13 @@ const Contents = ({ content_ref }) => {
       <div>
         Pero puedes suscribirte en este genero, y te notificaremos cuando se publique algo nuevo.
         <div style={{marginTop:'5px', color: '#FF0000', textDecoration:'underline'}}>
-          <span style={{display:'inline-block', cursor:'pointer', borderBottom:'1px solid red', paddginBottom:'2px'}}>
+          <span 
+            style={{display:'inline-block', cursor:'pointer', borderBottom:'1px solid red', paddginBottom:'2px'}}
+            onClick={() => suscribeToGenre(true)}
+          >
             Suscribirse
           </span>
         </div>
-      </div>
-    );
-  }
-
-  const nonSuscriptionComponent = () => {
-    return (
-      <div>
-        Te notificaremos cuando haya algo nuevo {'(:'} .
       </div>
     );
   }
@@ -75,7 +95,13 @@ const Contents = ({ content_ref }) => {
       <div className="col-12" style={{ marginBottom: '20px', display:'flex', justifyContent:'center'}}>
         <div style={{ width:'60%', borderBottom:'1px solid #F34335', background:'#020F43', color:'#FAEBD7', padding: '20px', textAlign:'center', fontSize:'20px' }}>
           No contamos con mas contenido por el momento  {`:'(`}
-          { genre !== 'new' &&  (isSuscribe  ? nonSuscriptionComponent() : suscriptionComponent())}
+          { genre !== 'new' && genre !== 'new episodes' &&  (
+              isSuscribe  ? 
+              <div> Te notificaremos cuando haya algo nuevo. </div> 
+              : 
+              suscriptionComponent()
+            )
+          }
         </div>  
       </div>
     );
@@ -90,6 +116,7 @@ const Contents = ({ content_ref }) => {
             { genre === 'new' ? 'new ' + content_ref : genre }
           </h5>
         </div>
+        {isSuscribe ? button(unsuscribeToGenre, 'unsuscribe', '#77191c') : button(suscribeToGenre, 'suscribe', '#f34335')}
         <div className="container-items" style={{padding:'0px', margin:'0px'}}>
           { createMovies() }
         </div>

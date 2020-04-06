@@ -55,6 +55,8 @@ const CarouselComponent = ({title, genre}) => {
     },
   };
 
+  //TODO suscribe y unsuscribe se repite en contents.js
+
   const suscribeToGenre = () => {
     //TODO se repide el uid localstorage
     const uid = window.localStorage.getItem('uid');
