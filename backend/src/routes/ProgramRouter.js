@@ -51,70 +51,67 @@ router.get('/create', (executeFunction([], (req, res) => {
   const API_KEY = '79a3f2fba1eb064439c6aecab8c7d7b2';
   const URL = 'https://api.themoviedb.org/3/tv';
 
-  for (let i = 1; i < 9; i++) {
-    rp(`${URL}/popular?api_key=${API_KEY}&language=en-US&page=${2}`)
-      .then((response) => {
-        const result = JSON.parse(response);
-        result.results.forEach(element => {
-          ids.push(element.id)
-        });
-        if(i === 8) {
-          ids.forEach(id => {
-            rp(`${URL}/${id}?api_key=${API_KEY}&language=es`)
-            .then((data) => {
-              const _data = JSON.parse(data);
-              const _backdrop = `https://image.tmdb.org/t/p/original${_data.backdrop_path}`;
-              const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_data.poster_path}`; 
-              var newProgram = {
-                backdrop_url: _backdrop,
-                es_title: _data.name,
-                es_overview: _data.overview,
-                es_poster_url: poster,
-                number_of_seasons: _data.number_of_seasons,
-                number_of_episodes: _data.number_of_episodes,
-                upload_date: new Date(),
-              }
-              rp(`${URL}/${id}?api_key=${API_KEY}&language=en`)
-              .then( async (en) => {
-                const _en = JSON.parse(en);
-                const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_en.poster_path}`; 
-                newProgram.en_overview = _en.overview;
-                newProgram.en_title = _en.name;
-                newProgram.en_poster_url = poster;
-                newProgram.genres = _en.genres.map((e) => e.name.toLowerCase());
-                newProgram.genres.forEach(e => genres.add(e));
-                const program_data = await ProgramService.addProgram(newProgram)
-                const programUid = program_data.id;
-                for (let s = 1; s < _data.number_of_seasons + 1; s++) {
-                  rp(`${URL}/${id}/season/${s}?api_key=${API_KEY}&lenguage=en`)
-                    .then(season => {
-                      const _season = JSON.parse(season);
-                      const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_season.poster_path}`; 
-                      const newSeason = {
-                        season_number: s,
-                        en_program_title: newProgram.en_title,
-                        es_program_title: newProgram.es_title,
-                        en_poster_url: poster,
-                        episodes: [],
-                      }
-                      rp(`${URL}/${id}/season/${s}?api_key=${API_KEY}&lenguage=es`)
-                        .then(season2 => {
-                          const _season2 = JSON.parse(season2);
-                          const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_season2.poster_path}`; 
-                          newSeason.es_poster_url = poster;
-                          ProgramService.addSeason(newSeason, programUid);
-                        });
+  rp(`${URL}/popular?api_key=${API_KEY}&language=en-US&page=${1}`)
+    .then((response) => {
+      const result = JSON.parse(response);
+      result.results.forEach(element => {
+        ids.push(element.id)
+      });
+      ids.forEach(id => {
+        rp(`${URL}/${id}?api_key=${API_KEY}&language=es`)
+        .then((data) => {
+          const _data = JSON.parse(data);
+          const _backdrop = `https://image.tmdb.org/t/p/original${_data.backdrop_path}`;
+          const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_data.poster_path}`; 
+          var newProgram = {
+            backdrop_url: _backdrop,
+            es_title: _data.name,
+            es_overview: _data.overview,
+            es_poster_url: poster,
+            number_of_seasons: _data.number_of_seasons,
+            number_of_episodes: _data.number_of_episodes,
+            upload_date: new Date(),
+          }
+          rp(`${URL}/${id}?api_key=${API_KEY}&language=en`)
+          .then( async (en) => {
+            const _en = JSON.parse(en);
+            const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_en.poster_path}`; 
+            newProgram.en_overview = _en.overview;
+            newProgram.en_title = _en.name;
+            newProgram.en_poster_url = poster;
+            newProgram.genres = _en.genres.map((e) => e.name.toLowerCase());
+            newProgram.genres.forEach(e => genres.add(e));
+            const program_data = await ProgramService.addProgram(newProgram)
+            const programUid = program_data.id;
+            for (let s = 1; s < _data.number_of_seasons + 1; s++) {
+              rp(`${URL}/${id}/season/${s}?api_key=${API_KEY}&lenguage=en`)
+                .then(season => {
+                  const _season = JSON.parse(season);
+                  const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_season.poster_path}`; 
+                  const newSeason = {
+                    season_number: s,
+                    en_program_title: newProgram.en_title,
+                    es_program_title: newProgram.es_title,
+                    en_poster_url: poster,
+                    episodes: [],
+                  }
+                  rp(`${URL}/${id}/season/${s}?api_key=${API_KEY}&lenguage=es`)
+                    .then(season2 => {
+                      const _season2 = JSON.parse(season2);
+                      const poster = `https://image.tmdb.org/t/p/w370_and_h556_bestv2${_season2.poster_path}`; 
+                      newSeason.es_poster_url = poster;
+                      ProgramService.addSeason(newSeason, programUid);
                     });
-                }
-                const ls = Array.from(genres);
-                GenreService.addGenres(ls, 'programs');
-                cargarCarpitulos(id, _data, programUid);
-              })
-            })
+                });
+            }
+            const ls = Array.from(genres);
+            GenreService.addGenres(ls, 'programs');
+            cargarCarpitulos(id, _data, programUid);   
           })
-        } 
+        })
       })
-  }
+    } 
+  )
   res.status(201).json("OK");
 })));
 

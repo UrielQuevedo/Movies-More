@@ -35,6 +35,7 @@ import { BasicUserInfoContext } from "./Hooks/BasicUserInfoContext";
 import UseCustomAPI from "./Hooks/UseCustomAPI";
 import API, { getMovies, getPrograms } from "./Route/Api";
 import MobileNavbarTop from "./Components/NavBar/MobileNavbarTop";
+import Movie from "./Views/Movie";
 
 function App() {
   const {actualTheme} = UseDarkMode();
@@ -64,7 +65,10 @@ function App() {
                     <UsePrivateRoute path='/' exact component={Home} />
                     <UsePrivateRoute path='/movies' exact component={Contents} content_ref="movies" />
                     <UsePrivateRoute path='/programs' exact component={Contents} content_ref="programs" />
-                    <UsePrivateRoute path='/traiers' exact component={Contents} />
+                    <UsePrivateRoute path='/trailers' exact component={Contents} content_ref="trailer" />
+                    <UsePrivateRoute path='/movies/:id' exact component={Movie} />
+                    <UsePrivateRoute path='/programs/:id/season/:season_number/episode/:episode_number' exact component={Movie} />
+                    <UsePrivateRoute path='/programs/:id' exact component={Movie} />
                     <UsePrivateRoute path='/profile' exact component={Profile} />
                     <UsePrivateRoute path='/mylist' exact component={Mylist} />
                     <Redirect to='/' />

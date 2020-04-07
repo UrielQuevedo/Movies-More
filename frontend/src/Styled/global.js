@@ -6,6 +6,14 @@ export const GlobalStyles = createGlobalStyle`
   width: 16.3%;
 }
 
+.card-content-home-view {
+  width: 12.3%;
+}
+
+.card-content-carousel-view {
+  width: 95%;
+}
+
 .alert-content {
   @media (max-width: 992px) 
   {
@@ -324,7 +332,6 @@ export const GlobalStyles = createGlobalStyle`
     {
         width: 33.33333%;
     }
-    width: 14%;
     padding: 0 .6rem 0 0;
   }
 

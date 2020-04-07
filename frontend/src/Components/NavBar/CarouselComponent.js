@@ -25,8 +25,9 @@ const CarouselComponent = ({title, genre}) => {
       breakpoint: { max: 3000, min: 1024 },
       items: 6,
       slidesToSlide: 6,
-      partialVisibilityGutter : 41
+      partialVisibilityGutter : 41,
     },
+    //TODO Poner 5
     tablet: {
       breakpoint: { max: 1024, min: 641 },
       items: 4,
@@ -43,7 +44,7 @@ const CarouselComponent = ({title, genre}) => {
 
   const carouselContent = () => {
     return contentResponse.data.map((content) => (
-      <ViewItemContent content={content} redirectPath={`/movies/${content.uid}`} cardStyle={{ width:'95%' }}/>
+      <ViewItemContent content={content} redirectPath={`/movies/${content.uid}`} classStyle="card-content-carousel-view"  cardStyle={{ width:'95%' }}/>
     ));
   }
 

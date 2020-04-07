@@ -9,8 +9,8 @@ const addSeason = (season, programUid) => {
   ProgramDaoFirebase.addSeason(season, programUid);
 }
 
-const addEpisode = (episode, season_number, episode_number, programUid) => {
-  ProgramDaoFirebase.addEpisode(episode, season_number, episode_number, programUid);
+const addEpisode = (episode, programUid) => {
+  ProgramDaoFirebase.addEpisode(episode, programUid);
 }
 
 const getProgram = (uid) => {

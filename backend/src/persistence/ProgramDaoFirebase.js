@@ -17,6 +17,7 @@ const addSeason = async (season, programUid) => {
 
 const addEpisode = (episode, programUid) => {
   const little_episode_inf = {
+    program_uid: programUid,
     season_number: episode.season_number,
     episode_number: episode.episode_number,
     upload_date: new Date(),
@@ -68,6 +69,7 @@ const getNewEpisodes = async (lastItem, limit) => {
       const season = season_doc.data();
       return { 
         ...season.episodes[episode_number], 
+        program_uid: little_episode_inf.program_uid,
         en_poster_url: season.en_poster_url,
         es_poster_url: season.es_poster_url,
         en_title: season.en_program_title,

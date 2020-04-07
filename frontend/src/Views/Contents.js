@@ -37,9 +37,9 @@ const Contents = ({ content_ref }) => {
     return contents.map((content, index) => 
       (contents.length === index + 1) ?
         //TODO Corregir redirectPath
-        <ViewGenericItemContent type={genre} content={content} redirectPath='/movies' classStyle="card-content-view" reference={lastMovieRef} />
+        <ViewGenericItemContent type={genre} content={content} redirectPath={`/${content_ref}/${content.uid}`} classStyle="card-content-view" reference={lastMovieRef} />
         :
-        <ViewGenericItemContent type={genre} content={content} redirectPath='/movies' classStyle="card-content-view" />
+        <ViewGenericItemContent type={genre} content={content} redirectPath={`/${content_ref}/${content.uid}`} classStyle="card-content-view" />
     );
   }
 
@@ -50,7 +50,8 @@ const Contents = ({ content_ref }) => {
         <div style={{marginTop:'5px', color: '#FF0000', textDecoration:'underline'}}>
           <span 
             style={{display:'inline-block', cursor:'pointer', borderBottom:'1px solid red', paddginBottom:'2px'}}
-            onClick={() => suscribeToGenre(true)}
+            //TODO NO ANDA BIEN FIJATE
+            onClick={() => suscribeToGenre()}
           >
             Suscribirse
           </span>

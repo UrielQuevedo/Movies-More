@@ -11,25 +11,24 @@ import ViewGenericItemContent from "../Components/ViewGenericItemContent";
 const Home = () => {
   const [language] = UseLenguage();
   const {t} = useTranslation();
-
   const [newMoviesResponse, getNewMovies] = UseApi([]);
   const [latestEpisodesResponse, getLatestEpisodesExecute] = UseApi([]);
 
   useEffect(() => {
-    getNewMovies(getMovies('new', '1', language(), '21'));
-    getLatestEpisodesExecute(getPrograms('new episodes', 1, language(), '21'));
+    getNewMovies(getMovies('new', '1', language(), '24'));
+    getLatestEpisodesExecute(getPrograms('new episodes', 1, language(), '24'));
   },[]);
 
   const moviesComponent = () => {
     return newMoviesResponse.data.map((movie) => (
-      <ViewGenericItemContent content={movie} redirectPath={`/movies/${movie.uid}`} />
+      <ViewGenericItemContent content={movie} redirectPath={`/movies/${movie.uid}`} classStyle="card-content-home-view" />
     ));
   }
 
   const episodesComponent = () => {
     return latestEpisodesResponse.data.map((episode) => (
       //TODO corregir el redictPath
-      <ViewGenericItemContent content={episode} redirectPath='/programs/episode' type='new episodes' />
+      <ViewGenericItemContent content={episode} classStyle="card-content-home-view" redirectPath={`/programs/${episode.program_uid}/season/${episode.season_number}/episode/${episode.episode_number}`} type='new episodes' />
     ))
   }
 
@@ -57,7 +56,9 @@ const Home = () => {
         <div style={{display:'flex', justifyContent:'center', margin:'10px 0 10px 0', paddingRight: '0.75rem'}}>
           <div className="card-subscription">
             {t('You can subscribe to different categories, trailer, series and you will be notified by email and on the page when there is something new, you can see your subscriptions on')} 
-            <Link to='/mylist' style={{color:'#21ffe2', textTransform:'capitalize'}}> {t('my list')}</Link>
+            <div>
+              <Link to='/mylist' style={{color:'#21ffe2', textTransform:'capitalize'}}> {t('my list')}</Link>
+            </div>
           </div>
         </div>
         {!newMoviesResponse.loading && createContent('New Movies', '/movies?genre=new', moviesComponent())}

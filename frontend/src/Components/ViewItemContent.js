@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-const ViewItemContent = ({ content, classStyle, redirectPath, cardStyle, reference, injectComponent }) => {
+const ViewItemContent = ({ content, classStyle, redirectPath, reference, injectComponent }) => {
   return (
-    <div ref={reference} className={"carde " + classStyle} style={cardStyle}>
+    <div ref={reference} className={"carde " + classStyle} >
       <div className="contenedor-imagen imagenes">
         <Link to={redirectPath} className="fade">
           <img className='imagen' loading='lazy' src={content.poster_url} width="200" height="325" alt="" style={{borderRadius:'2px'}}/>
