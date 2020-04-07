@@ -2,9 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import UseSuscribe from '../Hooks/UseSuscribe';
 
-const ButtonSuscribe = (genre) => {
+const ButtonSuscribe = (genre, type_content) => {
   const {t} = useTranslation();
-  const { isSuscribe, suscribeToGenre, unsuscribeToGenre } = UseSuscribe(genre);
+  const { isSuscribe, suscribeToGenre, unsuscribeToGenre } = UseSuscribe(genre, type_content);
   
   const button = (action, title, color) => {
     return (

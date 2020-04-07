@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <div className="row">
-      <div className="col s12 home">
+      <div className="col s12 padding-content">
         <CarouselComponent title='Premiere' genre='premiere'/>
         <CarouselComponent title='SuperHeroes' genre='superheroes'/>
         <div style={{display:'flex', justifyContent:'center', margin:'10px 0 10px 0', paddingRight: '0.75rem'}}>

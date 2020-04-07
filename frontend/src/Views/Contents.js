@@ -14,7 +14,7 @@ const Contents = ({ content_ref }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const genre = new URLSearchParams(window.location.search).get('genre');
   const { loading, contents, hasMore } = UsePagination(content_ref, genre, pageNumber);
-  const { isSuscribe, suscribeToGenre } = UseSuscribe({genre: genre});
+  const { isSuscribe, suscribeToGenre } = UseSuscribe({genre: genre, type_content: `${content_ref}_genres`});
 
   useEffect(() => {
     setPageNumber(1);
@@ -37,9 +37,9 @@ const Contents = ({ content_ref }) => {
     return contents.map((content, index) => 
       (contents.length === index + 1) ?
         //TODO Corregir redirectPath
-        <ViewGenericItemContent type={genre} content={content} redirectPath='/movies' cardStyle={{width: '16.6%'}} reference={lastMovieRef} />
+        <ViewGenericItemContent type={genre} content={content} redirectPath='/movies' classStyle="card-content-view" reference={lastMovieRef} />
         :
-        <ViewGenericItemContent type={genre} content={content} redirectPath='/movies' cardStyle={{width: '16.6%'}} />
+        <ViewGenericItemContent type={genre} content={content} redirectPath='/movies' classStyle="card-content-view" />
     );
   }
 
@@ -61,8 +61,8 @@ const Contents = ({ content_ref }) => {
 
   const alertNotMoreContent = () => {
     return (
-      <div className="col-12" style={{ marginBottom: '20px', display:'flex', justifyContent:'center'}}>
-        <div style={{ width:'60%', borderBottom:'1px solid #F34335', background:'#020F43', color:'#FAEBD7', padding: '20px', textAlign:'center', fontSize:'20px' }}>
+      <div className="col-12" style={{ marginBottom: '20px', marginTop:'20px', display:'flex', justifyContent:'center', paddingRight:'0.75rem'}}>
+        <div className="alert-content">
           No contamos con mas contenido por el momento  {`:'(`}
           { genre !== 'new' && genre !== 'new episodes' &&  (
               isSuscribe ? 
@@ -78,16 +78,16 @@ const Contents = ({ content_ref }) => {
 
   {/* <GenreMobileNavbar /> */}
   return (
-    <div className="row" style={{height:'100%'}}>
-      <div className="col s12 m9 offset-m1">
-        {console.log(isSuscribe)}
+    <div className="padding-content content-container" >
+      <div className="contents-items" >
         <div className="head-content">
+          {console.log(content_ref)}
           <h5 style={{color: "#21FFE2", textTransform:'capitalize', marginRight:'10px'}}>
             { genre === 'new' ? 'new ' + content_ref : genre }
           </h5>
         </div>
-        { genre !== 'new' && genre !== 'new episodes' && <ButtonSuscribe genre={genre} />}
-        <div className="container-items" style={{padding:'0px', margin:'0px'}}>
+        { genre !== 'new' && genre !== 'new episodes' && <ButtonSuscribe genre={genre} type_content={content_ref + "_genres"} />}
+        <div className="container-items" style={{ padding:'0px', margin:'0px'}}>
           { createMovies(genre) }
         </div>
         { 

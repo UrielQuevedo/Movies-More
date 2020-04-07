@@ -82,7 +82,7 @@ const CarouselComponent = ({title, genre}) => {
         <Link to={`/movies?genre=${genre}`} className="head-explore-all">
           {t('explore all')}
         </Link>
-      <ButtonSuscribe genre={genre} />
+      <ButtonSuscribe genre={genre} type_content="movies_genres"/>
       </div>
       {!contentResponse.loading && createCarousel()}
     </div>

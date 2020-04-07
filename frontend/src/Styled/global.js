@@ -2,6 +2,42 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+.card-content-view {
+  width: 16.3%;
+}
+
+.alert-content {
+  @media (max-width: 992px) 
+  {
+    width: 100%;
+  }
+  width: 65%;
+  border-bottom: 1px solid #F34335;  
+  background: #020f43;
+  color: #FAEBD7;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.content-container {
+  @media (max-width: 992px) 
+    {
+      display: block;
+    }
+  display: flex;
+  height: 100%;
+}
+
+.contents-items {
+  @media (max-width: 992px) 
+  {
+    width: 100%;
+  }
+  padding: 0px;
+  width: 82.5%;
+}
+
 .divider-genre {
   height: 1.5px;
   background: #FAEBD7;
@@ -82,7 +118,7 @@ export const GlobalStyles = createGlobalStyle`
   margin-top: 11px !important;
 }
 
-.home {
+.padding-content {
   @media (max-width: 920px) 
     {
       padding: 0 !important;
@@ -558,7 +594,6 @@ export const GlobalStyles = createGlobalStyle`
     @media (max-width: 992px)
     {
       padding-bottom: 65px;
-      margin-top: 40px;
     }
     margin-top: 20px;
     left: 0;
