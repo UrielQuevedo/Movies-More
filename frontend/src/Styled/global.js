@@ -2,6 +2,31 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+.navigation-bar-movie-selected {
+  text-align:center;
+  background:#010B31;
+  text-transform:uppercase;
+  color:#ffff;
+  font-weight: 600;
+  padding: 12px 0 12px 0 !important;
+  border-top:2px solid;
+  font-size: 18px;
+}
+
+.navigation-bar-movie:hover {
+  color: #ffff;
+}
+
+.navigation-bar-movie {
+  text-align: center;
+  text-transform: uppercase;
+  color: #AFA9A9;
+  font-weight: 600;
+  padding: 12px 0 12px 0 !important;
+  cursor: pointer;
+  font-size: 18px !important;
+}
+
 div.stars{
   display: inline-block;
 }
@@ -216,9 +241,9 @@ input.star:checked ~ .rev-box{
     -moz-box-shadow: 0px 10px 50px -10px rgba(16,32,89,1);
     box-shadow: 0px 10px 50px -10px rgba(16,32,89,1);
   }
-  
+
   .card-subscription {
-    @media (max-width: 921px) 
+    @media (max-width: 921px)
     {
       width: 100%;
     }
@@ -232,7 +257,7 @@ input.star:checked ~ .rev-box{
   }
 
   .head-response {
-    @media (max-width: 600px) 
+    @media (max-width: 600px)
     {
       display: unset !important;
     }
@@ -245,7 +270,7 @@ input.star:checked ~ .rev-box{
   }
 
   .head-explore-all {
-    @media (max-width: 600px) 
+    @media (max-width: 600px)
     {
       margin-bottom: 11px;
     }
@@ -261,11 +286,11 @@ input.star:checked ~ .rev-box{
   }
 
   .button-suscribe {
-    @media (max-width: 670px) 
+    @media (max-width: 670px)
     {
       right: 36px;
     }
-    @media (max-width: 600px) 
+    @media (max-width: 600px)
     {
       bottom: 15px;
     }
@@ -292,11 +317,11 @@ input.star:checked ~ .rev-box{
   }
 
   .web-body {
-    @media (max-width: 1225px) 
+    @media (max-width: 1225px)
     {
       margin-top: 6%;
     }
-    @media (max-width: 1200px) 
+    @media (max-width: 1200px)
     {
       margin-top: 7%;
     }
@@ -320,7 +345,7 @@ input.star:checked ~ .rev-box{
     {
         margin-top: 16%;
     }
-    flex: 1 0 auto; 
+    flex: 1 0 auto;
     margin-top: 6%;
   }
 
@@ -431,13 +456,13 @@ input.star:checked ~ .rev-box{
 
   .collapse-menu-genre {
     width: 100%;
-    background: linear-gradient(0deg, 
-      rgba(23,30,61,1) 15%, 
-      rgba(23,30,61,1) 15%, 
-      rgba(23,30,61,1) 15%, 
-      rgba(23,30,61,1) 15%, 
-      rgba(23,30,61,0.8136205165660014) 30%, 
-      rgba(23,30,61,0.8136205165660014) 77%, 
+    background: linear-gradient(0deg,
+      rgba(23,30,61,1) 15%,
+      rgba(23,30,61,1) 15%,
+      rgba(23,30,61,1) 15%,
+      rgba(23,30,61,1) 15%,
+      rgba(23,30,61,0.8136205165660014) 30%,
+      rgba(23,30,61,0.8136205165660014) 77%,
       rgba(23,30,61,1) 98%)
   }
 
@@ -643,7 +668,7 @@ input.star:checked ~ .rev-box{
   .mobile-nav-top {
     background: rgb(2, 9, 35);
   }
-  
+
   .mobile-nav-bottom {
     background: rgb(2, 9, 35);
     height:53px;
@@ -692,7 +717,7 @@ input.star:checked ~ .rev-box{
     align-items: center;
     justify-content: center;
   }
-  
+
   .email-icon {
     margin-left: 10px;
     margin-right: 10px;
@@ -782,7 +807,7 @@ input.star:checked ~ .rev-box{
   .select-dropdown li.disabled>span {
     color: #fff
   }
-  
+
   nav ul a:hover {
     background-color: transparent;
   }
@@ -859,7 +884,7 @@ input.star:checked ~ .rev-box{
   .dropdown-content-setting-theme-item:hover {
     background: transparent !important;
   }
- 
+
   .dropdown-content-setting-item:hover {
     background: #5065bd73 !important;
   }
@@ -904,7 +929,7 @@ input.star:checked ~ .rev-box{
   .nav-item:before {
     transition: all .5s;
   }
-  
+
   .nav-item {
     position: relative;
   }
@@ -930,19 +955,19 @@ input.star:checked ~ .rev-box{
     color: #F34335;
     transform: scale(1.8,1.8);
   }
-  
+
   .contenido {
     padding-bottom: 15px;
     padding-top: 39px;
   }
-  
+
   .icons-footer {
     margin-top: 12px;
   }
-  
+
   .urlIcon {
     height: 24px;
     width: 24px;
   }
-  
+
 `

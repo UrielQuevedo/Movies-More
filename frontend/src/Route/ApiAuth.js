@@ -5,7 +5,7 @@ const server = 'http://localhost:5000';
 const header =  (idToken) => {
   const config = {
     headers: {
-      "Authorization": `Bearer ${idToken}`, 
+      "Authorization": `Bearer ${idToken}`,
     }
   }
   return config;
@@ -22,6 +22,7 @@ const request = (type, path, body) => axios
 })
 .then(req => req.data);
 
+//TODO fijarse si anda igual que la Api, mandando undefined por el header, asi se elimina un archivo
 const APIAUTH = {
   get: (path, idToken) => axios.get(`${server}${path}`, header(idToken)).then(response => response.data),
   put: (path, body, idToken) => axios.put(`${server}${path}`, body, header(idToken)).then(response => response.data),

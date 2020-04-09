@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-import { getMovie, getMovies } from '../Route/Api';
+import { getMovie } from '../Route/Api';
+import UseApi from '../Hooks/UseApi';
 
 const Movie = () => {
-  const movieId = useParams().id;
-  const [movie, setMovie] = useState({
-    genres: [],
-  });
+  const [ response, executeRequest ] = UseApi();
+  const { loading, data: movie } = response;
+  const movieUid = useParams().id;
+  const [ isOverview, setIsOverview ] = useState();
+  const [ isView, setIsView ] = useState();
+  const [ isTrailer, setIsTrailer ] = useState();
 
   useEffect(() => {
-    getMovie(movieId)
-      .then((response) => setMovie(response))
+    setIsOverview(true);
+    executeRequest(getMovie(movieUid));
   }, [])
 
-  const parseHoures = (minutes) => {
-    let mintesParser = minutes;
-    let hores = 0;
-
-    while (mintesParser > 60) {
-      mintesParser = mintesParser -  60;
-      hores = hores + 1;
-    }
-
-    return hores === 0 ? mintesParser + "min" : hores + "h " + mintesParser + "min";
+  //TODO si son 0 minutos, que se muestre solo la hora
+  const timeConvert = (_minutes) => {
+    const hours = (_minutes / 60);
+    const rhours = Math.floor(hours);
+    const minutes = Math.round((hours - rhours) * 60);
+    return rhours + "h " + minutes + "min";
   }
 
   const createStars = () => {
@@ -46,39 +45,52 @@ const Movie = () => {
   }
 
   const createGenres = () => {
-    return movie.genres.map((genre) => (
+    return movie.genres.map((genre, index) => (
       <span style={{color:'#21FFE2', textTransform:'capitalize'}} >
-        {genre}<span style={{color:'#ffff'}}>, </span>
+        {genre}
+        { (movie.genres.length - 1) !== index && <span style={{color:'#ffff'}}>, </span> }
       </span>
     ))
   }
 
-  return (
-    <div className="container">
-      <div style={{position:'relative'}}>
-        <div className="container-backdrop">
-          <img src={movie.backdrop_url} className="backdrop-image" width='100%' alt=""/>
-        </div>
-          <h5 style={{color: '#FFFFFF', position:'absolute', bottom:'0', transform:'translate(23px, -36px)'}}>
-            {movie.title}
-          </h5>
-          <div style={{color:'#AFA9A9', position:'absolute', left:'2.2%', bottom:'3%'}}>
-            <span style={{marginRight:'20px'}}>2019</span>
-            <span>{parseHoures(movie.runtime)}</span>
-          </div>
-        </div>
+  const changeView = (setVisualView) => {
+    setIsOverview(false);
+    setIsTrailer(false);
+    setIsView(false);
+    setVisualView(true);
+  }
+
+  const isSelected = (isVisualViewSelected) => {
+    return isVisualViewSelected ? 'navigation-bar-movie-selected' : 'navigation-bar-movie';
+  }
+
+  const buttonNavigation = () => {
+    return (
       <div className="row" style={{margin:'0'}}>
-        <div className="col s4" style={{ textAlign:'center', background:'#010B31', textTransform:'uppercase', color:'#ffff', fontWeight: '600', padding: '12px 0 12px 0', borderTop:'2px solid', fontSize: '18px' }}>
+        <div
+          className={"col s4 " + isSelected(isOverview)}
+          onClick={ () => changeView(setIsOverview)}
+        >
           overview
         </div>
-        <div className="col s4" style={{ textAlign:'center', textTransform:'uppercase', color:'#AFA9A9', fontWeight: '600', padding: '12px 0 12px 0', cursor:'pointer', fontSize: '18px' }}>
+        <div
+          className={"col s4 " + isSelected(isView)}
+          onClick={ () => changeView(setIsView) }
+        >
           view
         </div>
-        <div className="col s4" style={{ textAlign:'center', textTransform:'uppercase', color:'#AFA9A9', fontWeight: '600', padding: '12px 0 12px 0', cursor:'pointer', fontSize: '18px' }}>
+        <div
+          className={"col s4 " + isSelected(isTrailer)}
+          onClick={ () => changeView(setIsTrailer) }
+        >
           trailer
         </div>
       </div>
+    );
+  }
 
+  const overview = () => {
+    return (
       <div className="row"  style={{color:'#ffff', background:'#010B31', padding:'25px'}}>
         <div className="col s12 m3" style={{margin: '0 49px 0 28px'}}>
           <img src={movie.poster_url} alt=""/>
@@ -100,7 +112,7 @@ const Movie = () => {
               <div style={{flex:'1'}}>Director</div> <div style={{flex:'6'}}>{movie.director}</div>
             </div>
             <div style={{display:'flex'}}>
-              <div style={{flex:'1'}}>Runtime</div> <div style={{flex:'6'}}>{parseHoures(movie.runtime)}</div>
+              <div style={{flex:'1'}}>Runtime</div> <div style={{flex:'6'}}>{timeConvert(movie.runtime)}</div>
             </div>
             <div style={{display:'flex'}}>
               <div style={{flex:'1'}}>Genres</div> <div style={{flex:'6'}}>{createGenres()}</div>
@@ -109,8 +121,50 @@ const Movie = () => {
           </div>
         </div>
       </div>
+    );
+  }
+
+  const view = () => {
+    return (
+      <div>
+        No esta terminado la vista para ver.
+      </div>
+    );
+  }
+
+  const trailer = () => {
+    return (
+      <div>
+        No esta terminado la vista de trailers.
+      </div>
+    );
+  }
+
+
+  return (
+    <div className="container">
+      { !loading &&
+        <>
+        <div style={{position:'relative'}}>
+          <div className="container-backdrop">
+            <img src={movie.backdrop_url} className="backdrop-image" width='100%' alt=""/>
+          </div>
+          <h5 style={{color: '#FFFFFF', position:'absolute', bottom:'0', transform:'translate(23px, -36px)'}}>
+            {movie.title}
+          </h5>
+          <div style={{color:'#AFA9A9', position:'absolute', left:'2.2%', bottom:'3%'}}>
+            <span style={{marginRight:'20px'}}>2019</span>
+            <span>{timeConvert(movie.runtime)}</span>
+          </div>
+        </div>
+        { buttonNavigation() }
+        { isOverview &&  overview() }
+        { isView && view() }
+        { isTrailer && trailer() }
+        </>
+      }
     </div>
   );
 }
- 
+
 export default Movie;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const UseApi = (defaultValue) => {
   const [response, setResponse] = useState({
-    loading: false,
+    loading: true,
     data: defaultValue,
     error: null,
   });
