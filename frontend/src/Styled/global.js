@@ -2,6 +2,78 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+div.stars{
+  display: inline-block;
+}
+
+input.star{
+  display: none;
+}
+
+label.star {
+  transform: scale(0.6);
+  float: right;
+  font-size: 36px;
+  color: #ffff;
+  transition: all .2s;
+}
+
+input.star:checked ~ label.star:before {
+  content:'\f005';
+  color: #FD4;
+  transition: all .25s;
+}
+
+
+input.star-5:checked ~ label.star:before {
+  color:#FE7;
+  text-shadow: 0 0 20px #952;
+}
+
+input.star-1:checked ~ label.star:before {
+  color: #F62;
+}
+
+label.star:hover{
+  transform: rotate(-15deg) scale(0.9);
+}
+
+label.star:before{
+  content: "\f006";
+  font-family: FontAwesome;
+}
+
+.rev-box{
+  overflow: hidden;
+  height: 0;
+  width: 100%;
+  transition: all .25s;
+}
+
+input.star:checked ~ .rev-box{
+  height: 125px;
+  overflow: visible;
+}
+
+.backdrop-image {
+  display:block;
+}
+
+.container-backdrop {
+  position:relative;
+  display:inline-block;
+}
+
+.container-backdrop:after {
+  content:'';
+  position:absolute;
+  left:0; top:0;
+  width:100%; 
+  height:100%;
+  display:inline-block;
+  background-image: linear-gradient(0deg,#000 0,rgba(0,0,0,.1) 50%,rgba(0,0,0,.1));
+}
+
 .card-content-view {
   width: 16.3%;
 }
@@ -66,7 +138,7 @@ export const GlobalStyles = createGlobalStyle`
   transition: 1s;
   background: #F34335;
   position: absolute;
-  height: 6.4%;
+  height: 100%;
   width: 4%;
   z-index: -1;
   left: 0;
@@ -93,7 +165,7 @@ export const GlobalStyles = createGlobalStyle`
   transform: translateY(-5px);
   transition: 0.5s;
   position: absolute;
-  height: 6.4%;
+  height: 100%;
   width: 0%;
   z-index: -1;
   right: 0;
@@ -105,7 +177,7 @@ export const GlobalStyles = createGlobalStyle`
   transition: 1s;
   background: #14225A;
   position: absolute;
-  height: 6.4%;
+  height: 100%;
   width: 4%;
   z-index: -1;
   left: 0;

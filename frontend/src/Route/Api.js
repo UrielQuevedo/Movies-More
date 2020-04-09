@@ -20,6 +20,7 @@ const API = {
 };
 
 export const getContent = (path) => request('GET', path);
+export const getMovie = (uid) => request('GET', `/movies/${uid}`, undefined, { language: 'en' });
 export const getMovies = (genre, page, language, range) => request('GET', `/movies/genre/${genre}`, undefined, { page: page, language: language, range: range });
 export const getPrograms = (genre, page, language, range) => request('GET', `/programs/genre/${genre}`, undefined, { page: page, language: language, range: range});
 export const getGenres = (content) => request('GET', `/genres/${content}`);

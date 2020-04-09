@@ -12,8 +12,10 @@ const Genres = ({ content_ref }) => {
 
   const genreComponent = (genre, style) => {
     return (
-      <div className={style} style={{padding:'5px', verticalAlign:'middle'}}>
-        { genre === 'new' ? 'new ' + content_ref : genre }
+      <div style={{position: 'relative'}}>
+        <div className={style} style={{padding:'5px', verticalAlign:'middle'}}>
+          { genre === 'new' ? 'new ' + content_ref : genre }
+        </div>
       </div>
     );
   }
