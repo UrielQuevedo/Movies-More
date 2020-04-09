@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { executeFunction } = require('../connection');
 const MovieService = require('../service/MovieService');
+const CommentService = require('../service/CommentService');
 const router = Router();
 const rp = require('request-promise');
 const GenreService = require('../service/GenreService');
@@ -23,22 +24,35 @@ router.get('/genre/:genre', (executeFunction(['page','language'], async (req, re
   res.status(201).json(translateAll(language, movies));
 })))
 
-// Devuelve los comentarios de una pelicula
-router.get('/:id/comments', (executeFunction([], async (req, res) => {
 
+router.get('/:uid/comments', (executeFunction([], async (req, res) => {
+  const { uid } = req.params;
+  const comments = await CommentService.getComments( 'movies', uid );
+
+  res.status(201).json({ message: 'Ok', data: comments });
 })))
 
-router.post('/:idProgram/comment', (executeFunction(['uid', 'comment', 'user'], async (req, res) => {
-  const uidComment = await MovieService.addComment(idProgram, uid, comment, user);
+router.post('/:uid/comment', (executeFunction(['comment'], async (req, res) => {
+  const { uid } = req.params;
+  const { comment } = req.body;
+  const uidComment = await CommentService.addComment( 'movies', uid, comment );
+
   res.status(201).json({ message: 'Ok', data: uidComment });
 })))
 
-// Devuelve los comentarios de una pelicula
+router.delete('/:uid/comment', (executeFunction(['uidComment', 'uidUser'], async (req, res) => {
+  //TODO uidUser
+  const { uid } = req.params;
+  const { uidComment } = req.body;
+  const uidComment_deleted = await CommentService.removeComment( 'movies', uid, uidComment );
+
+  res.status(201).json({ message: 'Ok', data: uidComment_deleted });
+})))
+
 router.get('/:id/videos', (executeFunction([], async (req, res) => {
 
 })))
 
-// Devuelve los comentarios de una pelicula
 router.get('/:id/links', (executeFunction([], async (req, res) => {
 
 })))

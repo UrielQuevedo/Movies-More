@@ -45,6 +45,30 @@ router.get('/genre/:genre', checkGenre, (executeFunction(['page', 'language'], a
   res.status(201).json(translateAll(language, programs));
 })));
 
+router.get('/:uid/comments', (executeFunction([], async (req, res) => {
+  const { uid } = req.params;
+  const comments = await CommentService.getComments( 'programs', uid );
+
+  res.status(201).json({ message: 'Ok', data: comments });
+})))
+
+router.post('/:uid/comment', (executeFunction(['comment'], async (req, res) => {
+  const { uid } = req.params;
+  const { comment } = req.body;
+  const uidComment = await CommentService.addComment( 'programs', uid, comment );
+
+  res.status(201).json({ message: 'Ok', data: uidComment });
+})))
+
+router.delete('/:uid/comment', (executeFunction(['uidComment', 'uidUser'], async (req, res) => {
+  //TODO uidUser
+  const { uid } = req.params;
+  const { uidComment } = req.body;
+  const uidComment_deleted = await CommentService.removeComment( 'programs', uid, uidComment );
+
+  res.status(201).json({ message: 'Ok', data: uidComment_deleted });
+})))
+
 router.get('/create', (executeFunction([], (req, res) => {
   let ids = [];
   let genres = new Set();

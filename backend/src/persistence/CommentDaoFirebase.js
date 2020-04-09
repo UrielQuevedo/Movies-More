@@ -7,12 +7,12 @@ const commentRef = (content_collection, uidContent) => {
 }
 
 const addComment = async (content_collection, uidContent, comment) => {
-  const comment = await db.collection(content_collection)
+  const comment_created = await db.collection(content_collection)
     .doc(uidContent)
     .collection('comments')
     .add(comment);
 
-  return comment.id;
+  return comment_created.id;
 }
 
 const removeComment = (content_collection, uidContent, uidComment) => {
@@ -39,20 +39,8 @@ const getComments = async (content_collection, uidContent) => {
   return comments;
 }
 
-const getComment = async (content_collection, uidContent, uidComment) => {
-  const comment_data = await db.collection(content_collection)
-    .doc(uidContent)
-    .collection('comments')
-    .doc(uidComment)
-    .get();
-
-  return comment_data.data();
-}
-
-
 module.exports = {
   addComment,
   removeComment,
   getComments,
-  getComment,
 }
