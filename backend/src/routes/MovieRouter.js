@@ -28,6 +28,11 @@ router.get('/:id/comments', (executeFunction([], async (req, res) => {
 
 })))
 
+router.post('/:idProgram/comment', (executeFunction(['uid', 'comment', 'user'], async (req, res) => {
+  const uidComment = await MovieService.addComment(idProgram, uid, comment, user);
+  res.status(201).json({ message: 'Ok', data: uidComment });
+})))
+
 // Devuelve los comentarios de una pelicula
 router.get('/:id/videos', (executeFunction([], async (req, res) => {
 

@@ -7,7 +7,7 @@ const GenreService = require('../service/GenreService');
 const { checkGenre } = require('../middleware/latest-episodes-middleware');
 const { translateAll } = require('../translate/programsTranslate');
 
-/* 
+/*
   Devuelvo un programa por el uid
 */
 // router.get('/:uid', (executeFunction(['language'], async (req, res) => {
@@ -106,11 +106,11 @@ router.get('/create', (executeFunction([], (req, res) => {
             }
             const ls = Array.from(genres);
             GenreService.addGenres(ls, 'programs');
-            cargarCarpitulos(id, _data, programUid);   
+            cargarCarpitulos(id, _data, programUid);
           })
         })
       })
-    } 
+    }
   )
   res.status(201).json("OK");
 })));
@@ -120,7 +120,6 @@ const cargarCarpitulos = (id, data, programUid) => {
   const URL = 'https://api.themoviedb.org/3/tv';
   for (let index = 1; index < 2; index++) {
     for (let e = 1; e < parseInt(data.seasons[index].episode_count); e++) {
-      
         rp(`${URL}/${id}/season/${index}/episode/${e}?api_key=${API_KEY}&language=es`)
         .then((episode) => {
           const _episode = JSON.parse(episode);
