@@ -1,6 +1,6 @@
 import React from "react";
 import "../Css/logIn.css";
-import logo from "../ICONO.png";
+import logo from "../Images/Circle_Logo.png";
 import { useForm } from 'react-hook-form';
 import CustomInput from '../Components/CustomInput';
 import useFormLog from '../Hooks/UseFormLog';

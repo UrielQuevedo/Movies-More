@@ -32,7 +32,7 @@ const Home = () => {
     ))
   }
 
-  const Content = (title, path, createComponents) => {
+  const createContent = (title, path, createComponents) => {
     return (
       <div>
         <div className="head-content">

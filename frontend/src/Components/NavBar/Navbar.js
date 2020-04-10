@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import LOGO from '../../ICONO2.png';
+import LOGO from '../../Images/Horizontal_Logo.png';
 import M from 'materialize-css';
 import { NavLink } from 'react-router-dom';
 import API from '../../Route/Api';

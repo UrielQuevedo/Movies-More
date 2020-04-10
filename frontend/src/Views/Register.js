@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import "../Css/logIn.css";
-import logo from "../ICONO.png";
+import logo from "../Images/Circle_Logo.png";
 import useFormLog from '../Hooks/UseFormLog';
 import useCheckPassword from '../Hooks/UseCheckPassword';
 import CustomInput from '../Components/CustomInput';
