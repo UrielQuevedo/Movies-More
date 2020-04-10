@@ -2,6 +2,15 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+.vote {
+  position: relative;
+  top: 15px;
+  left: 7px;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
 .navigation-bar-movie-selected {
   text-align:center;
   background:#010B31;

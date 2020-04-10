@@ -25,26 +25,26 @@ router.get('/genre/:genre', (executeFunction(['page','language'], async (req, re
 })))
 
 
-router.get('/:uid/comments', (executeFunction([], async (req, res) => {
-  const { uid } = req.params;
-  const comments = await CommentService.getComments( 'movies', uid );
+router.get('/:id/comments', (executeFunction([], async (req, res) => {
+  const { id } = req.params;
+  const comments = await CommentService.getComments( 'movies', id );
 
   res.status(201).json({ message: 'Ok', data: comments });
 })))
 
-router.post('/:uid/comment', (executeFunction(['comment'], async (req, res) => {
-  const { uid } = req.params;
+router.post('/:id/comment', (executeFunction(['comment'], async (req, res) => {
+  const { id } = req.params;
   const { comment } = req.body;
-  const uidComment = await CommentService.addComment( 'movies', uid, comment );
+  const uidComment = await CommentService.addComment( 'movies', id, comment );
 
   res.status(201).json({ message: 'Ok', data: uidComment });
 })))
 
-router.delete('/:uid/comment', (executeFunction(['uidComment', 'uidUser'], async (req, res) => {
+router.delete('/:id/comment', (executeFunction(['uidComment', 'uidUser'], async (req, res) => {
   //TODO uidUser
-  const { uid } = req.params;
+  const { id } = req.params;
   const { uidComment } = req.body;
-  const uidComment_deleted = await CommentService.removeComment( 'movies', uid, uidComment );
+  const uidComment_deleted = await CommentService.removeComment( 'movies', id, uidComment );
 
   res.status(201).json({ message: 'Ok', data: uidComment_deleted });
 })))

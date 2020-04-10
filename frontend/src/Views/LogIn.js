@@ -29,7 +29,6 @@ const LogIn = () => {
 
   return (
     <div className="container">
-      {console.log(loadingGoogle)}
       <div className="row">
         <div className="col m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
           <div className="card z-depth-2 hoverable card-log" style={{ borderRadius: '15px'}}>

@@ -4,6 +4,7 @@ const router = Router();
 const rp = require('request-promise');
 const ProgramService = require('../service/ProgramService');
 const GenreService = require('../service/GenreService');
+const CommentService = require('../service/CommentService');
 const { checkGenre } = require('../middleware/latest-episodes-middleware');
 const { translateAll } = require('../translate/programsTranslate');
 

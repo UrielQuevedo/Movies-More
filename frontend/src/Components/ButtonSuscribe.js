@@ -5,10 +5,10 @@ import UseSuscribe from '../Hooks/UseSuscribe';
 const ButtonSuscribe = (genre, type_content) => {
   const {t} = useTranslation();
   const { isSuscribe, suscribeToGenre, unsuscribeToGenre } = UseSuscribe(genre, type_content);
-  
-  const button = (action, title, color) => {
+
+  const button = (onClick, title, color) => {
     return (
-      <button className="btn button-suscribe" style={{ background: color }} onClick={() => action()}>
+      <button className="btn button-suscribe" style={{ background: color }} onClick={onClick}>
         {t(title)}
       </button>
     );
@@ -20,5 +20,5 @@ const ButtonSuscribe = (genre, type_content) => {
     </div>
   );
 }
- 
+
 export default ButtonSuscribe;

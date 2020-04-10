@@ -32,14 +32,14 @@ const Home = () => {
     ))
   }
 
-  const createContent = (title, path, createComponents) => {
+  const Content = (title, path, createComponents) => {
     return (
       <div>
         <div className="head-content">
           <h5 style={{color: "#21FFE2", marginRight:'10px'}}>{t(title)}</h5>
           <Link to={path}  style={{color: '#1ABC9C', fontSize:'11px', textTransform:'uppercase'}}>
             {t('explore all')}
-          </Link> 
+          </Link>
         </div>
         <div className="container-items" style={{padding:'0px', margin:'0px'}}>
           {createComponents}

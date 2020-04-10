@@ -26,5 +26,5 @@ const UseFormLog = (url) => {
     postForm
   ];
 }
- 
+
 export default UseFormLog;

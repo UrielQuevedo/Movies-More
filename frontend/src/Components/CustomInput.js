@@ -15,13 +15,13 @@ const CustomInput = ({functions, type, name, title, configRegister}) => {
 
   return (
     <div className="input-field">
-      <input 
+      <input
         className="input-log validate"
         id={name}
         type={type}
         name={name}
         onChange={e => handlerChange(e, name)}
-        ref= 
+        ref=
             {
               register(
                 configRegister

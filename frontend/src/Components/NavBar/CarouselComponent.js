@@ -18,7 +18,7 @@ const CarouselComponent = ({title, genre}) => {
 
   useEffect(() => {
     getContent(getMovies(genre, 1, lenguage(), 17));
-   },[]);
+  },[]);
 
   const responsive = {
     desktop: {
@@ -89,5 +89,5 @@ const CarouselComponent = ({title, genre}) => {
     </div>
   );
 }
- 
+
 export default CarouselComponent;

@@ -27,7 +27,7 @@ const Movie = () => {
   const createStars = () => {
     return (
       <div class="stars">
-        <div>vote</div>
+        <div className="vote">vote</div>
         <form action="">
           <input class="star star-5" id="star-5" type="radio" name="star"/>
           <label class="star star-5" for="star-5"></label>
@@ -48,7 +48,7 @@ const Movie = () => {
     return movie.genres.map((genre, index) => (
       <span style={{color:'#21FFE2', textTransform:'capitalize'}} >
         {genre}
-        { (movie.genres.length - 1) !== index && <span style={{color:'#ffff'}}>, </span> }
+        { (movie.genres.length - 1) !== index ? <span style={{color:'#ffff'}}>, </span> : <span style={{color:'#ffff'}}>. </span> }
       </span>
     ))
   }
@@ -91,11 +91,13 @@ const Movie = () => {
 
   const overview = () => {
     return (
-      <div className="row"  style={{color:'#ffff', background:'#010B31', padding:'25px'}}>
-        <div className="col s12 m3" style={{margin: '0 49px 0 28px'}}>
-          <img src={movie.poster_url} alt=""/>
+      <div className="row"  style={{color:'#ffff', background:'#010B31', padding: '35px 19px 35px 0'}}>
+        <div className="col s12 m4">
+          <div style={{ display:'flex', justifyContent:'center' }}>
+            <img src={movie.poster_url} style={{ width:'65%' }} alt=""/>
+          </div>
         </div>
-        <div>
+        <div className="col s12 m8" style={{ padding: '0' }}>
           <div>
             <div style={{fontSize:'20px', marginBottom:'10px'}}>
               Storyline
@@ -104,19 +106,26 @@ const Movie = () => {
           <div style={{marginBottom:'12px'}}>
             {movie.overview}
           </div>
-          <div className="row">
-            <div style={{display:'flex'}}>
-              <div style={{flex:'1'}}>Released</div> <div style={{flex:'6'}}>23 October 2019</div>
+          <div>
+            <div>
+              <div style={{display:'flex'}}>
+                <div style={{flex:'1'}}>Released</div> <div style={{flex:'6'}}>23 October 2019</div>
+              </div>
+              <div style={{display:'flex'}}>
+                <div style={{flex:'1'}}>Director</div> <div style={{flex:'6'}}>{movie.director}</div>
+              </div>
+              <div style={{display:'flex'}}>
+                <div style={{flex:'1'}}>Runtime</div> <div style={{flex:'6'}}>{timeConvert(movie.runtime)}</div>
+              </div>
+              <div style={{display:'flex'}}>
+                <div style={{flex:'1'}}>Genres</div> <div style={{flex:'6'}}>{createGenres()}</div>
+              </div>
             </div>
-            <div style={{display:'flex'}}>
-              <div style={{flex:'1'}}>Director</div> <div style={{flex:'6'}}>{movie.director}</div>
-            </div>
-            <div style={{display:'flex'}}>
-              <div style={{flex:'1'}}>Runtime</div> <div style={{flex:'6'}}>{timeConvert(movie.runtime)}</div>
-            </div>
-            <div style={{display:'flex'}}>
-              <div style={{flex:'1'}}>Genres</div> <div style={{flex:'6'}}>{createGenres()}</div>
-            </div>
+          </div>
+          <div style={{ display:'flex', justifyContent:'flex-end', alignItems:'center' }}>
+            <i className="material-icons" style={{marginTop: '14px', marginLeft:'15px'}}>thumb_up</i>
+            <i className="material-icons" style={{marginTop: '14px', marginLeft:'15px'}}>access_time</i>
+            <i className="material-icons" style={{marginTop: '14px', marginLeft:'15px', marginRight:'15px'}}>visibility</i>
             {createStars()}
           </div>
         </div>
@@ -140,6 +149,14 @@ const Movie = () => {
     );
   }
 
+  const createComments = () => {
+    return (
+      <h4 style={{color: '#ffff'}}>
+        Comentarios
+      </h4>
+    );
+  }
+
 
   return (
     <div className="container">
@@ -149,7 +166,7 @@ const Movie = () => {
           <div className="container-backdrop">
             <img src={movie.backdrop_url} className="backdrop-image" width='100%' alt=""/>
           </div>
-          <h5 style={{color: '#FFFFFF', position:'absolute', bottom:'0', transform:'translate(23px, -36px)'}}>
+          <h5 style={{color: '#FFFFFF', position:'absolute', bottom:'0', fontSize: '2.4vw', transform:'translate(23px, -36px)', width: '50%'}}>
             {movie.title}
           </h5>
           <div style={{color:'#AFA9A9', position:'absolute', left:'2.2%', bottom:'3%'}}>
@@ -161,6 +178,7 @@ const Movie = () => {
         { isOverview &&  overview() }
         { isView && view() }
         { isTrailer && trailer() }
+        { createComments() }
         </>
       }
     </div>
