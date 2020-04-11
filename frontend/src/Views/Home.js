@@ -16,8 +16,8 @@ const Home = () => {
   const [{ data: episodes, loading: episodes_loading}, getLatestEpisodesExecute] = UseApi([]);
 
   useEffect(() => {
-    getNewMovies(getMovies('new', '1', language(), '24'));
-    getLatestEpisodesExecute(getPrograms('new episodes', 1, language(), '24'));
+    getNewMovies(getMovies('new', '1', language(), '21'));
+    getLatestEpisodesExecute(getPrograms('new episodes', 1, language(), '21'));
   },[]);
 
   const moviesComponent = () => {

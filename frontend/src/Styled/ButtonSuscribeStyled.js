@@ -25,6 +25,5 @@ const DivBtnSuscribeStyled = styled.div `
     line-height: 1px;
   }
 
-
 `
 export default DivBtnSuscribeStyled;

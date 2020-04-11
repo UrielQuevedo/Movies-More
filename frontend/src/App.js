@@ -17,7 +17,7 @@ import Mylist from "./Views/Mylist";
   Components
 */
 import MobileNavbarBottom from "./Components/NavBar/MobileNavbarBottom";
-import Footer from "./Components/Footer";
+import Footer from "./Components/Footer/Footer";
 import Navbar from "./Components/NavBar/Navbar";
 
 /*
