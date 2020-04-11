@@ -2,14 +2,14 @@ import React from 'react'
 
 const Preloader = ({style, color}) => {
   return (
-    <div class={"preloader-wrapper small active " + style}>
-      <div class={"spinner-layer " + color}>
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
+    <div className={"preloader-wrapper small active " + style}>
+      <div className={"spinner-layer " + color}>
+        <div className="circle-clipper left">
+          <div className="circle"></div>
+        </div><div className="gap-patch">
+          <div className="circle"></div>
+        </div><div className="circle-clipper right">
+          <div className="circle"></div>
         </div>
       </div>
     </div>

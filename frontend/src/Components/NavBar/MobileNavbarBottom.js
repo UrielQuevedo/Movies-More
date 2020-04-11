@@ -24,13 +24,13 @@ const MobileNavbarBottom = () => {
   const searchBar = () => {
     return (
       <nav className="search-bar">
-        <div class="nav-wrapper">
+        <div className="nav-wrapper">
           <form className="row" style={{ textAlign:'center' }}>
-            <i class="material-icons col s1 m1">search</i>
-            <div class="input-field col s9 m10">
-              <input autofocus="true" autocomplete="off" placeholder="Movies, Actors, Directors, etc.." id="search" type="search" className="input-search-bar" required />
+            <i className="material-icons col s1 m1">search</i>
+            <div className="input-field col s9 m10">
+              <input autofocus="true" autoComplete="off" placeholder="Movies, Actors, Directors, etc.." id="search" type="search" className="input-search-bar" required />
             </div>
-            <i class="material-icons col s2 m1" style={{ padding:'0px' }} onClick={() => setIsSearchBarActive(false)}>close</i>
+            <i className="material-icons col s2 m1" style={{ padding:'0px' }} onClick={() => setIsSearchBarActive(false)}>close</i>
           </form>
         </div>
       </nav>
@@ -46,12 +46,12 @@ const MobileNavbarBottom = () => {
             <ul style={{ display: "flex", justifyContent: "space-around" }}>
               <li>
                 <NavLink activeClassName='mobile-navbar-item-selected' exact to="/" style={{padding:'0px'}}>
-                  <i class="material-icons mobile-navbar-bottom-icons">home</i>
+                  <i className="material-icons mobile-navbar-bottom-icons">home</i>
                   <p className="mobile-navbar-bottom-item">{t('Home')}</p>
                 </NavLink>
               </li>
               <li onClick={() => setIsSearchBarActive(!isSearchBarActive)}>
-                <i class="material-icons mobile-navbar-bottom-icons">search</i>
+                <i className="material-icons mobile-navbar-bottom-icons">search</i>
                 <p className="mobile-navbar-bottom-item">{t('Search')}</p>
               </li>
               <li
@@ -59,7 +59,7 @@ const MobileNavbarBottom = () => {
                 className="sidenav-trigger"
                 style={{cursor:'pointer', margin:'0px'}}
               >
-                <i class="material-icons mobile-navbar-bottom-icons">
+                <i className="material-icons mobile-navbar-bottom-icons">
                   notifications_none
                 </i>
                 <p className="mobile-navbar-bottom-item">{t('Notifi')}</p>
@@ -69,7 +69,7 @@ const MobileNavbarBottom = () => {
                 className="sidenav-trigger"
                 style={{ margin: "0px", cursor: "pointer" }}
               >
-                <i class="material-icons collapse-icon">menu</i>
+                <i className="material-icons collapse-icon">menu</i>
                 <p
                   className="mobile-navbar-bottom-item"
                   style={{ transform: "translate(0px, -15px)" }}

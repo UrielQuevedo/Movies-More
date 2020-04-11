@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import UseSuscribe from '../Hooks/UseSuscribe';
+import DivBtnSuscribeStyled from '../Styled/ButtonSuscribeStyled';
 
 const ButtonSuscribe = (genre, type_content) => {
   const {t} = useTranslation();
@@ -15,9 +16,9 @@ const ButtonSuscribe = (genre, type_content) => {
   }
 
   return (
-    <div className="head-content-button">
+    <DivBtnSuscribeStyled>
       {isSuscribe ? button(unsuscribeToGenre, 'unsuscribe', '#77191c') : button(suscribeToGenre, 'suscribe', '#f34335')}
-    </div>
+    </DivBtnSuscribeStyled>
   );
 }
 

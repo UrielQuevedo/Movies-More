@@ -52,7 +52,7 @@ const LogIn = () => {
             <div className="card-content">
               <div className="form-field">
                 <p className="center-align color-title title-or">{t("OR")}</p>
-                <form onSubmit={handleSubmit(postForm)} autocomplete="off">
+                <form onSubmit={handleSubmit(postForm)} autoComplete="off">
                   <CustomInput functions={_functions} type='email' name='email' title={t('Email')} configRegister={basicConfig} />
                   <VisibilityPassword seeTwoPassword={false} style='visibilityPasswordLogIn'/>
                   <CustomInput functions={_functions} type='password' name='password' title={t('Password')} configRegister={basicConfig} />

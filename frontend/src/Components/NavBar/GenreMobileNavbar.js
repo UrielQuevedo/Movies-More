@@ -24,7 +24,7 @@ const GenreMobileNavbar = () => {
       className="show-on-med-only hide-on-large-only"
     >
       <nav className="genres-navbar">
-        <div class="nav-wrapper">
+        <div className="nav-wrapper">
           <ul className="row">
             <li 
               className="col s3 offset-s1 title-genres-nav sidenav-trigger"

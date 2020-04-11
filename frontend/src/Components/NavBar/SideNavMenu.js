@@ -39,34 +39,34 @@ const SideNavMenu = ({sideNavElem}) => {
 
   return (
     <ul
-      class="sidenav show-on-med-only hide-on-large-only collapse-menu"
+      className="sidenav show-on-med-only hide-on-large-only collapse-menu"
       id="mobile-menu"
     >
       <li className="row">
-        <div class="user-view col s12 m6 offset-m3 collapse-user background">
-          <div class="background">
+        <div className="user-view col s12 m6 offset-m3 collapse-user background">
+          <div className="background">
             <img src="https://image.freepik.com/vector-gratis/banner-concepto-pelicula-cine-estilo-dibujos-animados_98402-1682.jpg" />
           </div>
           <a href="#user">
             <img
-              class="circle"
+              className="circle"
               src={user.photoURL}
             />
           </a>
-          <span class="white-text name">{user.nickname}</span>
-          <span class="white-text email">{user.email}</span>
+          <span className="white-text name">{user.nickname}</span>
+          <span className="white-text email">{user.email}</span>
         </div>
       </li>
       <div className="row">
         <ul className="col s12 m6 offset-m3 collapsible ">
           <NavLink to='/profile' className="row" style={{ margin: "0px" }} onClick={() => sideNavElem.close()}>
-            <i class="material-icons col s2 collapse-menu-icon">
+            <i className="material-icons col s2 collapse-menu-icon">
               account_box
             </i>
             <div className="col s10 collapse-menu-font" style={{transform:'translateY(10px)'}}>{t('Profile')}</div>
           </NavLink>
           <li className="row" style={{ margin: "0px" }}>
-            <i class="material-icons col s2 collapse-menu-icon">
+            <i className="material-icons col s2 collapse-menu-icon">
               brightness_4
             </i>
             <div className="switch">
@@ -80,17 +80,17 @@ const SideNavMenu = ({sideNavElem}) => {
                   type="checkbox"
                   onClick={() => changeTheme(setTheme)}
                 />
-                <span class="lever" style={{ margin: "0" }}></span>
+                <span className="lever" style={{ margin: "0" }}></span>
               </label>
             </div>
           </li>
           <li>
             <div
-              class="collapsible-header row"
+              className="collapsible-header row"
               style={{ margin: "0px", padding: "0px" }}
             >
               <i
-                class="material-icons col s2 collapse-menu-icon"
+                className="material-icons col s2 collapse-menu-icon"
                 style={{ margin: "0px" }}
               >
                 g_translate
@@ -98,14 +98,14 @@ const SideNavMenu = ({sideNavElem}) => {
               <div className="col s10 collapse-menu-font">{t('Lenguage')}<i className="material-icons right" style={{ marginRight:'35px', color:'#21ffe2', transform:'scale(1.5)' }}>arrow_drop_down</i></div>
             </div>
             <div
-              class="collapsible-body collapsible-menu"
+              className="collapsible-body collapsible-menu"
               style={{ textAlign: "center" }}
             >
               { lenguage() === 'es' ?  createViewLenguage('en','Ingles (en-US)') :  createViewLenguage('es','Spanish (es-ES)')}
             </div>
           </li>
           <li className="row" style={{ margin: "0px" }} onClick={() => logOut()}>
-            <i class="material-icons col s2 collapse-menu-icon">
+            <i className="material-icons col s2 collapse-menu-icon">
               exit_to_app
             </i>
             <div className="col s10 collapse-menu-font">{t('Log Out')}</div>

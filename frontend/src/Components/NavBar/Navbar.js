@@ -20,7 +20,7 @@ const Navbar = () => {
     API.get('/user/' + window.localStorage.getItem('uid'))
       .then(r => setUser(r))
       .catch(error => console.log(console.log(error.response)));
-    
+
     let dropdowns = document.querySelectorAll('.dropdown-trigger');
     let options = {
         inDuration: 300,
@@ -49,13 +49,13 @@ const Navbar = () => {
           </div>
         </div>
         <li className="dropdown-content-setting-item row">
-          <i class="material-icons col s2 icons-settings">account_box</i>
+          <i className="material-icons col s2 icons-settings">account_box</i>
           <div className="col s10 text-settings">
             {t('Profile')}
           </div>
         </li>
         <li className="dropdown-content-setting-theme-item row">
-          <i class="material-icons col s2 icons-settings">brightness_4</i>
+          <i className="material-icons col s2 icons-settings">brightness_4</i>
           <div className="col s10 switch text-settings">
             {t('Dark Theme')}
             <label style={{marginLeft:'58px'}}>
@@ -64,12 +64,12 @@ const Navbar = () => {
                 type="checkbox"
                 onClick={() => changeTheme(setTheme)}
               />
-              <span class="lever" style={{ margin:'0'}}></span>
+              <span className="lever" style={{ margin:'0'}}></span>
             </label>
           </div>
         </li>
         <li className="dropdown-content-setting-item row">
-          <i class="material-icons col s2 icons-settings">exit_to_app</i>
+          <i className="material-icons col s2 icons-settings">exit_to_app</i>
           <div className="col s10 text-settings" onClick={() => logOut()}>
             {t('Log Out')}
           </div>
@@ -93,8 +93,8 @@ const Navbar = () => {
   const searchComponent = () => {
     return (
       <div className="col s3 row" style={{margin:'0', marginTop: '-4px'}}>
-        <input autocomplete="off" type="text" className="col s10 input-search"  name="search" placeholder="Movies, Actors, Directors, etc.." style={{color:'#fff', marginBottom:'0', marginTop:'13px', height:'32px'}} />
-        <i class="material-icons right col s2" style={{ marginTop:'6px', paddingLeft:'4px', color:'#21FFE2'}}>search</i>
+        <input autoComplete="off" type="text" className="col s10 input-search"  name="search" placeholder="Movies, Actors, Directors, etc.." style={{color:'#fff', marginBottom:'0', marginTop:'13px', height:'32px'}} />
+        <i className="material-icons right col s2" style={{ marginTop:'6px', paddingLeft:'4px', color:'#21FFE2'}}>search</i>
       </div>
     );
   };
@@ -102,8 +102,8 @@ const Navbar = () => {
   const dropdownContainer = () => {
     return (
       <ul className="col s2 dropdownContainer">
-        <li className="dropdown-trigger" data-target="notification" style={{ height:'40px', cursor:'pointer', marginRight:'13px'}}><i class="material-icons" style={{height:'41px'}}>notifications_none</i></li>
-        <li className="dropdown-trigger" data-target="setting" style={{ height:'40px', cursor:'pointer', marginRight:'53px'}}><i class="material-icons" style={{height:'41px'}}>settings</i></li>
+        <li className="dropdown-trigger" data-target="notification" style={{ height:'40px', cursor:'pointer', marginRight:'13px'}}><i className="material-icons" style={{height:'41px'}}>notifications_none</i></li>
+        <li className="dropdown-trigger" data-target="setting" style={{ height:'40px', cursor:'pointer', marginRight:'53px'}}><i className="material-icons" style={{height:'41px'}}>settings</i></li>
         <li className="dropdown-trigger" data-target="lenguage" style={{ height:'50px', textTransform:'uppercase'}}>{lenguage()}<i className="material-icons right" style={{ margin:'0', lineHeight:'64px'}}>arrow_drop_down</i></li>
       </ul>
     );
@@ -135,5 +135,5 @@ const Navbar = () => {
     </div>
   );
 }
- 
+
 export default Navbar;

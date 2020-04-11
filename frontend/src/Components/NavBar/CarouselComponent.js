@@ -43,8 +43,8 @@ const CarouselComponent = ({title, genre}) => {
   };
 
   const carouselContent = () => {
-    return contentResponse.data.map((content) => (
-      <ViewItemContent content={content} redirectPath={`/movies/${content.uid}`} classStyle="card-content-carousel-view"  cardStyle={{ width:'95%' }}/>
+    return contentResponse.data.map((content, index) => (
+      <ViewItemContent key={index} content={content} redirectPath={`/movies/${content.uid}`} classStyle="card-content-carousel-view"  cardStyle={{ width:'95%' }}/>
     ));
   }
 

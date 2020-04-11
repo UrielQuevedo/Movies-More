@@ -46,7 +46,7 @@ const Register = () => {
             </div>
             <div className="card-content card-padding">
               <div className="form-field">
-                <form onSubmit={handleSubmit(checkPassword)} autocomplete="off">
+                <form onSubmit={handleSubmit(checkPassword)} autoComplete="off">
                   <CustomInput functions={_functions} type='text' name='nickname' title={t('Nickname')} configRegister={basicConfig} />
                   <CustomInput functions={_functions} type='email' name='email' title={t('Email')} configRegister={basicConfig} />
                   <VisibilityPassword seeTwoPassword={true} style='visibilityPasswordRegister'/>
@@ -80,5 +80,5 @@ const Register = () => {
     </div>
   );
 }
- 
+
 export default Register;

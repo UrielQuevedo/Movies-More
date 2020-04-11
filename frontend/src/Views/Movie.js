@@ -26,19 +26,19 @@ const Movie = () => {
 
   const createStars = () => {
     return (
-      <div class="stars">
+      <div className="stars">
         <div className="vote">vote</div>
         <form action="">
-          <input class="star star-5" id="star-5" type="radio" name="star"/>
-          <label class="star star-5" for="star-5"></label>
-          <input class="star star-4" id="star-4" type="radio" name="star"/>
-          <label class="star star-4" for="star-4"></label>
-          <input class="star star-3" id="star-3" type="radio" name="star"/>
-          <label class="star star-3" for="star-3"></label>
-          <input class="star star-2" id="star-2" type="radio" name="star"/>
-          <label class="star star-2" for="star-2"></label>
-          <input class="star star-1" id="star-1" type="radio" name="star"/>
-          <label class="star star-1" for="star-1"></label>
+          <input className="star star-5" id="star-5" type="radio" name="star"/>
+          <label className="star star-5" for="star-5"></label>
+          <input className="star star-4" id="star-4" type="radio" name="star"/>
+          <label className="star star-4" for="star-4"></label>
+          <input className="star star-3" id="star-3" type="radio" name="star"/>
+          <label className="star star-3" for="star-3"></label>
+          <input className="star star-2" id="star-2" type="radio" name="star"/>
+          <label className="star star-2" for="star-2"></label>
+          <input className="star star-1" id="star-1" type="radio" name="star"/>
+          <label className="star star-1" for="star-1"></label>
         </form>
       </div>
     );
@@ -133,7 +133,7 @@ const Movie = () => {
     );
   }
 
-  const view = () => {
+  const View = () => {
     return (
       <div>
         No esta terminado la vista para ver.
@@ -141,7 +141,7 @@ const Movie = () => {
     );
   }
 
-  const trailer = () => {
+  const Trailer = () => {
     return (
       <div>
         No esta terminado la vista de trailers.
@@ -149,7 +149,7 @@ const Movie = () => {
     );
   }
 
-  const createComments = () => {
+  const Comments = () => {
     return (
       <h4 style={{color: '#ffff'}}>
         Comentarios
@@ -176,9 +176,9 @@ const Movie = () => {
         </div>
         { buttonNavigation() }
         { isOverview &&  overview() }
-        { isView && view() }
-        { isTrailer && trailer() }
-        { createComments() }
+        { isView && <View /> }
+        { isTrailer && <Trailer /> }
+        { <Comments /> }
         </>
       }
     </div>

@@ -3,7 +3,7 @@ import "../Css/logIn.css";
 import ErrorMessageComponent from './ErrorMessageComponent';
 import { useTranslation } from 'react-i18next';
 
-const CustomInput = ({functions, type, name, title, configRegister}) => {
+const CustomInput = ({ functions, type, name, title, configRegister }) => {
   const {t} = useTranslation();
   const errors = functions._errors;
   const handlerChange = functions._handlerChange;

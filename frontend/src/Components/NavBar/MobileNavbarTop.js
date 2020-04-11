@@ -42,7 +42,7 @@ const MobileNavbarTop = () => {
       className={"show-on-med-only hide-on-large-only mobile-navbar-top " + (showNav.visible ? 'mobile-navbar-top-visible' : 'mobile-navbar-top-hidden')}
     >
       <nav className="mobile-nav-top">
-        <div class="nav-wrapper">
+        <div className="nav-wrapper">
           <ul
             style={{
               display: "flex",
