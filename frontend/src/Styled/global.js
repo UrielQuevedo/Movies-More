@@ -113,7 +113,7 @@ input.star:checked ~ .rev-box{
 }
 
 .card-content-home-view {
-  width: 12.3%;
+  width: 14%;
 }
 
 .card-content-carousel-view {
@@ -678,37 +678,6 @@ input.star:checked ~ .rev-box{
     transform: translateY(-7px) scale(1.1);
   }
 
-  .footer {
-    @media (max-width: 992px)
-    {
-      padding-bottom: 65px;
-    }
-    margin-top: 20px;
-    left: 0;
-    bottom: 0;;
-    width: 100%;
-    padding-bottom: 20px;
-    background-color: #061552;
-    text-align: center;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -ms-user-select:none;
-  }
-
-  .contenedor {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .email-icon {
-    margin-left: 10px;
-    margin-right: 10px;
-    color: #384060;
-    transform: scale(1.3,1.3);
-  }
-
   .item-selected {
     color: #fff;
     text-transform: uppercase;
@@ -890,7 +859,7 @@ input.star:checked ~ .rev-box{
 
   .dropdownContainer {
     display: flex;
-    height: 50px; 
+    height: 50px;
     align-items: center;
     justify-content: flex-end;
   }
@@ -932,26 +901,6 @@ input.star:checked ~ .rev-box{
 
   .nav-item:hover:after {
     width: 100%;
-  }
-
-  .add-icon {
-    cursor: pointer;
-    color: #F34335;
-    transform: scale(1.8,1.8);
-  }
-
-  .contenido {
-    padding-bottom: 15px;
-    padding-top: 39px;
-  }
-
-  .icons-footer {
-    margin-top: 12px;
-  }
-
-  .urlIcon {
-    height: 24px;
-    width: 24px;
   }
 
 `

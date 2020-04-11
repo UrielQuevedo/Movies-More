@@ -4,6 +4,7 @@ import linkedin from '../Icons/linkedin.png';
 import M from 'materialize-css';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import FooterStyled from '../Styled/FooterStyled';
 
 const Footer = () => {
   const {t} = useTranslation();
@@ -15,7 +16,7 @@ const Footer = () => {
     M.Modal.init(modal);
   }, []);
 
-  const modalContent = () => {
+  const ModalX = () => {
     return (
       <div id="requestContent" className="modal modal-footer-content">
         <div className="modal-content" style={{paddingBottom:'10px'}}>
@@ -49,16 +50,20 @@ const Footer = () => {
   }
 
   return (
-    <footer className="page-footer footer">
-      {modalContent()}
+    <FooterStyled className="page-footer">
       <div className="footer-contain">
         <div className="row valign" style={{marginBottom: '0'}}>
           <div className="col s12 l3">
-            <a href="/"><h4 style={{color:'#FAEBD7'}} className="titleFooter" >Movies&More</h4></a>
+            <a href="/">
+              <h4>Movies&More</h4>
+            </a>
           </div>
           <div className="col s12 l6 contenedor">
             <div className="contenido">
-              <b>{t('Developed by Uriel Quevedo, see the code on ')}<a href="https://github.com/UrielQuevedo/Movies-More" target="_blank" style={{color:'#21FFE2'}}>Github</a></b>
+              <b>
+                {t('Developed by Uriel Quevedo, see the code on ')}
+                <a href="https://github.com/UrielQuevedo/Movies-More" target="_blank" style={{color:'#21FFE2'}}>Github</a>
+              </b>
               <div className="icons-fo icons-footer">
                 <a href="https://github.com/UrielQuevedo" target="_blank"><img src={github} alt="github" className="urlIcon"/></a>
                 <a href="mailto:quevedouriel3@gmail.com" target="_blank"><i className="material-icons email-icon">email</i></a>
@@ -66,14 +71,19 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="col s12 l3">
-            <p className="footer-text">{t('Can`t you find your content? Send me the title and I will notify you when it is published')}.</p>
+          <div className="col s12 l3 footer-text-container">
+            <p className="footer-text">
+              <b>
+                {t('Can`t you find your content?')}
+              </b><br/>
+              {t('Send me the title and I will notify you when it is published')}.
+            </p>
             <i className="material-icons add-icon modal-trigger" href="#requestContent">add_circle</i>
           </div>
         </div>
       </div>
-    </footer>
+    </FooterStyled>
   );
 }
- 
+
 export default Footer;

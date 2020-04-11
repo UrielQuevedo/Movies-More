@@ -1,5 +1,4 @@
 const translate = (leng, movie) => {
-  console.log(movie);
   const translated_movie = {
     title: movie[`${leng}_title`],
     backdrop_url: movie.backdrop_url,

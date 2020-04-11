@@ -82,7 +82,6 @@ const Contents = ({ content_ref }) => {
     <div className="padding-content content-container" >
       <div className="contents-items" >
         <div className="head-content">
-          {console.log(content_ref)}
           <h5 style={{color: "#21FFE2", textTransform:'capitalize', marginRight:'10px'}}>
             { genre === 'new' ? 'new ' + content_ref : genre }
           </h5>
