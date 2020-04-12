@@ -47,7 +47,7 @@ function App() {
   useEffect(() => {
     executeAPI({ API: API, type:'get', path:`/user/${window.localStorage.getItem('uid')}`})
   }, [])
-  
+
   return (
       <Router>
         <Switch>

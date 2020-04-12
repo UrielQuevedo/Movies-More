@@ -3,19 +3,20 @@ const app = express();
 const cors = require('cors');
 
 // settings
-app.set('port', process.env.PORT || 5000); 
+app.set('port', process.env.PORT || 5000);
 app.set('json spaces', 2);
 
 // middlewares
 app.use(express.urlencoded({extended: false}));
-app.use(express.json()); 
+app.use(express.json());
 
-// routes 
+// routes
 app.use(cors());
 app.use('/user', require('./routes/UserRouter'));
 app.use('/movies', require('./routes/MovieRouter'));
 app.use('/genres', require('./routes/GenreRouter'));
 app.use('/programs', require('./routes/ProgramRouter'));
+app.use('/tasks', require('./routes/TaskRouter'));
 app.use((err, req, res, next) => {
   if (err.type === 'entity.parse.failed') {
     res.status(400).json({status:400, errorCode:'BAD_REQUEST'});

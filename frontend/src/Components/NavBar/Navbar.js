@@ -17,6 +17,7 @@ const Navbar = () => {
   const {isDarkThemeActive, changeTheme} = UseDarkMode();
 
   useEffect(() => {
+    //TODO Fijarse en el userContext
     API.get('/user/' + window.localStorage.getItem('uid'))
       .then(r => setUser(r))
       .catch(error => console.log(console.log(error.response)));
@@ -59,7 +60,7 @@ const Navbar = () => {
           <div className="col s10 switch text-settings">
             {t('Dark Theme')}
             <label style={{marginLeft:'58px'}}>
-              <input 
+              <input
                 defaultChecked={isDarkThemeActive}
                 type="checkbox"
                 onClick={() => changeTheme(setTheme)}
