@@ -32,4 +32,6 @@ const APIAUTH = {
 
 export const suscribeGenre = (type, uid_type, uid) => request('POST', `/user/${uid}/suscribe?type=${type}`, { uid_type: uid_type });
 export const unsuscribeGenre = (type, uid_type, uid) => request('POST', `/user/${uid}/unsuscribe?type=${type}`, { uid_type: uid_type });
+export const newTask = (task) => request('POST', `/tasks`, { task: task });
+
 export default APIAUTH;

@@ -2,6 +2,29 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+.cancel_icon_task {
+  color: red;
+  border-radius: 22px;
+  position: relative;
+  top: 5px;
+  margin-left: 5px;
+}
+
+.check_icon_task {
+  color: green;
+  background: #ffff;
+  border-radius: 22px;
+  position: relative;
+  top: 5px;
+  margin-left: 5px;
+}
+
+.toast {
+  background: #061552;
+  color: #ffff;
+  font-weight: bold;
+}
+
 .vote {
   position: relative;
   top: 15px;

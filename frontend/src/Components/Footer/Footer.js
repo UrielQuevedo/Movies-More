@@ -1,21 +1,12 @@
 import React from 'react';
 import github from '../../Icons/github.png';
 import linkedin from '../../Icons/linkedin.png';
-import M from 'materialize-css';
-import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import FooterStyled from './FooterStyled';
 import TaskModal from './TaskModal';
 
 const Footer = () => {
   const {t} = useTranslation();
-
-  useEffect(() => {
-    const modal = document.querySelectorAll('.modal');
-    const select = document.querySelectorAll('select');
-    M.FormSelect.init(select);
-    M.Modal.init(modal);
-  }, []);
 
   return (
     <FooterStyled className="page-footer">

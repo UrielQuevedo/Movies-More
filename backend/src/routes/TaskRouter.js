@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const { executeFunction } = require('../connection');
 const router = Router();
+const { checkIfAuthenticated } = require('../middleware/auth-middleware');
 
-router.post('/', (executeFunction(['task'], async (req, res) => {
+router.post('/', checkIfAuthenticated, (executeFunction(['task'], async (req, res) => {
   const { task } = req.body;
 
   console.log(task);
