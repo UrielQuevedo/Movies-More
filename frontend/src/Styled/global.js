@@ -2,6 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+.modal {
+  width: 47vh;
+  max-height: 100%;
+}
+
 .cancel_icon_task {
   color: red;
   border-radius: 22px;
@@ -770,7 +775,6 @@ input.star:checked ~ .rev-box{
   }
 
   .modal-footer-content {
-    border: 1.5px solid #5065BD;
     border-radius: 8px;
     background: #061552;
   }

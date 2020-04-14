@@ -9,7 +9,7 @@ const TaskModal = () => {
   const { t } = useTranslation();
   const [ { photoURL, ...user } ] = useContext(BasicUserInfoContext);
   const { register, handleSubmit } = useForm();
-  const [cancel, setCancel] = useState(false);
+  const [ cancel, setCancel ] = useState(false);
 
   useEffect(() => {
     const modal = document.querySelectorAll('.modal');
@@ -45,8 +45,7 @@ const TaskModal = () => {
             <label htmlFor="originalTitle" style={{ color:'#21ffe2' }}>{t('Original Title')}</label>
           </div>
           <div className="input-field col s12" style={{color:'#21ffe2'}}>
-            <select name="genres" defaultValue="default" ref={register({ required: true })} style={{background:'#000417'}}>
-              <option value="default" disabled style={{color:'#fff'}}>{t('Choose your option')}</option>
+            <select name="genres" ref={register({ required: true })} style={{background:'#000417'}}>
               <option value="movie">{t('Movie')}</option>
               <option value="program" style={{color:'#20f8'}}>{t('Program')}</option>
               <option value="trailer" style={{color:'#20f8'}}>Trailer</option>
@@ -54,15 +53,18 @@ const TaskModal = () => {
           </div>
           <textarea type="text-box" ref={register} name="details" className="textBox" placeholder={t('More Details') + '..'} style={{marginTop:'10px'}}/>
           <div className="col s12 row" style={{margin:'0', marginBottom:'10px' }}>
-            <div className="col s12 m6" style={{marginBottom:'20px'}}>
-              <button className="modal-close btn btn-close" onClick={() => setCancel(true)} style={{ background: 'black', fontWeight:'600' }}>{t('close')}</button>
-            </div>
-            <div className="col s12 m6">
-              <button onClick={() => setCancel(false)} className="modal-close btn" style={{ background: '#F34335', fontWeight:'600' }}>
+            <div style={{marginBottom:'20px'}}>
+              <button className="modal-close btn" onClick={() => setCancel(true)} style={{ background: '#4d1818', fontWeight:'600' }}>
+                <i className="material-icons left" style={{color:'red', transform: 'scale(1.2)'}}>
+                  close
+                </i>
+                <span style={{position:'relative', bottom:'2px' }}>{t('close')}</span>
+              </button>
+              <button onClick={() => setCancel(false)} className="modal-close btn" style={{ background: '#396a6c', fontWeight:'600', marginLeft:'10px' }}>
+                <span style={{position:'relative', bottom:'2px'}}>{t('send')}</span>
                 <i className="material-icons right">
                   send
                 </i>
-                {t('send')}
               </button>
             </div>
           </div>
