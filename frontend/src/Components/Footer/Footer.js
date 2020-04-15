@@ -4,6 +4,7 @@ import linkedin from '../../Icons/linkedin.png';
 import { useTranslation } from 'react-i18next';
 import FooterStyled from './FooterStyled';
 import TaskModal from './TaskModal';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const {t} = useTranslation();
@@ -14,9 +15,9 @@ const Footer = () => {
       <div className="footer-contain">
         <div className="row valign" style={{marginBottom: '0'}}>
           <div className="col s12 l3">
-            <a href="/">
+            <Link to="/">
               <h4>Movies&More</h4>
-            </a>
+            </Link>
           </div>
           <div className="col s12 l6 contenedor">
             <div className="contenido">

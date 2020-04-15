@@ -22,8 +22,8 @@ const TaskModal = () => {
     if (!cancel) {
       const task = ({ ...data,  user: { ...user } })
       newTask(task)
-        .then(_ => M.toast({html: '<span>Enviado <i class="material-icons check_icon_task">check_circle</i></span>'}))
-        .catch(_ => M.toast({html: '<span>Error, intentalo de nuevo. <i class="material-icons cancel_icon_task">cancel</i></span>'}));
+        .then(( _ )=> M.toast({html: '<span>Enviado <i class="material-icons check_icon_task">check_circle</i></span>'}))
+        .catch(( _ )=> M.toast({html: '<span>Error, intentalo de nuevo. <i class="material-icons cancel_icon_task">cancel</i></span>'}));
     }
     e.target.reset();
   }
@@ -54,14 +54,14 @@ const TaskModal = () => {
           <textarea type="text-box" ref={register} name="details" className="textBox" placeholder={t('More Details') + '..'} style={{marginTop:'10px'}}/>
           <div className="col s12 row" style={{margin:'0', marginBottom:'10px' }}>
             <div style={{marginBottom:'20px'}}>
-              <button className="modal-close btn" onClick={() => setCancel(true)} style={{ background: '#4d1818', fontWeight:'600' }}>
-                <i className="material-icons left" style={{color:'red', transform: 'scale(1.2)'}}>
+              <button className="modal-close btn button-close-task" onClick={() => setCancel(true)}>
+                <i className="material-icons left" style={{color:'red', transform: 'scale(1.37)'}}>
                   close
                 </i>
-                <span style={{position:'relative', bottom:'2px' }}>{t('close')}</span>
+                <span className="hide-on-small-only" style={{position:'relative', bottom:'2px' }}>{t('cancel')}</span>
               </button>
-              <button onClick={() => setCancel(false)} className="modal-close btn" style={{ background: '#396a6c', fontWeight:'600', marginLeft:'10px' }}>
-                <span style={{position:'relative', bottom:'2px'}}>{t('send')}</span>
+              <button onClick={() => setCancel(false)} className="modal-close btn send-botton">
+                <span className="hide-on-small-only" style={{position:'relative', bottom:'2px'}}>{t('send')}</span>
                 <i className="material-icons right">
                   send
                 </i>

@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ErrorMessageComponent = ({message, styleClass}) => {
-  return ( 
+  return (
     <div className={`red-text ${styleClass}`}>
       <i className="material-icons" style={{fontSize:'1.2rem', transform: 'translateY(3px)'}}>cancel</i>
       <span className="center-align" style={{fontSize:'14px', marginLeft: '4px'}}>
@@ -10,5 +10,5 @@ const ErrorMessageComponent = ({message, styleClass}) => {
     </div>
   );
 }
- 
+
 export default ErrorMessageComponent;

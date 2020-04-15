@@ -2,7 +2,38 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+.button-close-task:hover {
+  background: #671d1d;
+}
+
+.button-close-task {
+  @media(max-width: 601px) {
+    width: 52px;
+  }
+  background: #4d1818;
+  font-weight: 600;
+}
+
+.send-botton {
+  @media(max-width: 601px) {
+    width: 52px;
+  }
+  @media(max-height: 667px) {
+    margin-left: 10px;
+  }
+  background: #396a6c;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+
 .modal {
+  @media only screen and (min-height: 811px) {
+    width: 42vh;
+  }
+  @media only screen and (max-height: 568px) {
+    width: 52vh;
+  }
   width: 47vh;
   max-height: 100%;
 }
@@ -130,7 +161,7 @@ input.star:checked ~ .rev-box{
   content:'';
   position:absolute;
   left:0; top:0;
-  width:100%; 
+  width:100%;
   height:100%;
   display:inline-block;
   background-image: linear-gradient(0deg,#000 0,rgba(0,0,0,.1) 50%,rgba(0,0,0,.1));
