@@ -65,7 +65,7 @@ const MobileNavbarTop = () => {
                 className="mobile-nav-item"
                 to="/programs"
               >
-               {t('programs')}
+                {t('programs')}
               </NavLink>
             </li>
             <li>

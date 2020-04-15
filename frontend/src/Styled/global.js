@@ -2,6 +2,10 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 
+.drag-target.right-aligned {
+  right: -10px;
+}
+
 .button-close-task:hover {
   background: #671d1d;
 }
