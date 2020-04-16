@@ -7,7 +7,7 @@ import { BasicUserInfoContext } from '../Hooks/BasicUserInfoContext';
 
 const Movie = () => {
   const [ response, executeRequest ] = UseApi();
-  const [ { data: comments, loading: comments_loading } , getCommentsRequest ] = UseApi();
+  const [ { data: comments, loading: comments_loading } , getCommentsRequest ] = UseApi([]);
   const { loading, data: movie } = response;
   const movieUid = useParams().id;
   const [ isOverview, setIsOverview ] = useState();
@@ -155,13 +155,6 @@ const Movie = () => {
     );
   }
 
-  const onSubmit = (data, e) => {
-    const comment = { ...user, ...data };
-    sendComment(movieUid, comment);
-    comments.push(comment);
-    e.target.reset();
-  }
-
   const CommentsComponents = () => {
     return comments.map(({ photoURL, nickname, description, uid: uid_user, uid_program }) => (
       <section style={{ display:'flex',  marginTop:'10px', background: '#010b31', padding:'5px'}}>
@@ -191,8 +184,15 @@ const Movie = () => {
     );
   }
 
+  const onSubmit = (data, e) => {
+    const comment = { ...user, ...data };
+    sendComment(movieUid, comment);
+    comments.push(comment);
+    e.target.reset();
+  }
+
   // TODO no me gusta lo del length
-  const Comments = () => {
+  const commentsComponent = () => {
     return (
       <div>
         <h4 style={{color: '#ffff'}}>
@@ -213,9 +213,8 @@ const Movie = () => {
             </div>
           </form>
         </div>
-        { console.log(comments)}
         { comments.length === 0 && <NonComment /> }
-        { comments.length != 0 && <CommentsComponents /> }
+        { !comments_loading && <CommentsComponents /> }
       </div>
     );
   }
@@ -241,7 +240,7 @@ const Movie = () => {
         { isOverview &&  overview() }
         { isView && <View /> }
         { isTrailer && <Trailer /> }
-        { !comments_loading && <Comments /> }
+        { commentsComponent() }
         </>
       }
     </div>
