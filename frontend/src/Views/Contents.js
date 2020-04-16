@@ -48,7 +48,7 @@ const Contents = ({ content_ref }) => {
       <div>
         Pero puedes suscribirte en este genero, y te notificaremos cuando se publique algo nuevo.
         <div style={{marginTop:'5px', color: '#FF0000', textDecoration:'underline'}}>
-          <span 
+          <span
             style={{display:'inline-block', cursor:'pointer', borderBottom:'1px solid red', paddginBottom:'2px'}}
             //TODO NO ANDA BIEN FIJATE
             onClick={() => suscribeToGenre()}
@@ -66,19 +66,20 @@ const Contents = ({ content_ref }) => {
         <div className="alert-content">
           No contamos con mas contenido por el momento  {`:'(`}
           { genre !== 'new' && genre !== 'new episodes' &&  (
-              isSuscribe ? 
-              <div> Te notificaremos cuando haya algo nuevo. </div> 
-              : 
+              isSuscribe ?
+              <div> Te notificaremos cuando haya algo nuevo. </div>
+              :
               suscriptionComponent()
             )
           }
-        </div>  
+        </div>
       </div>
     );
   }
 
-  {/* <GenreMobileNavbar /> */}
   return (
+    <>
+    <GenreMobileNavbar />
     <div className="padding-content content-container" >
       <div className="contents-items" >
         <div className="head-content">
@@ -90,19 +91,20 @@ const Contents = ({ content_ref }) => {
         <div className="container-items" style={{ padding:'0px', margin:'0px'}}>
           { createMovies(genre) }
         </div>
-        { 
-          loading && 
+        {
+          loading &&
           <div className="col-12" style={{color: 'white'}}>
             <div style={{display:'flex', justifyContent:'center'}}>
               <Preloader color="spinner-red-only" />
             </div>
-          </div> 
+          </div>
         }
         { !hasMore && !loading  &&  alertNotMoreContent() }
       </div>
-      <Genres content_ref={content_ref} /> 
+      <Genres content_ref={content_ref} />
     </div>
-   );
+    </>
+  );
 }
- 
+
 export default Contents;

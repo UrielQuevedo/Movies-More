@@ -3,7 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 //TODO Sacar home.css
 import "../../Css/home.css";
-import { getMovies } from '../../Route/Api';
+import { getMovies } from '../../Service/Api';
 import UseLenguage from '../../Hooks/UseLenguage';
 import { useTranslation } from 'react-i18next';
 import UseApi from '../../Hooks/UseApi';

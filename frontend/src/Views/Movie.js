@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
-import { getMovie, getComments, sendComment } from '../Route/Api';
+import { getMovie, getComments, sendComment } from '../Service/Api';
 import UseApi from '../Hooks/UseApi';
 import { useForm } from 'react-hook-form';
 import { BasicUserInfoContext } from '../Hooks/BasicUserInfoContext';
@@ -167,8 +167,9 @@ const Movie = () => {
       photoURL: PHOTO,
       nickname: "Benshy",
       comment: "Malisima mama",
+      date: "15-04-2020"
     }]
-    return commentsMock.map(({photoURL, nickname, comment}) => (
+    return commentsMock.map(({ photoURL, nickname, comment, date }) => (
       <section style={{ display:'flex', background:'#ffff', marginTop:'10px', background: '#010b31'}}>
         <div className="" style={{ padding:'10px'}}>
           <img className="circle" width="150px" src={photoURL} alt=""/>
@@ -177,7 +178,7 @@ const Movie = () => {
           <div style={{color:'#ffff'}}>{comment}</div>
           <div>
             <span style={{ color:'#21ffe2', textTransform:'uppercase', fontWeight:'400', fontSize:'18px' }}>- {nickname}</span>
-            <span style={{ color:'#808080', fontSize:'11px', marginLeft:'10px'}}>(15-04-2020)</span>
+            <span style={{ color:'#808080', fontSize:'11px', marginLeft:'10px'}}>({date})</span>
           </div>
         </div>
       </section>

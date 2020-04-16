@@ -29,11 +29,11 @@ import { GlobalStyles } from './Styled/global';
 /*
   Route
 */
-import UsePrivateRoute from "./Route/UsePrivateRoute";
-import CheckLogRoute from "./Route/CheckLogRoute";
+import UsePrivateRoute from "./Service/UsePrivateRoute";
+import CheckLogRoute from "./Service/CheckLogRoute";
 import { BasicUserInfoContext } from "./Hooks/BasicUserInfoContext";
 import UseCustomAPI from "./Hooks/UseCustomAPI";
-import API, { getMovies, getPrograms } from "./Route/Api";
+import API, { getMovies, getPrograms } from "./Service/Api";
 import MobileNavbarTop from "./Components/NavBar/MobileNavbarTop";
 import Movie from "./Views/Movie";
 

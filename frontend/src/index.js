@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './i18next';
+import './Utils/i18next';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

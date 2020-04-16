@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import { getMovies, getPrograms } from '../Route/Api';
+import { getMovies, getPrograms } from '../Service/Api';
 import UseApi from "../Hooks/UseApi";
 import UseLenguage from "../Hooks/UseLenguage";
 import "../Css/home.css";

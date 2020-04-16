@@ -1,6 +1,6 @@
 import firebase from "../Initializers/firebase";
-import APIAUTH from '../Route/ApiAuth';
-import { logIn } from '../localhostFunctions';
+import APIAUTH from '../Service/ApiAuth';
+import { logIn } from '../Utils/localhostFunctions';
 import UseCustomAPI from "./UseCustomAPI";
 
 const UseLogInWithGoogle = () => {

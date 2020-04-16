@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { getGenres } from '../Route/Api';
+import { getGenres } from '../Service/Api';
 import UseApi from '../Hooks/UseApi';
 
 const Genres = ({ content_ref }) => {

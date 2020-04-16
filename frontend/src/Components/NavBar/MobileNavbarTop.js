@@ -54,7 +54,7 @@ const MobileNavbarTop = () => {
               <NavLink
                 className="mobile-nav-item"
                 activeClassName="mobile-nav-item-selected"
-                to="/movies"
+                to="/movies?genre=new"
               >
                 {t('movies')}
               </NavLink>
@@ -63,7 +63,7 @@ const MobileNavbarTop = () => {
               <NavLink
                 activeClassName="mobile-nav-item-selected"
                 className="mobile-nav-item"
-                to="/programs"
+                to="/programs?genre=new"
               >
                 {t('programs')}
               </NavLink>

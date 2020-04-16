@@ -7,12 +7,13 @@ const commentRef = (content_collection, uidContent) => {
 }
 
 const addComment = async (content_collection, uidContent, comment) => {
+  //TODO Arreglar esto
   const comment_created = await db.collection(content_collection)
     .doc(uidContent)
     .collection('comments')
-    .add(comment);
+    .add({ comment: comment });
 
-  return comment_created.id;
+  return "asd";
 }
 
 const removeComment = (content_collection, uidContent, uidComment) => {

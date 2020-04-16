@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Axios from 'axios';
 
 const server = 'http://localhost:5000';
 
@@ -26,6 +25,5 @@ export const getPrograms = (genre, page, language, range) => request('GET', `/pr
 export const getGenres = (content) => request('GET', `/genres/${content}`);
 export const getSuscribes = (type, uid) => request('GET', `/user/${uid}/suscribes?type=${type}`);
 export const getComments = (uid) => request('GET', `/movies/${uid}/comments`);
-export const sendComment = (uid, comment) => request('POST', `/movies/${uid}/comment`, comment );
-
+export const sendComment = (uid, comment) => request('POST', `/movies/${uid}/comment`, { comment: comment } );
 export default API;

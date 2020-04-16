@@ -643,6 +643,7 @@ input.star:checked ~ .rev-box{
 
   .mobile-nav-item-selected {
     font-size: 17px;
+    color: #f8e6ce;
     @media (max-width: 320px)
     {
       font-size: 14.5px;

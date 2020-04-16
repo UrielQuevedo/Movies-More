@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { suscribeGenre, unsuscribeGenre } from '../Route/ApiAuth';
-import { getSuscribes } from '../Route/Api';
+import { suscribeGenre, unsuscribeGenre } from '../Service/ApiAuth';
+import { getSuscribes } from '../Service/Api';
 
 const UseSuscribe = ({ genre, type_content }) => {
   const [isSuscribe, setIsSuscribe] = useState();

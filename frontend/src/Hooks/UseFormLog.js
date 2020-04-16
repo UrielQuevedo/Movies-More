@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import API from '../Route/Api';
-import { logIn } from '../localhostFunctions';
+import API from '../Service/Api';
+import { logIn } from '../Utils/localhostFunctions';
 import UseCustomAPI from './UseCustomAPI';
 
 const UseFormLog = (url) => {
