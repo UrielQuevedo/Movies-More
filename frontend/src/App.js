@@ -29,13 +29,12 @@ import { GlobalStyles } from './Styled/global';
 /*
   Route
 */
-import UsePrivateRoute from "./Service/UsePrivateRoute";
-import CheckLogRoute from "./Service/CheckLogRoute";
 import { BasicUserInfoContext } from "./Hooks/BasicUserInfoContext";
 import UseCustomAPI from "./Hooks/UseCustomAPI";
 import API, { getMovies, getPrograms } from "./Service/Api";
 import MobileNavbarTop from "./Components/NavBar/MobileNavbarTop";
 import Movie from "./Views/Movie";
+import PrivateRoute from "./Service/PrivateRoute";
 
 function App() {
   const {actualTheme} = UseDarkMode();
@@ -51,8 +50,8 @@ function App() {
   return (
       <Router>
         <Switch>
-          <CheckLogRoute exact path="/singup" component={Register} />
-          <CheckLogRoute exact path="/singin" component={LogIn} />
+          <PrivateRoute exact path="/singup" isLog={true} component={Register} />
+          <PrivateRoute exact path="/singin"isLog={true} component={LogIn} />
           <ThemeProvider theme={theme}>
             <ThemeContext.Provider value={setTheme}>
               <BasicUserInfoContext.Provider value={[user]}>
@@ -62,15 +61,15 @@ function App() {
                 <MobileNavbarBottom />
                 <div className="web-body">
                   <Switch>
-                    <UsePrivateRoute path='/' exact component={Home} />
-                    <UsePrivateRoute path='/movies' exact component={Contents} content_ref="movies" />
-                    <UsePrivateRoute path='/programs' exact component={Contents} content_ref="programs" />
-                    <UsePrivateRoute path='/trailers' exact component={Contents} content_ref="trailer" />
-                    <UsePrivateRoute path='/movies/:id' exact component={Movie} />
-                    <UsePrivateRoute path='/programs/:id/season/:season_number/episode/:episode_number' exact component={Movie} />
-                    <UsePrivateRoute path='/programs/:id' exact component={Movie} />
-                    <UsePrivateRoute path='/profile' exact component={Profile} />
-                    <UsePrivateRoute path='/mylist' exact component={Mylist} />
+                    <PrivateRoute path='/' exact component={Home} />
+                    <PrivateRoute path='/movies' exact component={Contents} content_ref="movies" />
+                    <PrivateRoute path='/programs' exact component={Contents} content_ref="programs" />
+                    <PrivateRoute path='/trailers' exact component={Contents} content_ref="trailer" />
+                    <PrivateRoute path='/movies/:id' exact component={Movie} />
+                    <PrivateRoute path='/programs/:id/season/:season_number/episode/:episode_number' exact component={Movie} />
+                    <PrivateRoute path='/programs/:id' exact component={Movie} />
+                    <PrivateRoute path='/profile' exact component={Profile} />
+                    <PrivateRoute path='/mylist' exact component={Mylist} />
                     <Redirect to='/' />
                   </Switch>
                 </div>

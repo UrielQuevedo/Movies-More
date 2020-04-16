@@ -4,6 +4,11 @@ const logIn = (data) => {
   window.location.href = '/';
 }
 
+const getIdToken = () => {
+  return window.localStorage.getItem('idToken');
+}
+
 module.exports = {
-  logIn
+  logIn,
+  getIdToken,
 };
