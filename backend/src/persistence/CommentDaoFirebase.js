@@ -34,7 +34,7 @@ const getComments = async (content_collection, uidContent) => {
     .get();
 
   comment_snap.forEach((comment_data) => {
-    comments.push({ ...comment_data.data(), uid: comment_data.id });
+    comments.push({ ...comment_data.data().comment, uid_program: comment_data.id });
   })
 
   return comments;

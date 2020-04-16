@@ -13,7 +13,7 @@ const Movie = () => {
   const [ isOverview, setIsOverview ] = useState();
   const [ isView, setIsView ] = useState();
   const [ isTrailer, setIsTrailer ] = useState();
-  const [ { photoURL, ...user } ] = useContext(BasicUserInfoContext);
+  const [ { email, ...user } ] = useContext(BasicUserInfoContext);
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
@@ -156,35 +156,42 @@ const Movie = () => {
   }
 
   const onSubmit = (data, e) => {
-    sendComment(movieUid, data.comment);
-    comments.push(data.comment);
+    const comment = { ...user, ...data };
+    sendComment(movieUid, comment);
+    comments.push(comment);
     e.target.reset();
   }
 
   const CommentsComponents = () => {
-    const PHOTO = "https://instagram.faep5-1.fna.fbcdn.net/v/t51.2885-15/e35/71947476_655841668156112_5262107888970545318_n.jpg?_nc_ht=instagram.faep5-1.fna.fbcdn.net&_nc_cat=108&_nc_ohc=4meYjvCYNbwAX909bEF&oh=55d2cdd1f2f304261903a51b78bc25c6&oe=5EC1BA85";
-    const commentsMock = [{
-      photoURL: PHOTO,
-      nickname: "Benshy",
-      comment: "Malisima mama",
-      date: "15-04-2020"
-    }]
-    return commentsMock.map(({ photoURL, nickname, comment, date }) => (
-      <section style={{ display:'flex', background:'#ffff', marginTop:'10px', background: '#010b31'}}>
+    return comments.map(({ photoURL, nickname, description, uid: uid_user, uid_program }) => (
+      <section style={{ display:'flex',  marginTop:'10px', background: '#010b31', padding:'5px'}}>
         <div className="" style={{ padding:'10px'}}>
           <img className="circle" width="150px" src={photoURL} alt=""/>
         </div>
-        <div className="">
-          <div style={{color:'#ffff'}}>{comment}</div>
+        <div className="" style={{ padding:'15px', display:'flex', width:'100%', flexDirection:'column' }}>
+          <div style={{color:'#ffff', height:'100%'}}>{description}</div>
           <div>
-            <span style={{ color:'#21ffe2', textTransform:'uppercase', fontWeight:'400', fontSize:'18px' }}>- {nickname}</span>
-            <span style={{ color:'#808080', fontSize:'11px', marginLeft:'10px'}}>({date})</span>
+            <span style={{ color:'#21ffe2', textTransform:'uppercase', fontWeight:'400', fontSize:'18px' }}>
+              - {nickname}
+              { uid_user === user.uid && <span style={{textTransform:'capitalize', fontSize:'12px'}}> (Tú)</span> }
+            </span>
+            <span style={{ color:'#808080', fontSize:'11px', marginLeft:'10px'}}>(15-04-2020)</span>
+            { uid_user === user.uid && <i className="material-icons right" style={{ color:'red', cursor:'pointer' }}>delete_forever</i> }
           </div>
         </div>
       </section>
     ));
   }
 
+  const NonComment = () => {
+    return (
+      <section style={{ background: '#010b31', color:'#ffff', height:'20%', fontSize:'28px', padding:'20px', display:'flex', justifyContent:'center', textAlign:'center', alignItems:'center', marginTop:'20px' }}>
+        Aún no hay comentarios.
+      </section>
+    );
+  }
+
+  // TODO no me gusta lo del length
   const Comments = () => {
     return (
       <div>
@@ -193,7 +200,7 @@ const Movie = () => {
         </h4>
         <div style={{ position: 'relative' }}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <textarea type="text-box" ref={register} name="comment" placeholder="Add a comment..." style={{ color:'#ffff', height:'25vh', border:'2px solid #ffff', padding:'20px' }} />
+            <textarea type="text-box" ref={register} name="description" placeholder="Add a comment..." style={{ color:'#ffff', height:'25vh', border:'2px solid #ffff', padding:'20px' }} />
             <div style={{ color:'#21ffe2', position:'absolute', bottom:'18px', right:'14px'}}>
               <button style={{ background:'transparent', border:'0px', color:'#21ffe2', cursor:'pointer'}}>
                 <span style={{ textTransform:'uppercase', marginRight:'10px', fontWeight:'600' }}>
@@ -206,7 +213,9 @@ const Movie = () => {
             </div>
           </form>
         </div>
-        { comments && <CommentsComponents /> }
+        { console.log(comments)}
+        { comments.length === 0 && <NonComment /> }
+        { comments.length != 0 && <CommentsComponents /> }
       </div>
     );
   }
