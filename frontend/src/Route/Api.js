@@ -25,4 +25,7 @@ export const getMovies = (genre, page, language, range) => request('GET', `/movi
 export const getPrograms = (genre, page, language, range) => request('GET', `/programs/genre/${genre}`, undefined, { page: page, language: language, range: range});
 export const getGenres = (content) => request('GET', `/genres/${content}`);
 export const getSuscribes = (type, uid) => request('GET', `/user/${uid}/suscribes?type=${type}`);
+export const getComments = (uid) => request('GET', `/movies/${uid}/comments`);
+export const sendComment = (uid, comment) => request('POST', `/movies/${uid}/comment`, comment );
+
 export default API;

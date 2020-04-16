@@ -29,7 +29,7 @@ router.get('/:id/comments', (executeFunction([], async (req, res) => {
   const { id } = req.params;
   const comments = await CommentService.getComments( 'movies', id );
 
-  res.status(201).json({ message: 'Ok', data: comments });
+  res.status(201).json( comments );
 })))
 
 router.post('/:id/comment', (executeFunction(['comment'], async (req, res) => {

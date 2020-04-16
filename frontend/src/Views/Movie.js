@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
-import { getMovie } from '../Route/Api';
+import { getMovie, getComments, sendComment } from '../Route/Api';
 import UseApi from '../Hooks/UseApi';
+import { useForm } from 'react-hook-form';
+import { BasicUserInfoContext } from '../Hooks/BasicUserInfoContext';
 
 const Movie = () => {
   const [ response, executeRequest ] = UseApi();
+  const [ { data: comments, loading: comments_loading } , getCommentsRequest ] = UseApi();
   const { loading, data: movie } = response;
   const movieUid = useParams().id;
   const [ isOverview, setIsOverview ] = useState();
   const [ isView, setIsView ] = useState();
   const [ isTrailer, setIsTrailer ] = useState();
+  const [ { photoURL, ...user } ] = useContext(BasicUserInfoContext);
+  const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     setIsOverview(true);
     executeRequest(getMovie(movieUid));
+    getCommentsRequest(getComments(movieUid));
   }, [])
 
   //TODO si son 0 minutos, que se muestre solo la hora
@@ -149,11 +155,58 @@ const Movie = () => {
     );
   }
 
+  const onSubmit = (data, e) => {
+    sendComment(movieUid, data.comment);
+    comments.push(data.comment);
+    e.target.reset();
+  }
+
+  const CommentsComponents = () => {
+    const PHOTO = "https://instagram.faep5-1.fna.fbcdn.net/v/t51.2885-15/e35/71947476_655841668156112_5262107888970545318_n.jpg?_nc_ht=instagram.faep5-1.fna.fbcdn.net&_nc_cat=108&_nc_ohc=4meYjvCYNbwAX909bEF&oh=55d2cdd1f2f304261903a51b78bc25c6&oe=5EC1BA85";
+    const commentsMock = [{
+      photoURL: PHOTO,
+      nickname: "Benshy",
+      comment: "Malisima mama",
+    }]
+    return commentsMock.map(({photoURL, nickname, comment}) => (
+      <section style={{ display:'flex', background:'#ffff', marginTop:'10px', background: '#010b31'}}>
+        <div className="" style={{ padding:'10px'}}>
+          <img className="circle" width="150px" src={photoURL} alt=""/>
+        </div>
+        <div className="">
+          <div style={{color:'#ffff'}}>{comment}</div>
+          <div>
+            <span style={{ color:'#21ffe2', textTransform:'uppercase', fontWeight:'400', fontSize:'18px' }}>- {nickname}</span>
+            <span style={{ color:'#808080', fontSize:'11px', marginLeft:'10px'}}>(15-04-2020)</span>
+          </div>
+        </div>
+      </section>
+    ));
+  }
+
   const Comments = () => {
     return (
-      <h4 style={{color: '#ffff'}}>
-        Comentarios
-      </h4>
+      <div>
+        <h4 style={{color: '#ffff'}}>
+          Comentarios ({comments.length})
+        </h4>
+        <div style={{ position: 'relative' }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <textarea type="text-box" ref={register} name="comment" placeholder="Add a comment..." style={{ color:'#ffff', height:'25vh', border:'2px solid #ffff', padding:'20px' }} />
+            <div style={{ color:'#21ffe2', position:'absolute', bottom:'18px', right:'14px'}}>
+              <button style={{ background:'transparent', border:'0px', color:'#21ffe2', cursor:'pointer'}}>
+                <span style={{ textTransform:'uppercase', marginRight:'10px', fontWeight:'600' }}>
+                  send
+                </span>
+                <i className="material-icons" style={{ position:'relative', top:'6px' }}>
+                  send
+                </i>
+              </button>
+            </div>
+          </form>
+        </div>
+        { comments && <CommentsComponents /> }
+      </div>
     );
   }
 
@@ -178,7 +231,7 @@ const Movie = () => {
         { isOverview &&  overview() }
         { isView && <View /> }
         { isTrailer && <Trailer /> }
-        { <Comments /> }
+        { !comments_loading && <Comments /> }
         </>
       }
     </div>
