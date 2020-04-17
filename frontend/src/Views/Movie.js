@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
-import { getMovie, getComments, sendComment } from '../Service/Api';
+import { getMovie, getComments, sendComment, removeComment } from '../Service/Api';
 import UseApi from '../Hooks/UseApi';
 import { useForm } from 'react-hook-form';
 import { BasicUserInfoContext } from '../Hooks/BasicUserInfoContext';
 
 const Movie = () => {
   const [ response, executeRequest ] = UseApi();
-  const [ { data: comments, loading: comments_loading } , getCommentsRequest ] = UseApi([]);
+  const [ commentsResponse , getCommentsRequest ] = UseApi([]);
   const { loading, data: movie } = response;
   const movieUid = useParams().id;
   const [ isOverview, setIsOverview ] = useState();
@@ -97,22 +97,22 @@ const Movie = () => {
 
   const overview = () => {
     return (
-      <div className="row"  style={{color:'#ffff', background:'#010B31', padding: '35px 19px 35px 0'}}>
+      <div  style={{color:'#ffff', background:'#010B31', padding: '35px 19px 35px 0', display:'flex'}}>
         <div className="col s12 m4">
-          <div style={{ display:'flex', justifyContent:'center' }}>
+          <div style={{ display:'flex', justifyContent:'center', width:'355px'}}>
             <img src={movie.poster_url} style={{ width:'65%' }} alt=""/>
           </div>
         </div>
-        <div className="col s12 m8" style={{ padding: '0' }}>
+        <div className="col s12 m8" style={{ padding: '0', display:'flex', flexDirection:'column' }}>
           <div>
             <div style={{fontSize:'20px', marginBottom:'10px'}}>
               Storyline
             </div>
           </div>
-          <div style={{marginBottom:'12px'}}>
+          <div style={{marginBottom:'30px'}}>
             {movie.overview}
           </div>
-          <div>
+          <div style={{height:'100%'}}>
             <div>
               <div style={{display:'flex'}}>
                 <div style={{flex:'1'}}>Released</div> <div style={{flex:'6'}}>23 October 2019</div>
@@ -156,10 +156,11 @@ const Movie = () => {
   }
 
   const CommentsComponents = () => {
-    return comments.map(({ photoURL, nickname, description, uid: uid_user, uid_program }) => (
+    return commentsResponse.data.map(({ photoURL, nickname, description, uid: uid_user, comment_uid }) => (
       <section style={{ display:'flex',  marginTop:'10px', background: '#010b31', padding:'5px'}}>
         <div className="" style={{ padding:'10px'}}>
           <img className="circle" width="150px" src={photoURL} alt=""/>
+          <span className="pepe">VER</span>
         </div>
         <div className="" style={{ padding:'15px', display:'flex', width:'100%', flexDirection:'column' }}>
           <div style={{color:'#ffff', height:'100%'}}>{description}</div>
@@ -169,7 +170,7 @@ const Movie = () => {
               { uid_user === user.uid && <span style={{textTransform:'capitalize', fontSize:'12px'}}> (Tú)</span> }
             </span>
             <span style={{ color:'#808080', fontSize:'11px', marginLeft:'10px'}}>(15-04-2020)</span>
-            { uid_user === user.uid && <i className="material-icons right" style={{ color:'red', cursor:'pointer' }}>delete_forever</i> }
+            { uid_user === user.uid && <i className="material-icons right" onClick={() => deleteComment(comment_uid)} style={{ color:'red', cursor:'pointer' }}>delete_forever</i> }
           </div>
         </div>
       </section>
@@ -178,16 +179,22 @@ const Movie = () => {
 
   const NonComment = () => {
     return (
-      <section style={{ background: '#010b31', color:'#ffff', height:'20%', fontSize:'28px', padding:'20px', display:'flex', justifyContent:'center', textAlign:'center', alignItems:'center', marginTop:'20px' }}>
+      <section style={{ background: '#000929', color:'#ffff', height:'20%', fontSize:'28px', padding:'20px', display:'flex', justifyContent:'center', textAlign:'center', alignItems:'center', marginTop:'20px' }}>
         Aún no hay comentarios.
       </section>
     );
   }
 
+  const deleteComment = (comment_uid) => {
+    removeComment(movieUid, comment_uid);
+    commentsResponse.data = commentsResponse.data.filter((comment) => comment.comment_uid !== comment_uid);
+  }
+
   const onSubmit = (data, e) => {
+    //TODO traer el comentario nuevo para asi arreglarlo a la lista, ya ese tiene el id y si no, no se puede borrar, al menos que se refresque la pagina
     const comment = { ...user, ...data };
     sendComment(movieUid, comment);
-    comments.push(comment);
+    commentsResponse.data = [...commentsResponse.data, comment];
     e.target.reset();
   }
 
@@ -196,7 +203,7 @@ const Movie = () => {
     return (
       <div>
         <h4 style={{color: '#ffff'}}>
-          Comentarios ({comments.length})
+          Comentarios ({commentsResponse.data.length})
         </h4>
         <div style={{ position: 'relative' }}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -213,8 +220,8 @@ const Movie = () => {
             </div>
           </form>
         </div>
-        { comments.length === 0 && <NonComment /> }
-        { !comments_loading && <CommentsComponents /> }
+        { commentsResponse.data.length === 0 && <NonComment /> }
+        { !commentsResponse.loading && <CommentsComponents /> }
       </div>
     );
   }

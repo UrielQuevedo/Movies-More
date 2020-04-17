@@ -26,4 +26,5 @@ export const getGenres = (content) => request('GET', `/genres/${content}`);
 export const getSuscribes = (type, uid) => request('GET', `/user/${uid}/suscribes?type=${type}`);
 export const getComments = (uid) => request('GET', `/movies/${uid}/comments`);
 export const sendComment = (uid, comment) => request('POST', `/movies/${uid}/comment`, { comment: comment } );
+export const removeComment = (uid_movie, uid_comment) => request('DELETE', `/movies/${uid_movie}/comment`, { uidComment: uid_comment })
 export default API;

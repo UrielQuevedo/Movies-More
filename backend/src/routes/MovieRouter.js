@@ -35,13 +35,12 @@ router.get('/:id/comments', (executeFunction([], async (req, res) => {
 router.post('/:id/comment', (executeFunction(['comment'], async (req, res) => {
   const { id } = req.params;
   const { comment } = req.body;
-  console.log(comment)
   const uidComment = await CommentService.addComment( 'movies', id, comment );
 
   res.status(201).json({ message: 'Ok', data: uidComment });
 })))
 
-router.delete('/:id/comment', (executeFunction(['uidComment', 'uidUser'], async (req, res) => {
+router.delete('/:id/comment', (executeFunction(['uidComment'], async (req, res) => {
   //TODO uidUser
   const { id } = req.params;
   const { uidComment } = req.body;
