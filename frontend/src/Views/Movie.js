@@ -7,7 +7,7 @@ import { BasicUserInfoContext } from '../Hooks/BasicUserInfoContext';
 
 const Movie = () => {
   const [ response, executeRequest ] = UseApi();
-  const [ commentsResponse , getCommentsRequest ] = UseApi([]);
+  //const [ commentsResponse , getCommentsRequest ] = UseApi([]);
   const { loading, data: movie } = response;
   const movieUid = useParams().id;
   const [ isOverview, setIsOverview ] = useState();
@@ -15,11 +15,17 @@ const Movie = () => {
   const [ isTrailer, setIsTrailer ] = useState();
   const [ { email, ...user } ] = useContext(BasicUserInfoContext);
   const { register, handleSubmit } = useForm();
+  const [ commentsResponse, setCommentsResponse ] = useState({
+    loading: false,
+    data: [],
+    error: false,
+  });
 
   useEffect(() => {
     setIsOverview(true);
     executeRequest(getMovie(movieUid));
-    getCommentsRequest(getComments(movieUid));
+    //getCommentsRequest(getComments(movieUid));
+    getComments(movieUid).then(response => setCommentsResponse({...commentsResponse, data: response, loading: false}))
   }, [])
 
   //TODO si son 0 minutos, que se muestre solo la hora
@@ -187,14 +193,16 @@ const Movie = () => {
 
   const deleteComment = (comment_uid) => {
     removeComment(movieUid, comment_uid);
-    commentsResponse.data = commentsResponse.data.filter((comment) => comment.comment_uid !== comment_uid);
+    const commentsFiltered = commentsResponse.data.filter((comment) => comment.comment_uid !== comment_uid);
+    setCommentsResponse({...commentsResponse, data: commentsFiltered});
   }
 
   const onSubmit = (data, e) => {
     //TODO traer el comentario nuevo para asi arreglarlo a la lista, ya ese tiene el id y si no, no se puede borrar, al menos que se refresque la pagina
     const comment = { ...user, ...data };
     sendComment(movieUid, comment);
-    commentsResponse.data = [...commentsResponse.data, comment];
+    setCommentsResponse({...commentsResponse, data: [...commentsResponse.data, comment]});
+    //commentsResponse.data = [...commentsResponse.data, comment];
     e.target.reset();
   }
 

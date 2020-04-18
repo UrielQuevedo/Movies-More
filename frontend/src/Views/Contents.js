@@ -34,7 +34,7 @@ const Contents = ({ content_ref }) => {
   }, [loading, hasMore]);
 
   const createMovies = () => {
-    return contents.map((content, index) => 
+    return contents.map((content, index) =>
       (contents.length === index + 1) ?
         //TODO Corregir redirectPath
         <ViewGenericItemContent type={genre} content={content} redirectPath={`/${content_ref}/${content.uid}`} classStyle="card-content-view" reference={lastMovieRef} />

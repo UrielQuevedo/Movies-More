@@ -11,11 +11,12 @@ const { translateAll } = require('../translate/programsTranslate');
 /*
   Devuelvo un programa por el uid
 */
-// router.get('/:uid', (executeFunction(['language'], async (req, res) => {
-//   const { uid } = req.params;
-//   const program = await ProgramService.getProgram(uid);
-//   res.status(201).json(program);
-// })));
+router.get('/:uid', (executeFunction(['language'], async (req, res) => {
+  const { uid } = req.params;
+  console.log("HOLA")
+  const program = await ProgramService.getProgram(uid);
+  res.status(201).json(program);
+})));
 
 /*
   Devuelve todos los capitulos de una season

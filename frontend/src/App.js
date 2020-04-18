@@ -12,6 +12,8 @@ import Contents from './Views/Contents'
 import Register from "./Views/Register";
 import Profile from "./Views/Profile";
 import Mylist from "./Views/Mylist";
+import Movie from "./Views/Movie";
+import Program from "./Views/Program";
 
 /*
   Components
@@ -33,7 +35,6 @@ import { BasicUserInfoContext } from "./Hooks/BasicUserInfoContext";
 import UseCustomAPI from "./Hooks/UseCustomAPI";
 import API, { getMovies, getPrograms } from "./Service/Api";
 import MobileNavbarTop from "./Components/NavBar/MobileNavbarTop";
-import Movie from "./Views/Movie";
 import PrivateRoute from "./Service/PrivateRoute";
 
 function App() {
@@ -67,7 +68,7 @@ function App() {
                     <PrivateRoute path='/trailers' exact component={Contents} content_ref="trailer" />
                     <PrivateRoute path='/movies/:id' exact component={Movie} />
                     <PrivateRoute path='/programs/:id/season/:season_number/episode/:episode_number' exact component={Movie} />
-                    <PrivateRoute path='/programs/:id' exact component={Movie} />
+                    <PrivateRoute path='/programs/:id' exact component={Program} />
                     <PrivateRoute path='/profile' exact component={Profile} />
                     <PrivateRoute path='/mylist' exact component={Mylist} />
                     <Redirect to='/' />
