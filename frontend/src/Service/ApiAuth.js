@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const server = 'http://localhost:5000';
+const server = process.env.REACT_APP_API_BACKEND_DEPLOYED ||'http://localhost:5000';
 //TODO Sacar x, que seria el idToken y no se usa, se deja para que no rompa con lo de APIAUTH
 const header =  (idToken) => {
   const config = {

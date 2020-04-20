@@ -1,7 +1,7 @@
 import React from 'react'
 import ViewItemContent from './ViewItemContent';
 
-const ViewGenericItemContent = ({type, content, ...rest}) => {
+const ViewGenericItemContent = ({ type, content, ...rest }) => {
   let season_and_episode_number_component;
   if (type === 'new episodes') {
     season_and_episode_number_component = (
